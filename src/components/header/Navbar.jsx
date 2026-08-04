@@ -51,7 +51,7 @@ const Navbar = ({ orientation = "horizontal", onLinkClick }) => {
             key={link.label}
             to={link.href}
             className={({ isActive }) =>
-              `rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+              `rounded-full px-4 py-1 text-sm font-medium transition-colors ${
                 link.filled
                   ? "bg-brand-blue text-white hover:bg-brand-blue-dark"
                   : isActive

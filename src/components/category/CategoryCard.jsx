@@ -2,7 +2,7 @@ const CategoryCard = ({ category }) => {
   return (
     <a
       href={`/category/${category.id}`}
-      className="group relative block aspect-[4/5] w-full overflow-hidden rounded-2xl shadow-sm transition-shadow hover:shadow-md"
+      className="group relative block aspect-[4/5] w-full overflow-hidden rounded-t-2xl shadow-sm transition-shadow hover:shadow-md"
     >
       <img
         src={category.thumbnail}

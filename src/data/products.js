@@ -1,9 +1,14 @@
+import product1 from "../assets/products/product1.png";
+import product2 from "../assets/products/product2.png";
+import product3 from "../assets/products/product3.png";
+import product4 from "../assets/products/product4.png";
+
 export const products = [
   {
     id: "p1",
     brand: "Samsung",
     name: "480L Frost Free Double Door Refrigerator",
-    image: "https://placehold.co/400x400/ffffff/0f1b2e?text=Refrigerator",
+    image: product1,
     rating: 4.8,
     reviews: 214,
     price: 749,
@@ -15,7 +20,7 @@ export const products = [
     id: "p2",
     brand: "Bosch",
     name: "9kg Front Load Washing Machine",
-    image: "https://placehold.co/400x400/ffffff/0f1b2e?text=Washing+Machine",
+    image: product2,
     rating: 4.8,
     reviews: 214,
     price: 445,
@@ -26,8 +31,8 @@ export const products = [
   {
     id: "p3",
     brand: "Miele",
-    name: "Built in Induction Hob, 4 Zone",
-    image: "https://placehold.co/400x400/ffffff/0f1b2e?text=Induction+Hob",
+    name: "Built-in Induction Hob, 4 Zone",
+    image: product3,
     rating: 4.8,
     reviews: 214,
     price: 609,
@@ -39,7 +44,7 @@ export const products = [
     id: "p4",
     brand: "LG",
     name: "14-Place Setting Dishwasher",
-    image: "https://placehold.co/400x400/ffffff/0f1b2e?text=Dishwasher",
+    image: product4,
     rating: 4.6,
     reviews: 97,
     price: 475,

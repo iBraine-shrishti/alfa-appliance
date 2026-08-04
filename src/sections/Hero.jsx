@@ -13,7 +13,7 @@ const slides = [slide1, slide2, slide3, slide4];
 
 const Hero = () => {
   return (
-    <section className="relative h-[420px] w-full overflow-hidden sm:h-[560px] lg:h-[720px]">
+    <section className="relative h-[420px] w-full overflow-hidden sm:h-[460px] lg:h-[620px]">
       <Swiper
         modules={[Autoplay, Pagination]}
         autoplay={{ delay: 4500, disableOnInteraction: false }}
