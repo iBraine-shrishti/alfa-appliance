@@ -7,7 +7,7 @@ const ProductCard = ({ product }) => {
 
   return (
     <div className="group flex flex-col rounded-2xl border border-navy-900/10 bg-white  shadow-sm transition-shadow hover:shadow-md">
-      <div className="relative overflow-hidden rounded-xl bg-cream-50">
+      <div className="relative bg-[#F1F1F199] p-6">
         {badge && (
           <span className="absolute left-2 top-2 rounded-full bg-brand-orange px-2.5 py-1 text-[10px] font-semibold uppercase text-white">
             {badge}

@@ -3,6 +3,9 @@ import CategorySection from "../sections/CategorySection";
 import FeaturedProducts from "../sections/FeaturedProducts";
 import OfferBanner from "../sections/OfferBanner";
 import FridgeFreezerSection from "../sections/FridgeFreezerSection";
+import KitchenInspiration from "../sections/KitchenInspiration";
+import BrandSection from "../sections/BrandSection";
+import FeaturesSection from "../sections/FeaturesSection";
 
 const Home = () => {
   return (
@@ -12,7 +15,10 @@ const Home = () => {
       <FeaturedProducts />
       <OfferBanner />
       <FridgeFreezerSection />
-      {/* Next sections (Kitchen Inspiration, Brands, Features, Footer) added after confirmation */}
+      <KitchenInspiration />
+      <BrandSection />
+      <FeaturesSection />
+      {/* Next sections (Features, Footer) added after confirmation */}
     </>
   );
 };

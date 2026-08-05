@@ -34,12 +34,12 @@ const Hero = () => {
 
       <div className="absolute inset-0 z-10 flex items-center bg-gradient-to-r from-navy-950/50 via-navy-950/10 to-transparent">
         <div className="w-full max-w-[1280px] px-6 mx-auto sm:px-6 lg:px-8">
-          <div className="max-w-md text-white">
-            <h1 className="font-display text-4xl font-semibold leading-tight sm:text-5xl">
+          <div className="max-w-md">
+            <h1 className="font-['Instrument_Sans',_sans-serif] text-4xl font-semibold leading-tight text-white lg:text-black sm:text-5xl">
               Designed for
               <br />
               Modern{" "}
-              <span className="font-accent text-4xl font-light italic sm:text-5xl">
+              <span className="font-['Playfair_Display',_serif] text-4xl font-light italic sm:text-5xl">
                 Living
               </span>
             </h1>

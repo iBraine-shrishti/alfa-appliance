@@ -1,7 +1,8 @@
-import { FiArrowUpRight } from "react-icons/fi";
+import { FiArrowRight } from "react-icons/fi";
 import Container from "../components/common/Container";
 import CountdownUnit from "../components/banner/CountdownUnit";
 import useCountdown from "../hooks/useCountdown";
+import offerBannerImg from "../assets/offer-banner.png";
 
 const OfferBanner = () => {
   const { days, hours, minutes, seconds } = useCountdown();
@@ -11,18 +12,18 @@ const OfferBanner = () => {
       <Container>
         <div className="relative overflow-hidden rounded-3xl bg-navy-900">
           <img
-            src="https://placehold.co/1280x420/16243b/ffffff?text=Washing+Machine"
+            src={offerBannerImg}
             alt="Front load washing machine with folded towels"
-            className="h-[280px] w-full object-cover opacity-90 sm:h-[360px]"
+            className="h-[340px] w-full object-cover opacity-90 sm:h-[450px]"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-navy-950/80 via-navy-950/40 to-transparent" />
+          <div className="absolute inset-0" />
 
           <div className="absolute inset-0 flex items-center">
             <div className="max-w-md px-6 text-white sm:px-10 lg:px-14">
-              <h2 className="font-display text-3xl font-semibold leading-tight sm:text-4xl">
+              <h2 className="font-['Instrument_Sans',_sans-serif] text-3xl font-semibold leading-tight sm:text-4xl">
                 Effortless drying,
                 <br />
-                everyday <span className="italic font-light">luxury</span>
+                everyday <span className="font-['Playfair_Display',_serif] italic font-light">luxury</span>
               </h2>
               <p className="mt-3 max-w-sm text-sm text-white/70">
                 Advanced drying technology that keeps every fabric soft, fresh, and perfectly cared for.
@@ -41,7 +42,7 @@ const OfferBanner = () => {
               >
                 Shop Collection
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-blue text-white">
-                  <FiArrowUpRight size={14} />
+                  <FiArrowRight size={14} />
                 </span>
               </button>
             </div>
