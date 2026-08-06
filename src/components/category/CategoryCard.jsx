@@ -1,7 +1,9 @@
+import { Link } from "react-router-dom";
+
 const CategoryCard = ({ category }) => {
   return (
-    <a
-      href={`/category/${category.id}`}
+    <Link
+      to={category.href}
       className="group relative block aspect-[4/5] w-full overflow-hidden rounded-t-2xl shadow-sm transition-shadow hover:shadow-md"
     >
       <img
@@ -12,7 +14,7 @@ const CategoryCard = ({ category }) => {
       <span className="absolute inset-x-0 bottom-0 bg-navy-950/85 py-2.5 text-center text-sm font-medium text-white">
         {category.name}
       </span>
-    </a>
+    </Link>
   );
 };
 

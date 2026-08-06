@@ -40,7 +40,7 @@ const CategorySection = () => {
               swiper.params.navigation.prevEl = prevRef.current;
               swiper.params.navigation.nextEl = nextRef.current;
             }}
-            navigation={{ prevEl: prevRef.current, nextEl: nextRef.current }}
+            navigation
             loop
             spaceBetween={20}
             slidesPerView={2.3}

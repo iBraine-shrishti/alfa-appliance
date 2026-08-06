@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import darkLogoImg from "../../assets/transparent-logo.png";
+import darkLogoImg from "../../assets/logo/transparent-logo.png";
 
 
 const DarkLogo = () => {

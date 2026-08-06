@@ -7,11 +7,11 @@ import toaster from "../assets/categories/toaster.png";
 import microwave from "../assets/categories/microwave.png";
 
 export const categories = [
-  { id: "washing-machines", name: "Washing Machines", thumbnail: washingMachine },
-  { id: "fridge-freezers", name: "Fridge Freezers", thumbnail: fridgeFreezer },
-  { id: "ovens", name: "OVENS", thumbnail: oven },
-  { id: "dishwasher", name: "Dishwasher", thumbnail: dishwasher },
-  { id: "hobs", name: "Hobs", thumbnail: hobs },
-  { id: "toaster", name: "Toaster", thumbnail: toaster },
-  { id: "microwave", name: "Microwave", thumbnail: microwave },
+  { id: "washing-machines", name: "Washing Machines", thumbnail: washingMachine, href: "/laundry" },
+  { id: "fridge-freezers", name: "Fridge Freezers", thumbnail: fridgeFreezer, href: "/refrigerator" },
+  { id: "ovens", name: "OVENS", thumbnail: oven, href: "/cooking" },
+  { id: "dishwasher", name: "Dishwasher", thumbnail: dishwasher, href: "/dishwashers" },
+  { id: "hobs", name: "Hobs", thumbnail: hobs, href: "/cooking" },
+  { id: "toaster", name: "Toaster", thumbnail: toaster, href: "/small-appliances" },
+  { id: "microwave", name: "Microwave", thumbnail: microwave, href: "/cooking" },
 ];

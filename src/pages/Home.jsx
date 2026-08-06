@@ -17,8 +17,7 @@ const Home = () => {
       <FridgeFreezerSection />
       <KitchenInspiration />
       <BrandSection />
-      <FeaturesSection />
-      {/* Next sections (Features, Footer) added after confirmation */}
+      <FeaturesSection />     
     </>
   );
 };
