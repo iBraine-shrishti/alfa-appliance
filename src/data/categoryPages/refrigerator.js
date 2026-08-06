@@ -1,6 +1,6 @@
 import heroImage from "../../assets/categories/heading-categories/fridge.png";
-import product1 from "../../assets/products/product1.png";
-import product2 from "../../assets/products/product4.png";
+import product1 from "../../assets/products/product1/product1.png";
+import product2 from "../../assets/products/product4/product4.png";
 
 export const refrigeratorPage = {
   hero: {

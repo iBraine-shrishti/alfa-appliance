@@ -30,14 +30,14 @@ const FilterSidebar = ({ filters }) => {
   };
 
   return (
-    <aside className="rounded-3xl border border-navy-900/8 bg-white/80 p-4 shadow-sm backdrop-blur sm:p-5">
+    <aside className="rounded border border-navy-900/8 bg-white/20 p-4 shadow-sm backdrop-blur sm:p-5">
       <div className="mb-4">
         <h2 className="text-lg font-semibold text-navy-950">Filters</h2>
         <p className="mt-1 text-xs text-navy-900/55">Refine your selection</p>
       </div>
 
       {hasPendingChanges ? (
-        <div className="mb-4 rounded-2xl border border-brand-blue/15 bg-brand-blue/5 px-3 py-2 text-xs text-navy-900/70">
+        <div className="mb-4 rounded-lg border border-brand-blue/15 bg-brand-blue/5 px-3 py-2 text-xs text-navy-900/70">
           Filter changes are ready to apply.
         </div>
       ) : null}
@@ -121,7 +121,7 @@ const FilterSidebar = ({ filters }) => {
       <button
         type="button"
         onClick={applyFilters}
-        className="mt-5 w-full rounded-2xl bg-brand-blue px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-blue-dark"
+        className="mt-5 w-full rounded-lg bg-brand-blue px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-blue-dark"
       >
         Apply Filters
       </button>

@@ -36,7 +36,7 @@ const KitchenInspiration = () => {
         </div>
 
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1.6fr_1fr]">
-          <div className="overflow-hidden rounded-2xl">
+          <div className="overflow-hidden rounded-lg">
             <img
               src={kitchenImg}
               alt="Dream kitchen with premium appliances"

@@ -1,6 +1,6 @@
 const InspirationTile = ({ image, label }) => {
   return (
-    <div className="relative overflow-hidden rounded-2xl">
+    <div className="relative overflow-hidden rounded-lg">
       <img src={image} alt={label} className="h-full w-full object-cover" />
       <span
         className="

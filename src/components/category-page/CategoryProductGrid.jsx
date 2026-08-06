@@ -16,7 +16,7 @@ const CategoryProductGrid = ({
   onPageChange,
 }) => {
   return (
-    <section className="rounded-3xl border border-navy-900/8 bg-white/80 p-4 shadow-sm backdrop-blur sm:p-5 lg:p-6">
+    <section className="rounded border border-navy-900/8 bg-white/20 p-4 shadow-sm backdrop-blur sm:p-5 lg:p-6">
       <div className="flex flex-col gap-3 border-b border-navy-900/8 pb-4 md:flex-row md:items-center md:justify-between">
         <p className="text-sm text-navy-900/70">
           Showing <span className="font-semibold text-navy-950">{totalResults}</span> results

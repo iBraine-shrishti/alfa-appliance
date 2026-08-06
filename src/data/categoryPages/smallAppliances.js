@@ -1,6 +1,6 @@
 import heroImage from "../../assets/categories/heading-categories/small-appliances.png";
-import product1 from "../../assets/products/product1.png";
-import product2 from "../../assets/products/product2.png";
+import product1 from "../../assets/products/product1/product1.png";
+import product2 from "../../assets/products//product2/product2.png";
 
 export const smallAppliancesPage = {
   hero: {

@@ -1,6 +1,6 @@
 import heroImage from "../../assets/categories/heading-categories/cooking.png";
-import product1 from "../../assets/products/product3.png";
-import product2 from "../../assets/products/product4.png";
+import product1 from "../../assets/products/product3/product3.png";
+import product2 from "../../assets/products/product4/product4.png";
 
 export const cookingPage = {
   hero: {

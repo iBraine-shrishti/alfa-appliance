@@ -1,12 +1,12 @@
 import heroImage from "../../assets/categories/heading-categories/laundry.png";
-import product1 from "../../assets/products/product2.png";
-import product2 from "../../assets/products/product1.png";
-import product3 from "../../assets/products/product2.png";
-import product4 from "../../assets/products/product1.png";
-import product5 from "../../assets/products/product2.png";
-import product6 from "../../assets/products/product1.png";
-import product7 from "../../assets/products/product2.png";
-import product8 from "../../assets/products/product1.png";
+import product1 from "../../assets/products/product2/product2.png";
+import product2 from "../../assets/products/product1/product1.png";
+import product3 from "../../assets/products/product2/product2.png";
+import product4 from "../../assets/products/product1/product1.png";
+import product5 from "../../assets/products/product2/product2.png";
+import product6 from "../../assets/products/product1/product1.png";
+import product7 from "../../assets/products/product2/product2.png";
+import product8 from "../../assets/products/product1/product1.png";
 
 const baseFilters = {
   featured: ["Featured", "Price Low to High", "Price High to Low", "Discount High to Low"],
