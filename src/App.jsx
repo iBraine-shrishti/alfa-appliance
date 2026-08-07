@@ -8,6 +8,7 @@ import CheckoutDeliveryPage from "./pages/CheckoutDeliveryPage";
 import CheckoutPaymentPage from "./pages/CheckoutPaymentPage";
 import CheckoutReviewPage from "./pages/CheckoutReviewPage";
 import OrderSuccessPage from "./pages/OrderSuccessPage";
+import AllCollectionsPage from "./pages/AllCollectionsPage";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/checkout/payment" element={<CheckoutPaymentPage />} />
         <Route path="/checkout/review" element={<CheckoutReviewPage />} />
         <Route path="/order-success" element={<OrderSuccessPage />} />
+        <Route path="/collections" element={<AllCollectionsPage />} />
       </Route>
     </Routes>
   );

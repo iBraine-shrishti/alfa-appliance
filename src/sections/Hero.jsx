@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
-
+import { Link } from "react-router-dom";
 import slide1 from "../assets/slider-imgs/slider1.png";
 import slide2 from "../assets/slider-imgs/slider2.png";
 import slide3 from "../assets/slider-imgs/slider3.png";
@@ -43,15 +43,15 @@ const Hero = () => {
                 Living
               </span>
             </h1>
-            <button
-              type="button"
+           <Link
+              to="/collections"
               className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-navy-950 transition-transform hover:-translate-y-0.5"
             >
               Shop Collection
               <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-blue text-white">
                 <FiArrowRight size={14} />
               </span>
-            </button>
+            </Link>
           </div>
         </div>
       </div>
