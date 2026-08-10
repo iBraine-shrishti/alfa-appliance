@@ -1,9 +1,5 @@
 import { Link } from "react-router-dom";
 
-/**
- * Collection tile for the "All Collections" grid: image, name, and a
- * "N Products" count sourced from data/collections.js.
- */
 const CollectionCard = ({ collection }) => {
   return (
     <Link

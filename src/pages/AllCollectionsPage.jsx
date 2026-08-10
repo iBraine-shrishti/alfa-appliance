@@ -2,10 +2,7 @@ import Container from "../components/common/Container";
 import CollectionCard from "../components/category/CollectionCard";
 import { collections } from "../data/collections";
 
-/**
- * "All Collections" — full grid of every product category,
- * linked from the Hero's "Shop Collection" button.
- */
+
 const AllCollectionsPage = () => {
   return (
     <div className="py-10 sm:py-14">

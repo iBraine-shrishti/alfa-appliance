@@ -16,7 +16,7 @@ const Header = () => {
 
       <div className="sticky top-0 z-50 bg-white shadow-sm">
         <Container className="grid grid-cols-[auto_1fr_auto] items-center gap-4 py-3 lg:gap-8">
-          <div className="flex items-center gap-4">
+          <div className="col-start-1 flex items-center gap-4">
             <button
               type="button"
               onClick={toggleMenu}
@@ -29,9 +29,11 @@ const Header = () => {
             <Logo />
           </div>
 
-          <SearchBar className="mx-auto hidden w-full max-w-lg md:flex" />
+          {/* <SearchBar className="mx-auto hidden w-full max-w-lg md:flex" /> */}
+          <SearchBar className="col-start-2 mx-auto hidden w-full max-w-lg md:flex" />
 
-          <div className="flex items-center gap-4 text-navy-900 sm:gap-5">
+          {/* <div className="flex items-center gap-4 text-navy-900 sm:gap-5"> */}
+          <div className="col-start-3 flex items-center gap-4 text-navy-900 sm:gap-5">
             <Link to="/compare" aria-label="Compare" className="hidden hover:text-brand-blue sm:block">
               <FiBarChart2 size={20} />
             </Link>
