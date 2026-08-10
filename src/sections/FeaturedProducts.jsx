@@ -4,7 +4,7 @@ import FilterTabs from "../components/product/FilterTabs";
 import ProductGrid from "../components/product/ProductGrid";
 import { products } from "../data/products";
 
-const FILTER_TABS = ["Best Sellers", "New Arrivals", "Trendings", "D&R Picks"];
+const FILTER_TABS = ["Best Sellers", "New Arrivals", "Trendings", "Staff Picks"];
 
 const FeaturedProducts = () => {
   return (
