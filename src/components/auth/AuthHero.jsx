@@ -14,7 +14,7 @@ const AuthHero = () => {
       className="relative hidden flex-col justify-center overflow-hidden bg-navy-950 px-10 py-12 lg:flex lg:w-1/2 lg:px-16"
       style={{
         backgroundImage:
-          "linear-gradient(rgba(10, 14, 30, 0.72), rgba(10, 14, 30, 0.72)), url('src/assets/auth.png')",
+          "linear-gradient(rgba(10, 14, 30, 0.72), rgba(10, 14, 30, 0.72)), url('./auth.png')",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
