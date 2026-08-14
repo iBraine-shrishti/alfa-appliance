@@ -1,6 +1,6 @@
 import heroImage from "../../assets/categories/heading-categories/small-appliances.png";
 import product1 from "../../assets/products/product1/product1.png";
-import product2 from "../../assets/products//product2/product2.png";
+import product2 from "../../assets/products/product2/product2.png";
 
 export const smallAppliancesPage = {
   hero: {
@@ -11,7 +11,7 @@ export const smallAppliancesPage = {
   },
   filters: {
     featured: ["Featured", "Price Low to High", "Price High to Low", "Discount High to Low"],
-    active: ["Coffee", "Kitchen"],
+    active: ["Smeg", "Coffee Machines"],
     categories: [{ label: "Small Appliances", children: ["Coffee Machines", "Toasters", "Blenders"] }],
     brands: ["Beko", "Hisense", "Teknix", "LG", "Samsung", "Miele", "Smeg"],
     priceRange: [0, 1500],

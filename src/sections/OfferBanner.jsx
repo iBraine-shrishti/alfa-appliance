@@ -1,5 +1,5 @@
 import { FiArrowRight } from "react-icons/fi";
-// import {Link} from "react-router-dom";
+import {Link} from "react-router-dom";
 import Container from "../components/common/Container";
 import CountdownUnit from "../components/banner/CountdownUnit";
 import useCountdown from "../hooks/useCountdown";
@@ -37,7 +37,7 @@ const OfferBanner = () => {
                 <CountdownUnit value={seconds} label="Sec" />
               </div>
 
-              <button
+              {/* <button
                 type="button"
                 className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-navy-950 transition-transform hover:-translate-y-0.5"
               >
@@ -45,8 +45,8 @@ const OfferBanner = () => {
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-blue text-white">
                   <FiArrowRight size={14} />
                 </span>
-              </button>
-              {/* <Link
+              </button> */}
+              <Link
                       to="/collections"
                       className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-navy-950 transition-transform hover:-translate-y-0.5"
                     >
@@ -54,7 +54,7 @@ const OfferBanner = () => {
                       <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-blue text-white">
                         <FiArrowRight size={14} />
                       </span>
-                    </Link> */}
+                    </Link>
             </div>
           </div>
         </div>

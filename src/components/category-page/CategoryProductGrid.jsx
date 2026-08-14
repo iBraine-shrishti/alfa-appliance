@@ -1,4 +1,4 @@
-import { FiGrid, FiList } from "react-icons/fi";
+import { FiGrid, FiList, FiFilter } from "react-icons/fi";
 import ProductGrid from "../product/ProductGrid";
 import SortDropdown from "./SortDropdown";
 import Pagination from "./Pagination";
@@ -14,6 +14,7 @@ const CategoryProductGrid = ({
   currentPage,
   totalPages,
   onPageChange,
+  onOpenFilters,
 }) => {
   return (
     <section className="rounded border border-navy-900/8 bg-white/20 p-4 shadow-sm backdrop-blur sm:p-5 lg:p-6">
@@ -23,6 +24,15 @@ const CategoryProductGrid = ({
         </p>
 
         <div className="flex flex-wrap items-center gap-3">
+          <button
+            type="button"
+            onClick={onOpenFilters}
+            className="flex h-9 w-9 items-center justify-center rounded-xl border border-navy-900/10 bg-white text-navy-900/70 shadow-sm transition-colors hover:text-brand-blue lg:hidden"
+            aria-label="Open filters"
+          >
+            <FiFilter size={15} />
+          </button>
+
           <div className="inline-flex rounded-xl border border-navy-900/10 bg-white p-1 shadow-sm">
             <button
               type="button"

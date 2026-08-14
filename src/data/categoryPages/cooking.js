@@ -12,7 +12,10 @@ export const cookingPage = {
   filters: {
     featured: ["Featured", "Price Low to High", "Price High to Low", "Discount High to Low"],
     active: ["Beko", "Built In"],
-    categories: [{ label: "Ovens", children: ["Single Oven", "Double Oven", "Steam Oven"] }],
+    categories: [
+      { label: "Ovens", children: ["Single Oven", "Double Oven", "Steam Oven"] },
+      { label: "Built In", children: [] },
+    ],
     brands: ["Beko", "Hisense", "Teknix", "LG", "Samsung", "Miele", "Smeg"],
     priceRange: [0, 3000],
   },

@@ -12,7 +12,10 @@ export const dishwashersPage = {
   filters: {
     featured: ["Featured", "Price Low to High", "Price High to Low", "Discount High to Low"],
     active: ["Bosch", "Built In"],
-    categories: [{ label: "Dishwashers", children: ["Slimline", "Full Size", "Integrated"] }],
+    categories: [
+      { label: "Dishwashers", children: ["Slimline", "Full Size", "Integrated"] },
+      { label: "Built In", children: [] },
+    ],
     brands: ["Beko", "Hisense", "Teknix", "LG", "Samsung", "Miele", "Smeg"],
     priceRange: [0, 1800],
   },

@@ -9,6 +9,8 @@ import CheckoutPaymentPage from "./pages/CheckoutPaymentPage";
 import CheckoutReviewPage from "./pages/CheckoutReviewPage";
 import OrderSuccessPage from "./pages/OrderSuccessPage";
 import AllCollectionsPage from "./pages/AllCollectionsPage";
+import Contact from "./sections/Contact";
+import Auth from "./pages/Auth";
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
         <Route path="/checkout/review" element={<CheckoutReviewPage />} />
         <Route path="/order-success" element={<OrderSuccessPage />} />
         <Route path="/collections" element={<AllCollectionsPage />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/login" element={<Auth />} />
       </Route>
     </Routes>
   );
