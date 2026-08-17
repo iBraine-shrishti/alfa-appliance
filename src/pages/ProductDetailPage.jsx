@@ -4,10 +4,10 @@ import { findProductBySlug } from "../data/productCatalog";
 import ProductGallery from "../components/product/ProductGallery";
 import ProductBuyBox from "../components/product/ProductBuyBox";
 import BuyTogetherSection from "../components/product/BuyTogetherSection";
-// import ProductFeaturesSection from "../components/product/ProductFeaturesSection";
-// import ProductSpecsSection from "../components/product/ProductSpecsSection";
-// import ProductReviewsSection from "../components/product/ProductReviewsSection";
-// import ProductDescriptionSection from "../components/product/ProductDescriptionSection";
+import ProductFeaturesSection from "../components/product/ProductFeaturesSection";
+import ProductSpecsSection from "../components/product/ProductSpecsSection";
+import ProductReviewsSection from "../components/product/ProductReviewsSection";
+import ProductDescriptionSection from "../components/product/ProductDescriptionSection";
 
 const ProductDetailPage = () => {
   const { slug } = useParams();
@@ -42,10 +42,10 @@ const ProductDetailPage = () => {
         </section>
     
         <BuyTogetherSection product={product} />
-        {/* <ProductFeaturesSection product={product} /> */}
-        {/* <ProductSpecsSection specs={product.specs} />
+        <ProductFeaturesSection product={product} />
+        <ProductSpecsSection specs={product.specs} />
         <ProductReviewsSection product={product} />
-        <ProductDescriptionSection product={product} /> */}
+        <ProductDescriptionSection product={product} />
       </main>
     </div>
   );
