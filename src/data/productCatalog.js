@@ -245,6 +245,7 @@ export const productCatalog = [...homeProducts, ...allCategoryProducts].map((pro
     ],
   flexpay: product.flexpay ?? defaultFlexpay,
   delivery: product.delivery ?? defaultDelivery,
+  deliveryReturns: product.deliveryReturns ?? defaultDeliveryReturns,
   essentialServices: product.essentialServices ?? defaultEssentialServices,
   accessories: product.accessories ?? defaultAccessories,
   bundles: product.bundles ?? defaultBundles,
