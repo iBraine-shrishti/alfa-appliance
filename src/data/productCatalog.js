@@ -165,7 +165,41 @@ const defaultBundles = [
     saving: 0,
   },
 ];
-
+const defaultDeliveryReturns = {
+  standardDelivery: {
+    label: "Get it in 4 working days",
+    options: [
+      { label: "Anytime delivery from 7am - 8pm", fromPrice: 20 },
+      { label: "Choose a 4-hour time slot delivery", fromPrice: 35 },
+    ],
+  },
+  nextDayDelivery: {
+    label: "Only valid on weekdays & Sunday",
+    options: [
+      { label: "Anytime delivery from 7am - 8pm", fromPrice: 30 },
+      { label: "Choose a 4-hour time slot delivery", fromPrice: 45 },
+    ],
+  },
+  tracking:
+    "Make sure to add your mobile number when you place your order, so we can text you with delivery updates. Our Track It service also allows you to see where your order is at.",
+  restrictions: [
+    "Weekend and next-day delivery is available in most areas, but not all.",
+    "And, of course, delivery is always dependent upon stock availability.",
+    "You can use the availability checker to quickly find out about stock availability and delivery information.",
+  ],
+  largeItems:
+    "If you're getting a large item delivered to a room or flat above the first floor of your home or block, our team will only be able to decide if they can safely deliver it when they arrive. You can let us know at the checkout for any limitations (e.g. no lift, nearest parking) you may have.",
+  collectService: [
+    "You can order your item(s) online, and safely collect them from your chosen store within an hour of placing your order.",
+    "Pop in store to collect your items within an hour of ordering them, free of charge (depending on stock availability). You can also choose your collection day. You're welcome!",
+    "Once you've selected \"collect in store\" at the online checkout, we'll email you your confirmation & collection details. When you do come to collect your item(s) make sure you bring this confirmation email, and the last four digits of your payment/gift card or voucher.",
+  ],
+  returns: [
+    "If you purchased online and you have changed your mind you can return your items within 30 days even if you have opened it for inspection. It must be returned as new and where possible, in its original packaging.",
+    "If your item develops a fault we will offer either a repair, exchange or refund if the fault occurs within 30 days of purchase (or delivery or installation). If the fault with your product occurs within its guarantee period (normally 12 months from delivery) we will offer you a prompt repair service. In all cases we reserve the right to inspect the product and verify the fault.",
+  ],
+  returnsInfoLink: "More info on returns and refunds.",
+};
 const defaultBreakdownSupport = {
   customerCount: "9 million",
   description:
