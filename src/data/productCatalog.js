@@ -77,6 +77,17 @@ const defaultBundles = [
     saving: 0,
   },
 ];
+const defaultCarePlans = [
+  { id: "monthly", label: "Monthly plan", price: 6, priceLabel: "£6.00 a month", note: "Annual equivalent £72.00" },
+  { id: "3yr", label: "3 Years plan", price: 170, priceLabel: "£170.00" },
+  { id: "5yr", label: "5 Years plan", price: 190, priceLabel: "£190.00" },
+];
+
+const defaultDeliveryInfo = {
+  deliveryAvailable: false,
+  collectionAvailable: true,
+  collectionNote: "FREE in-store collection in as little as 1 hour",
+};
 const defaultDeliveryReturns = {
   standardDelivery: {
     label: "Get it in 4 working days",
@@ -162,6 +173,11 @@ export const productCatalog = [...homeProducts, ...allCategoryProducts].map((pro
   accessories: product.accessories ?? defaultAccessories,
   bundles: product.bundles ?? defaultBundles,
   breakdownSupport: product.breakdownSupport ?? defaultBreakdownSupport,
+  oldPrice: product.oldPrice ?? null,
+  savingAmount: product.savingAmount ?? null,
+  wasPriceNote: product.wasPriceNote ?? null,
+  carePlans: product.carePlans ?? defaultCarePlans,
+  deliveryInfo: product.deliveryInfo ?? defaultDeliveryInfo,
   highlights:
     product.highlights ?? [
       "Dual precision system for efficient performance",
@@ -194,20 +210,20 @@ export const productCatalog = [...homeProducts, ...allCategoryProducts].map((pro
       },
     ],
  specs: product.specs ?? [
-  { label: "Product Code (SKU)", value: product.sku ?? "ALFA-RF-9051X" },
-  { label: "Type", value: "Freestanding" },
-  { label: "Colour / Finish", value: "Black Stainless Steel" },
-  { label: "Manufacturer’s guarantee", value: "5 Years" },
-  { label: "Energy efficiency rating", value: "Class C" },
-  { label: "Weight", value: "82 kg (Unboxed) / 91 kg (Boxed)" },
-  { label: "Fridge / Freezer split", value: "70/30" },
-  { label: "Dimensions (H x W x D)", value: "178 cm x 91.2 cm x 71.6 cm" },
-  { label: "Capacity / Volume", value: "530 Litres (360L Fridge / 170L Freezer)" },
-  { label: "Noise level & class", value: "37 dB(A), Class B" },
-  { label: "Power & Energy consumption", value: "215 kWh/annum" },
-  { label: "Safety features", value: "Child lock, Door open alarm, Overflow protection" },
-  { label: "Smart / Connectivity", value: "Wi-Fi Enabled (App Control)" },
-],
+    { label: "Product Code (SKU)", value: product.sku ?? "ALFA-RF-9051X" },
+    { label: "Type", value: "Freestanding" },
+    { label: "Colour / Finish", value: "Black Stainless Steel" },
+    { label: "Manufacturer’s guarantee", value: "5 Years" },
+    { label: "Energy efficiency rating", value: "Class C" },
+    { label: "Weight", value: "82 kg (Unboxed) / 91 kg (Boxed)" },
+    { label: "Fridge / Freezer split", value: "70/30" },
+    { label: "Dimensions (H x W x D)", value: "178 cm x 91.2 cm x 71.6 cm" },
+    { label: "Capacity / Volume", value: "530 Litres (360L Fridge / 170L Freezer)" },
+    { label: "Noise level & class", value: "37 dB(A), Class B" },
+    { label: "Power & Energy consumption", value: "215 kWh/annum" },
+    { label: "Safety features", value: "Child lock, Door open alarm, Overflow protection" },
+    { label: "Smart / Connectivity", value: "Wi-Fi Enabled (App Control)" },
+  ],
   reviews:
     product.reviewsData ?? [
       { author: "Ramesh", time: "10:30 AM", rating: 5, text: "Excellent build and exceptional cooling. The controls feel intuitive and premium.", image: product.image },
