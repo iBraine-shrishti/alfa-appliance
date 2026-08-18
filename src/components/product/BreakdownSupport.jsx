@@ -1,7 +1,7 @@
 import { FiTool } from "react-icons/fi";
 
 const BreakdownSupport = ({ support }) => (
-  <div className="rounded-2xl bg-brand-blue/5 p-5">
+  <div className="rounded bg-brand-blue/5 p-5">
     <p className="text-base font-semibold text-brand-blue">Get breakdown support</p>
     <p className="mt-1 text-sm text-navy-900/70">Join over {support.customerCount} support plan customers.</p>
     <p className="mt-2 text-sm leading-6 text-navy-900/70">{support.description}</p>

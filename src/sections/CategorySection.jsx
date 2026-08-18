@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
+import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 
@@ -13,46 +13,62 @@ const CategorySection = () => {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
+  // Duplicate items if category count is small to ensure smooth infinite looping
+  const displayCategories =
+    categories.length < 8 ? [...categories, ...categories] : categories;
+
   return (
     <section className="py-12 sm:py-16">
       <Container>
-        <h2 className="mb-8 text-center font-display text-2xl font-semibold text-navy-950 sm:text-3xl">
-          Shop by Category
+        <h2 className="mb-8 text-center font-display text-3xl font-semibold text-navy-950 sm:text-4xl md:text-5xl lg:text-[44px]">   
+                 Shop by Category
         </h2>
 
         <div className="relative">
-          <SliderArrow
-            direction="left"
-            variant="filled"
+          {/* Left Arrow Button */}
+          <div
             ref={prevRef}
-            className="absolute left-2 top-1/2 z-10 flex -translate-y-1/2"
-          />
-          <SliderArrow
-            direction="right"
-            variant="filled"
+            className="absolute -left-4 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full !bg-blue-600 !text-white shadow-md transition-opacity hover:opacity-90 sm:-left-6"
+          >
+            <SliderArrow direction="left" className="!bg-transparent !text-white" />
+          </div>
+
+          {/* Right Arrow Button */}
+          <div
             ref={nextRef}
-            className="absolute right-2 top-1/2 z-10 flex -translate-y-1/2"
-          />
+            className="absolute -right-4 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full !bg-blue-600 !text-white shadow-md transition-opacity hover:opacity-90 sm:-right-6"
+          >
+            <SliderArrow direction="right" className="!bg-transparent !text-white" />
+          </div>
 
           <Swiper
-            modules={[Navigation]}
+            modules={[Navigation, Autoplay]}
             onBeforeInit={(swiper) => {
               swiper.params.navigation.prevEl = prevRef.current;
               swiper.params.navigation.nextEl = nextRef.current;
             }}
-            navigation
-            loop
-            spaceBetween={20}
-            slidesPerView={2.3}
-            breakpoints={{
-              480: { slidesPerView: 3.2 },
-              640: { slidesPerView: 4.2 },
-              1024: { slidesPerView: 5.5 },
-              1280: { slidesPerView: 6.5 },
+            loop={true}
+            loopAddBlankSlides={true}
+            autoplay={{
+              delay: 3000,
+              disableOnInteraction: false,
             }}
+            spaceBetween={16}
+            slidesPerView="auto"
+            breakpoints={{
+              640: {
+                spaceBetween: 24,
+                slidesPerView: "auto",
+              },
+              1024: {
+                spaceBetween: 66,
+                slidesPerView: "auto",
+              },
+            }}
+            className="!px-2"
           >
-            {categories.map((category) => (
-              <SwiperSlide key={category.id}>
+            {displayCategories.map((category, idx) => (
+              <SwiperSlide key={`${category.id}-${idx}`} className="!w-auto">
                 <CategoryCard category={category} />
               </SwiperSlide>
             ))}

@@ -12,7 +12,7 @@ const CartPage = () => {
   const subtotal = items.reduce((sum, item) => sum + item.product.price * item.qty, 0);
 
   return (
-    <div className="bg-[#f5f5fb]">
+    <div >
       <CheckoutHeader actionLabel="Your Cart" />
       <main className="container-page py-10">
         <div className="grid gap-8 lg:grid-cols-[1fr_380px]">
@@ -25,7 +25,7 @@ const CartPage = () => {
             <div className="space-y-4">
               {items.map(({ product, qty }) => (
                 <article key={product.slug} className="grid gap-4 rounded-3xl border border-navy-900/10 bg-white p-4 sm:grid-cols-[200px_1fr]">
-                  <img src={product.image} alt={product.name} className="h-48 w-full rounded-2xl object-cover" />
+                  <img src={product.image} alt={product.name} className="h-48 w-full rounded object-cover" />
                   <div className="flex flex-col">
                     <h2 className="text-2xl font-semibold text-navy-950">{product.name}</h2>
                     <p className="mt-2 text-sm text-navy-900/65">{product.brand}</p>
@@ -47,7 +47,7 @@ const CartPage = () => {
               <h2 className="mb-4 text-2xl font-semibold text-navy-950">Deal of the Day</h2>
               <div className="grid max-w-2xl gap-4 sm:grid-cols-2">
                 {items.slice(0, 2).map(({ product }) => (
-                  <div key={product.slug} className="overflow-hidden rounded-2xl border border-navy-900/10 bg-white">
+                  <div key={product.slug} className="overflow-hidden rounded border border-navy-900/10 bg-white">
                     <img src={product.image} alt={product.name} className="h-48 w-full object-cover" />
                     <div className="p-3">
                       <p className="font-medium text-navy-950">{product.name}</p>
@@ -70,7 +70,7 @@ const CartPage = () => {
               <span>Total</span>
               <span>${subtotal.toLocaleString()}</span>
             </div>
-            <Link to="/checkout/delivery" className="mt-6 block rounded-2xl bg-brand-blue px-4 py-3 text-center font-semibold text-white">
+            <Link to="/checkout/delivery" className="mt-6 block rounded bg-brand-blue px-4 py-3 text-center font-semibold text-white">
               Proceed to Buy
             </Link>
           </aside>

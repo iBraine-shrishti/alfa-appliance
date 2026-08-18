@@ -170,7 +170,7 @@ const Contact = () => {
         </form>
       </div>
 
-      <div className="relative h-[420px] overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 lg:h-full lg:min-h-[780px]">
+      <div className="relative h-[420px] overflow-hidden rounded border border-slate-200 bg-slate-100 lg:h-full lg:min-h-[780px]">
         <iframe
           title="Alfa Appliances showroom location"
           src={MAP_EMBED_SRC}
@@ -180,7 +180,7 @@ const Contact = () => {
           className="absolute inset-0 h-full w-full border-0"
         />
 
-        <div className="absolute inset-x-4 bottom-4 rounded-2xl bg-white p-5 shadow-lg sm:inset-x-6 sm:bottom-6 sm:p-6">
+        <div className="absolute inset-x-4 bottom-4 rounded bg-white p-5 shadow-lg sm:inset-x-6 sm:bottom-6 sm:p-6">
           <h3 className="text-lg font-extrabold text-navy-950 sm:text-xl">
             London Showroom
           </h3>

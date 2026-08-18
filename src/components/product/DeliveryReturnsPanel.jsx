@@ -63,9 +63,9 @@ const DeliveryReturnsPanel = ({ deliveryReturns }) => (
             <p key={line}>{line}</p>
           ))}
         </div>
-        <button type="button" className="mt-2 text-brand-blue underline">
+        {/* <button type="button" className="mt-2 text-brand-blue underline">
           {deliveryReturns.returnsInfoLink}
-        </button>
+        </button> */}
       </div>
     </div>
   </div>

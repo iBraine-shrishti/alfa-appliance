@@ -3,7 +3,7 @@ import CheckoutHeader from "../components/checkout/CheckoutHeader";
 
 const CheckoutDeliveryPage = () => {
   return (
-    <div className="bg-[#f5f5fb]">
+    <div >
       <CheckoutHeader actionLabel="Secure Checkout" />
       <main className="container-page py-10">
         <div className="mx-auto max-w-4xl rounded-3xl border border-navy-900/10 bg-white p-6">
@@ -17,7 +17,7 @@ const CheckoutDeliveryPage = () => {
           </div>
           <div className="mt-6 flex justify-between">
             <Link to="/cart" className="text-brand-blue">Return to Product</Link>
-            <Link to="/checkout/payment" className="rounded-2xl bg-brand-blue px-5 py-3 font-semibold text-white">Add This Address</Link>
+            <Link to="/checkout/payment" className="rounded bg-brand-blue px-5 py-3 font-semibold text-white">Add This Address</Link>
           </div>
         </div>
       </main>

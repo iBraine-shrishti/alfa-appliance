@@ -39,12 +39,12 @@ const ProductBuyBox = ({ product }) => {
       <div className="grid gap-3">
         <Link
           to="/cart"
-          className="inline-flex items-center justify-center gap-2 rounded-2xl bg-brand-blue px-5 py-4 font-semibold text-white"
+          className="inline-flex items-center justify-center gap-2 rounded bg-brand-blue px-5 py-4 font-semibold text-white"
         >
           <FiShoppingCart />
           Add to Cart
         </Link>
-        <button type="button" className="rounded-2xl border border-navy-900/15 bg-white px-5 py-4 font-semibold text-navy-900">
+        <button type="button" className="rounded border border-navy-900/15 bg-white px-5 py-4 font-semibold text-navy-900">
           Buy Now
         </button>
       </div>

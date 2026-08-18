@@ -19,7 +19,7 @@ const ProductReviewsSection = ({ product }) => {
             <div className="text-4xl font-semibold text-navy-950">{product.ratingAverage}</div>
             <div className="mt-2 flex text-brand-blue">
               {Array.from({ length: 5 }, (_, index) => (
-                <FiStar key={index} className="fill-brand-blue text-brand-blue" />
+                <FiStar key={index} className="fill-amber-400 text-amber-40" />
               ))}
             </div>
             <p className="mt-2 text-sm text-navy-900/55">Total {product.reviewCount} reviews</p>
@@ -48,7 +48,8 @@ const ProductReviewsSection = ({ product }) => {
                   <span className="text-navy-900/70">{item.label}</span>
                   <span className="flex items-center gap-1 text-brand-blue">
                     {Array.from({ length: 5 }, (_, index) => (
-                      <FiStar key={index} size={13} className={index < Math.round(item.score) ? "fill-brand-blue text-brand-blue" : "text-navy-900/15"} />
+                      <FiStar key={index} size={13} className={index < Math.round(item.score) ?"fill-amber-400 text-amber-400"
+      : "text-navy-900/15"} />
                     ))}
                     <span className="ml-1 text-xs font-semibold text-navy-900/60">{item.score.toFixed(1)}</span>
                   </span>
@@ -57,7 +58,7 @@ const ProductReviewsSection = ({ product }) => {
             </div>
           </div>
 
-          <button className="w-full rounded-2xl border border-brand-blue/30 px-4 py-3 font-semibold text-brand-blue">
+          <button className="w-full rounded border border-brand-blue/30 px-4 py-3 font-semibold text-brand-blue">
             WRITE A PRODUCT REVIEW
           </button>
         </div>
@@ -82,7 +83,7 @@ const ProductReviewsSection = ({ product }) => {
               </div>
 
               {selectedReview && (
-                <div className="mt-3 flex items-center gap-3 rounded-2xl border border-brand-blue/15 bg-brand-blue/5 p-3">
+                <div className="mt-3 flex items-center gap-3 rounded border border-brand-blue/15 bg-brand-blue/5 p-3">
                   <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-blue/10 font-semibold text-brand-blue">
                     {selectedReview.author[0]}
                   </div>
@@ -92,7 +93,8 @@ const ProductReviewsSection = ({ product }) => {
                   </div>
                   <div className="flex shrink-0 items-center gap-1 text-brand-blue">
                     {Array.from({ length: 5 }, (_, index) => (
-                      <FiStar key={index} size={13} className={index < (selectedReview.rating ?? 5) ? "fill-brand-blue text-brand-blue" : "text-navy-900/15"} />
+                      <FiStar key={index} size={13} className={index < (selectedReview.rating ?? 5) ?"fill-amber-400 text-amber-400"
+                       : "text-navy-900/15"} />
                     ))}
                   </div>
                 </div>
@@ -103,7 +105,7 @@ const ProductReviewsSection = ({ product }) => {
           <p className="mt-6 text-xs font-semibold uppercase tracking-[0.18em] text-navy-900/45">Top Reviews</p>
           <div className="mt-3 divide-y divide-navy-900/8">
             {visibleReviews.map((review) => (
-              <div key={review.author} className={`py-4 first:pt-0 transition-colors ${selectedReviewAuthor === review.author ? "rounded-2xl bg-brand-blue/5 px-3" : ""}`}>
+              <div key={review.author} className={`py-4 first:pt-0 transition-colors ${selectedReviewAuthor === review.author ? "rounded bg-brand-blue/5 px-3" : ""}`}>
                 <div className="flex items-center gap-3">
                   <div className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-blue/10 font-semibold text-brand-blue">
                     {review.author[0]}
@@ -115,7 +117,8 @@ const ProductReviewsSection = ({ product }) => {
                 </div>
                 <div className="mt-2 flex items-center gap-1 text-brand-blue">
                   {Array.from({ length: 5 }, (_, index) => (
-                    <FiStar key={index} size={13} className={index < (review.rating ?? 5) ? "fill-brand-blue text-brand-blue" : "text-navy-900/15"} />
+                    <FiStar key={index} size={13} className={index < (review.rating ?? 5) ?"fill-amber-400 text-amber-400"
+                            : "text-navy-900/15"} />
                   ))}
                 </div>
                 <p className="mt-2 text-sm leading-6 text-navy-900/70">{review.text}</p>
@@ -128,7 +131,7 @@ const ProductReviewsSection = ({ product }) => {
             <button
               type="button"
               onClick={() => setVisibleReviewCount((count) => count + 3)}
-              className="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl border border-navy-900/15 py-3 text-sm font-semibold text-navy-900 transition-colors hover:border-brand-blue hover:text-brand-blue"
+              className="mt-4 flex w-full items-center justify-center gap-2 rounded border border-navy-900/15 py-3 text-sm font-semibold text-navy-900 transition-colors hover:border-brand-blue hover:text-brand-blue"
             >
               View More Reviews <FiChevronDown size={16} />
             </button>
@@ -137,7 +140,7 @@ const ProductReviewsSection = ({ product }) => {
               <button
                 type="button"
                 onClick={() => setVisibleReviewCount(3)}
-                className="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl border border-navy-900/15 py-3 text-sm font-semibold text-navy-900 transition-colors hover:border-brand-blue hover:text-brand-blue"
+                className="mt-4 flex w-full items-center justify-center gap-2 rounded border border-navy-900/15 py-3 text-sm font-semibold text-navy-900 transition-colors hover:border-brand-blue hover:text-brand-blue"
               >
                 View Less <FiChevronUp size={16} />
               </button>

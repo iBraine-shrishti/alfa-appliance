@@ -5,7 +5,7 @@ const AccordionItem = ({ title, rightContent, children, defaultOpen = false }) =
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
-    <div className="rounded-xl border border-navy-900/10 bg-white">
+    <div className="rounded border border-navy-900/10 bg-white">
       <button
         type="button"
         onClick={() => setIsOpen((open) => !open)}

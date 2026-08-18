@@ -1,95 +1,7 @@
-// import { products as homeProducts } from "./products";
-// import { categoryPages } from "./categoryPages";
-
-// const allCategoryProducts = Object.values(categoryPages).flatMap((page) => page.products);
-
-// export const productCatalog = [...homeProducts, ...allCategoryProducts].map((product) => ({
-//   ...product,
-//   slug:
-//     product.slug ??
-//     product.name
-//       .toLowerCase()
-//       .replace(/[^a-z0-9]+/g, "-")
-//       .replace(/^-|-$/g, ""),
-//   shortDescription:
-//     product.shortDescription ??
-//     "Engineered for precision cooling and minimalist aesthetics with durable materials and intuitive controls.",
-//   longDescription:
-//     product.longDescription ??
-//     "A premium appliance built for modern homes, balancing performance, durability, and refined design.",
-//   finish: product.finish ?? "Brushed Stainless",
-//   stockLabel: product.stockLabel ?? "In Stock - Ships within 48 hours",
-//   highlights:
-//     product.highlights ?? [
-//       "Dual precision system for efficient performance",
-//       "Quiet operation for everyday comfort",
-//       "Premium finish with easy-clean surfaces",
-//     ],
-//   features:
-//     product.features ?? [
-//       {
-//         title: "Energy Efficient",
-//         description: "Adaptive technology helps reduce power consumption without compromising performance.",
-//       },
-//       {
-//         title: "Invisible Interface",
-//         description: "A streamlined control layout keeps the look minimal and modern.",
-//       },
-//       {
-//         title: "Filtered Purity",
-//         description: "Multi-stage filtering keeps output clean, stable, and reliable.",
-//       },
-//     ],
-//   specs:
-//     product.specs ?? [
-//       { label: "Capacity", value: "25.5 Cu. Ft. Total" },
-//       { label: "Dimensions (HxWxD)", value: "70\" x 35.75\" x 31.5\"" },
-//       { label: "Cooling System", value: "Dual Evaporator, Linear Compressor" },
-//       { label: "Smart Features", value: "Wi-Fi Enabled, App Integration" },
-//       { label: "Warranty", value: "5-Year Limited Warranty" },
-//     ],
-//   reviews:
-//     product.reviewsData ?? [
-//       {
-//         author: "Ramesh",
-//         time: "10:30 AM",
-//         rating: 5,
-//         text: "Excellent build and exceptional cooling. The controls feel intuitive and premium.",
-//         image: product.image,
-//       },
-//       {
-//         author: "Suresh",
-//         time: "10:30 AM",
-//         rating: 5,
-//         text: "Beautiful finish and quiet operation. Very happy with the overall quality.",
-//         image: product.image,
-//       },
-//       {
-//         author: "Priya",
-//         time: "9:15 AM",
-//         rating: 4,
-//         text: "Great value for the price. Setup was quick and the app integration works well.",
-//       },
-//       {
-//         author: "Arjun",
-//         time: "6:42 PM",
-//         rating: 5,
-//         text: "Sleek design that fits our kitchen perfectly. Would definitely recommend.",
-//         image: product.image,
-//       },
-//       {
-//         author: "Meera",
-//         time: "2:05 PM",
-//         rating: 4,
-//         text: "Does exactly what it promises. A few minor quirks with the touch controls but overall solid.",
-//         rating: 4,
-//       },
-//     ],
-// }));
-
-// export const findProductBySlug = (slug) => productCatalog.find((product) => product.slug === slug);
 import { products as homeProducts } from "./products";
 import { categoryPages } from "./categoryPages";
+import feature1 from "../assets/products/product-feature/feature1.png";
+import feature2 from "../assets/products/product-feature/feature2.png";
 
 const allCategoryProducts = Object.values(categoryPages).flatMap((page) => page.products);
 
@@ -123,7 +35,7 @@ const defaultEssentialServices = [
 
 const defaultAccessories = [
   {
-    badge: "Currys Recommends",
+    badge: "Alfa Recommends",
     name: "WPRO Fridge Odour Absorber - Blue",
     rating: 5,
     reviewCount: 2,
@@ -198,7 +110,7 @@ const defaultDeliveryReturns = {
     "If you purchased online and you have changed your mind you can return your items within 30 days even if you have opened it for inspection. It must be returned as new and where possible, in its original packaging.",
     "If your item develops a fault we will offer either a repair, exchange or refund if the fault occurs within 30 days of purchase (or delivery or installation). If the fault with your product occurs within its guarantee period (normally 12 months from delivery) we will offer you a prompt repair service. In all cases we reserve the right to inspect the product and verify the fault.",
   ],
-  returnsInfoLink: "More info on returns and refunds.",
+  // returnsInfoLink: "More info on returns and refunds.",
 };
 const defaultBreakdownSupport = {
   customerCount: "9 million",
@@ -258,9 +170,28 @@ export const productCatalog = [...homeProducts, ...allCategoryProducts].map((pro
     ],
   features:
     product.features ?? [
-      { title: "Energy Efficient", description: "Adaptive technology helps reduce power consumption without compromising performance." },
-      { title: "Invisible Interface", description: "A streamlined control layout keeps the look minimal and modern." },
-      { title: "Filtered Purity", description: "Multi-stage filtering keeps output clean, stable, and reliable." },
+      {
+        title: "Dual Precision Cooling",
+        description:
+          "Independent systems for fridge and freezer maintain optimal humidity levels, ensuring produce stays fresher longer while preventing freezer burn.",
+        image: feature1,
+      },
+      {
+        title: "Invisible Interface",
+        description:
+          "Touch controls seamlessly integrated into the steel facade. They only illuminate when needed, preserving the minimalist exterior.",
+      },
+      {
+        title: "Energy Efficient",
+        description:
+          "A+ Energy rating with adaptive cooling algorithms that learn your usage patterns to minimize power consumption.",
+      },
+      {
+        title: "Filtered Purity",
+        description:
+          "Advanced multi-stage filtration system delivers crisp, clean water and ice instantly, seamlessly integrated into the door profile.",
+        image: feature2,
+      },
     ],
   specs:
     product.specs ?? [

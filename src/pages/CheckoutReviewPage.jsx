@@ -3,7 +3,7 @@ import CheckoutHeader from "../components/checkout/CheckoutHeader";
 
 const CheckoutReviewPage = () => {
   return (
-    <div className="bg-[#f5f5fb]">
+    <div>
       <CheckoutHeader actionLabel="Secure Checkout" />
       <main className="container-page py-10">
         <div className="grid gap-8 lg:grid-cols-[1fr_380px]">
@@ -25,10 +25,10 @@ const CheckoutReviewPage = () => {
                   <p className="mt-2 text-brand-blue">Thursday, October 26</p>
                 </div>
               </div>
-              <div className="rounded-2xl border border-navy-900/10 p-4">
+              <div className="rounded border border-navy-900/10 p-4">
                 <h3 className="text-xl font-semibold text-navy-950">Order Items</h3>
                 <div className="mt-4 flex items-center gap-4">
-                  <div className="h-36 w-36 rounded-2xl bg-[#f5f5fb]" />
+                  <div className="h-36 w-36 rounded " />
                   <div>
                     <p className="text-2xl font-semibold text-navy-950">ALFA Precision French Door Refrigerator</p>
                     <p className="mt-2 text-navy-900/65">A high-end refrigerator for modern kitchens.</p>
@@ -48,7 +48,7 @@ const CheckoutReviewPage = () => {
               <span>Order Total</span>
               <span className="text-brand-blue">$3,848.90</span>
             </div>
-            <Link to="/order-success" className="mt-6 block rounded-2xl bg-brand-blue px-5 py-3 text-center font-semibold text-white">
+            <Link to="/order-success" className="mt-6 block rounded bg-brand-blue px-5 py-3 text-center font-semibold text-white">
               Place Your Order
             </Link>
           </aside>

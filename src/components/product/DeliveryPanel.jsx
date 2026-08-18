@@ -2,7 +2,7 @@ import { FiTruck, FiHome, FiCheck } from "react-icons/fi";
 
 const DeliveryPanel = ({ delivery }) => (
   <div className="space-y-3">
-    <div className="rounded border border-navy-900/10 bg-white p-4">
+    <div className="rounded border border-navy-900/10 bg-[#FDB87D0A] p-4">
       <div className="flex items-start gap-3">
         <FiTruck className="mt-0.5 text-brand-blue" />
         <div>

@@ -1,7 +1,7 @@
 import { FiStar } from "react-icons/fi";
 
 const AccessoryUpsell = ({ accessories }) => (
-  <div className="rounded-2xl bg-navy-900/[0.03] p-5">
+  <div className="rounded bg-navy-900/[0.03] p-5">
     <p className="text-base font-semibold text-navy-950">
       What you'll need to make it <span className="text-brand-blue">even better</span>
     </p>
@@ -22,7 +22,15 @@ const AccessoryUpsell = ({ accessories }) => (
             <p className="font-semibold text-navy-950">{item.name}</p>
             <div className="mt-1 flex items-center gap-1 text-brand-blue">
               {Array.from({ length: 5 }, (_, index) => (
-                <FiStar key={index} size={12} className={index < item.rating ? "fill-brand-blue text-brand-blue" : "text-navy-900/15"} />
+               <FiStar
+                key={index}
+                size={12}
+                className={
+                  index < item.rating
+                    ? "fill-amber-400 text-amber-400"
+                    : "text-navy-900/15"
+                }
+              />
               ))}
               <span className="ml-1 text-xs text-navy-900/45">({item.reviewCount})</span>
             </div>

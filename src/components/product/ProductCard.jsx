@@ -83,7 +83,7 @@ export default ProductCard;
 //   } = product;
 
 //   return (
-//     <div className="group relative overflow-hidden rounded-2xl bg-white shadow-sm">
+//     <div className="group relative overflow-hidden rounded bg-white shadow-sm">
 //       {badge && (
 //         <span className="absolute left-3 top-3 z-10 rounded-full bg-brand-orange px-2.5 py-1 text-xs font-semibold text-white">
 //           {badge}

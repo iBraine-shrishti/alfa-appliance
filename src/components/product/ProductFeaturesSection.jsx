@@ -30,7 +30,7 @@ const ProductFeaturesSection = ({ product }) => (
       </div>
 
       <div className="relative overflow-hidden rounded bg-navy-900/90 p-6 text-white lg:col-span-2">
-        <img src={product.features[3]?.image ?? product.image} alt="" className="absolute inset-0 h-full w-full object-cover opacity-35" />
+        <img src={product.features[3]?.image ?? product.image} alt={product.features[3]?.title || product.name} className="absolute inset-0 h-full w-full object-cover opacity-35" />
         <div className="relative flex min-h-[220px] max-w-md flex-col justify-end">
           <h3 className="text-2xl font-semibold">{product.features[3]?.title}</h3>
           <p className="mt-2 text-sm leading-6 text-white/85">{product.features[3]?.description}</p>

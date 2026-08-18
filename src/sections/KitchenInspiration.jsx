@@ -14,13 +14,13 @@ const KitchenInspiration = () => {
         <div className="mb-8 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-lg">
             <Eyebrow>Kitchen Inspiration</Eyebrow>
-            <h2 className="mt-3 font-display text-2xl font-semibold text-navy-950 sm:text-3xl">
+           <h2 className="mt-3 font-display text-2xl font-semibold text-navy-950 sm:text-3xl md:text-[44px]">
               Discover Inspiration for Your Dream Kitchen
             </h2>
           </div>
 
-          <div className="max-w-md">
-            <p className="text-sm text-navy-900/60">
+          <div className="w-full max-w-[600px]">
+            <p className="text-sm text-navy-900/60 sm:text-base md:text-[17px]">
               Powerful washing machines with intelligent programmes, energy efficiency, and exceptional fabric care for every household.
             </p>
             <button

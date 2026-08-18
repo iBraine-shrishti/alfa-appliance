@@ -13,7 +13,7 @@ const ProductDescriptionSection = ({ product }) => {
   return (
     <section className="mt-14">
       <h2 className="text-2xl font-semibold text-navy-950">Product Description</h2>
-      <div className="mt-4 overflow-hidden rounded-2xl border border-navy-900/10 bg-white">
+      <div className="mt-4 overflow-hidden rounded border border-navy-900/10 bg-white">
         <table className="w-full text-left text-sm">
           <tbody>
             {rows.map(([label, value]) => (

@@ -13,73 +13,92 @@ const BuyTogetherSection = ({ product }) => {
   const separateSellingPrice = product.price + firstBundle.addOn.price;
 
   return (
-    <section className="mt-14">
+ <div className="mt-14 w-full bg-navy-900/5 py-10">
+  <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    {/* Main Card Wrapper */}
+    <div className="container-page rounded border border-navy-900/10 bg-white p-6 shadow-sm md:p-8">
+      {/* Header */}
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-semibold text-navy-950">Buy together and save</h2>
+        <h2 className="text-2xl font-bold text-navy-950">Buy together and save</h2>
         <button
           type="button"
           onClick={() => setIsDrawerOpen(true)}
-          className="flex items-center gap-1 rounded-full border border-brand-pink px-4 py-2 text-sm font-semibold text-brand-pink"
+          className="flex shrink-0 items-center gap-1.5 rounded-full border border-navy-900 px-5 py-2.5 text-base font-semibold text-navy-900 hover:bg-navy-900 hover:text-white transition-colors"
         >
-          <FiPlus size={14} /> See all bundles <FiChevronRight size={14} />
+          <FiPlus size={16} /> See all bundles <FiChevronRight size={16} />
         </button>
       </div>
 
-      <div className="mt-4 flex flex-col items-stretch gap-3 lg:flex-row lg:items-center">
-        <div className="flex flex-1 items-center gap-4 rounded border border-navy-900/10 bg-white p-4">
-          <img src={product.image} alt={product.name} className="h-20 w-20 shrink-0 object-contain" />
+      {/* Product Items */}
+      <div className="mt-6 flex flex-col items-stretch gap-4 lg:flex-row lg:items-center">
+        {/* Item 1 */}
+        <div className="flex flex-1 items-center gap-5 rounded border border-navy-900/10 bg-navy-900/[0.02] p-5">
+          <img
+            src={product.image}
+            alt={product.name}
+            className="h-24 w-24 shrink-0 object-contain md:h-28 md:w-28"
+          />
           <div>
-            <p className="text-xs font-semibold text-brand-blue">Currently viewing</p>
-            <p className="mt-1 font-semibold text-navy-950">{product.name}</p>
-            <div className="mt-1">
+            <p className="text-sm font-semibold text-brand-blue">Currently viewing</p>
+            <p className="mt-1 text-base font-bold text-navy-950">{product.name}</p>
+            <div className="mt-1.5">
               <ProductRatingInline average={product.ratingAverage} count={product.reviewCount} />
             </div>
-            <p className="mt-1 font-semibold text-navy-950">£{product.price.toFixed(2)}</p>
+            <p className="mt-2 text-base font-bold text-navy-950">£{product.price.toFixed(2)}</p>
           </div>
         </div>
 
-        <span className="mx-auto flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-pink text-white lg:mx-0">
-          <FiPlus />
+        {/* Plus Icon */}
+        <span className="mx-auto flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-navy-950 text-white lg:mx-0">
+          <FiPlus size={18} />
         </span>
 
-        <div className="flex flex-1 items-center gap-4 rounded border border-navy-900/10 bg-white p-4">
-          <img src={firstBundle.addOn.image} alt={firstBundle.addOn.name} className="h-20 w-20 shrink-0 object-contain" />
+        {/* Item 2 */}
+        <div className="flex flex-1 items-center gap-5 rounded border border-navy-900/10 bg-navy-900/[0.02] p-5">
+          <img
+            src={firstBundle.addOn.image}
+            alt={firstBundle.addOn.name}
+            className="h-24 w-24 shrink-0 object-contain md:h-28 md:w-28"
+          />
           <div>
-            <p className="font-semibold text-navy-950">{firstBundle.addOn.name}</p>
-            <div className="mt-1">
+            <p className="text-base font-bold text-navy-950">{firstBundle.addOn.name}</p>
+            <div className="mt-1.5">
               <ProductRatingInline average={firstBundle.addOn.rating} count={firstBundle.addOn.reviewCount} />
             </div>
-            <p className="mt-1 font-semibold text-navy-950">£{firstBundle.addOn.price.toFixed(2)}</p>
+            <p className="mt-2 text-base font-bold text-navy-950">£{firstBundle.addOn.price.toFixed(2)}</p>
           </div>
         </div>
       </div>
 
-      <div className="mt-5 flex flex-col items-start justify-between gap-4 lg:flex-row lg:items-center">
-        <div className="text-sm">
-          <p className="flex items-center gap-2 text-base font-semibold text-navy-950">
-            Total: <span>£{total.toFixed(2)}</span>
+      {/* Pricing & CTA Summary */}
+      <div className="mt-6 flex flex-col items-start justify-between gap-5 border-t border-navy-900/10 pt-5 lg:flex-row lg:items-center">
+        <div className="text-base">
+          <p className="flex items-center gap-2 text-lg font-bold text-navy-950">
+            Total: <span className="text-xl">£{total.toFixed(2)}</span>
           </p>
           {firstBundle.saving > 0 && (
             <>
               <p className="mt-1 text-navy-900/70">
-                Buy together & save <span className="font-semibold text-brand-pink">£{firstBundle.saving.toFixed(2)}</span>
+                Buy together & save <span className="font-bold text-brand-blue">£{firstBundle.saving.toFixed(2)}</span>
               </p>
-              <p className="text-brand-pink">Total saving: £{firstBundle.saving.toFixed(2)}</p>
+              <p className="font-semibold text-brand-blue">Total saving: £{firstBundle.saving.toFixed(2)}</p>
             </>
           )}
-          <p className="text-navy-900/45">Separate selling price £{separateSellingPrice.toFixed(2)}</p>
+          <p className="mt-1 text-sm text-navy-900/50">Separate selling price £{separateSellingPrice.toFixed(2)}</p>
         </div>
 
         <button
           type="button"
-          className="flex items-center justify-center gap-2 rounded-full border border-brand-blue px-6 py-3 font-semibold text-brand-blue"
+          className="flex shrink-0 items-center justify-center gap-2.5 rounded-full bg-navy-950 px-8 py-3.5 text-base font-bold text-white shadow-md hover:bg-navy-900 transition-colors"
         >
-          <FiShoppingCart /> Add bundle to basket
+          <FiShoppingCart size={18} /> Add bundle to basket
         </button>
       </div>
+    </div>
 
-      <BundleDrawer product={product} isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
-    </section>
+    <BundleDrawer product={product} isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
+  </section>
+</div>
   );
 };
 

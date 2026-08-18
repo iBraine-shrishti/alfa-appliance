@@ -13,10 +13,10 @@ const OrderSuccessPage = () => {
             Thank you so much for your order. We are processing it with the utmost precision.
           </p>
           <div className="mt-8 flex gap-4">
-            <Link to="/checkout/review" className="flex-1 rounded-2xl border border-navy-900/15 px-5 py-3 font-semibold text-brand-blue">
+            <Link to="/checkout/review" className="flex-1 rounded border border-navy-900/15 px-5 py-3 font-semibold text-brand-blue">
               View Order
             </Link>
-            <Link to="/" className="flex-1 rounded-2xl bg-brand-blue px-5 py-3 font-semibold text-white">
+            <Link to="/" className="flex-1 rounded bg-brand-blue px-5 py-3 font-semibold text-white">
               Continue Shopping
             </Link>
           </div>
