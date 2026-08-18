@@ -12,7 +12,7 @@ const Hero = () => {
   const [transitionCount, setTransitionCount] = useState(0);
 
   return (
-    <section className="relative h-[420px] w-full overflow-hidden sm:h-[460px] lg:h-[620px]">
+    <section className="relative h-[420px] w-full overflow-hidden sm:h-[460px] lg:h-[720px]">
       <Swiper
         modules={[Autoplay, Pagination, EffectFade]}
         effect="fade"
@@ -36,14 +36,14 @@ const Hero = () => {
                 <div className="mx-auto w-full max-w-[1280px] px-6 sm:px-6 lg:px-8">
                   <div
                     key={`${i}-${transitionCount}`}
-                    className={`max-w-md ${slide.animate ? "hero-anim" : ""}`}
+                    className={`max-w-2xl ${slide.animate ? "hero-anim" : ""}`}
                     style={slide.animate ? { animationDelay: "0.2s" } : undefined}
                   >
-                    <h1 className={`font-['Instrument_Sans',_sans-serif] text-4xl font-semibold leading-tight sm:text-5xl ${slide.textColor}`}>
+                    <h1 className={`font-['Instrument_Sans',_sans-serif] text-4xl font-semibold leading-tight sm:text-5xl md:text-[56px] lg:text-[66px] ${slide.textColor}`}>
                       {slide.heading1}
                       <br />
                       {slide.heading2}{" "}
-                      <span className="font-['Playfair_Display',_serif] text-4xl font-light italic sm:text-5xl">
+                      <span className="font-['Playfair_Display',_serif] text-4xl font-light italic sm:text-5xl md:text-[56px] lg:text-[66px]">
                         {slide.accent}
                       </span>
                     </h1>
@@ -56,15 +56,7 @@ const Hero = () => {
                         <FiArrowRight size={14} />
                       </span>
                     </Link>
-                    {/* <button
-                      type="button"
-                      className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-navy-950 transition-transform hover:-translate-y-0.5"
-                    >
-                      Shop Collection
-                      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-blue text-white">
-                        <FiArrowRight size={14} />
-                      </span>
-                    </button> */}
+                   
                   </div>
                 </div>
               </div>

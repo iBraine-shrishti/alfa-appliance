@@ -9,9 +9,10 @@ const FridgeFreezerSection = () => {
   return (
     <section className="py-12 sm:py-16">
       <Container>
-        <h2 className="mb-8 font-display text-2xl font-semibold text-navy-950 sm:text-3xl">
-          Fridge Freezer products
+          <h2 className="mb-8 text-center font-display text-3xl font-semibold text-navy-950 sm:text-4xl md:text-5xl lg:text-[44px]">   
+            Fridge Freezer products
         </h2>
+        
         <div className="flex flex-col gap-5">
           <ProductGrid products={rowOne} />
           <ProductGrid products={rowTwo} />

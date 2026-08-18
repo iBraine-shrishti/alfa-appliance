@@ -9,7 +9,8 @@ export const heroSlides = [
     heading1: "Designed for",
     heading2: "Modern",
     accent: "Living",
-    textColor: "text-white lg:text-navy-950",
+    // textColor: "text-white lg:text-navy-950",
+    textColor: "text-white",
     animate: true,
   },
   {
