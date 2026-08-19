@@ -15,9 +15,9 @@ const BuyTogetherSection = ({ product }) => {
   return (
  <div className="mt-14 w-full bg-navy-900/5 py-10">
   <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    {/* Main Card Wrapper */}
+
     <div className="container-page rounded border border-navy-900/10 bg-white p-6 shadow-sm md:p-8">
-      {/* Header */}
+
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold text-navy-950">Buy together and save</h2>
         <button
@@ -29,9 +29,8 @@ const BuyTogetherSection = ({ product }) => {
         </button>
       </div>
 
-      {/* Product Items */}
       <div className="mt-6 flex flex-col items-stretch gap-4 lg:flex-row lg:items-center">
-        {/* Item 1 */}
+
         <div className="flex flex-1 items-center gap-5 rounded border border-navy-900/10 bg-navy-900/[0.02] p-5">
           <img
             src={product.image}
@@ -48,12 +47,10 @@ const BuyTogetherSection = ({ product }) => {
           </div>
         </div>
 
-        {/* Plus Icon */}
         <span className="mx-auto flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-navy-950 text-white lg:mx-0">
           <FiPlus size={18} />
         </span>
 
-        {/* Item 2 */}
         <div className="flex flex-1 items-center gap-5 rounded border border-navy-900/10 bg-navy-900/[0.02] p-5">
           <img
             src={firstBundle.addOn.image}
@@ -70,7 +67,6 @@ const BuyTogetherSection = ({ product }) => {
         </div>
       </div>
 
-      {/* Pricing & CTA Summary */}
       <div className="mt-6 flex flex-col items-start justify-between gap-5 border-t border-navy-900/10 pt-5 lg:flex-row lg:items-center">
         <div className="text-base">
           <p className="flex items-center gap-2 text-lg font-bold text-navy-950">

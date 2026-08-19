@@ -9,13 +9,12 @@ const BundleDrawer = ({ product, isOpen, onClose }) => {
       }`}
       aria-hidden={!isOpen}
     >
-      {/* Backdrop */}
+
       <div
         className="absolute inset-0 bg-navy-950/40 backdrop-blur-sm"
         onClick={onClose}
       />
 
-      {/* Panel */}
       <div
         className={`relative flex h-full w-full max-w-md flex-col overflow-y-auto bg-white shadow-2xl transition-transform duration-300 ${
           isOpen ? "translate-x-0" : "translate-x-full"

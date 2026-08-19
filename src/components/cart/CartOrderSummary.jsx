@@ -8,7 +8,7 @@ const CartOrderSummary = ({ itemCount, subtotal, totalSavings, flexpay }) => {
   const [promoOpen, setPromoOpen] = useState(false);
 
   return (
-    <aside className="rounded-2xl border border-navy-900/10 bg-white p-5">
+    <aside className="rounded border border-navy-900/10 bg-white p-5">
       <div className="flex items-center gap-6 border-b border-navy-900/10 pb-4 text-sm">
         <label className="flex items-center gap-2">
           <input

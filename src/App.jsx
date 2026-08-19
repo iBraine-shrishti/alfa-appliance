@@ -11,6 +11,8 @@ import OrderSuccessPage from "./pages/OrderSuccessPage";
 import AllCollectionsPage from "./pages/AllCollectionsPage";
 import Contact from "./sections/Contact";
 import Auth from "./pages/Auth";
+import WishlistPage from "./pages/WishlistPage";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   return (
@@ -27,6 +29,8 @@ function App() {
         <Route path="/collections" element={<AllCollectionsPage />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Auth />} />
+        <Route path="/wishlist" element={<WishlistPage />} />
+        <Route path="/account" element={<ProfilePage />} />
       </Route>
     </Routes>
   );

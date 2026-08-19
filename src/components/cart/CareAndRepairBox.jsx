@@ -5,7 +5,7 @@ const includedItems = [
   "Full breakdown support",
   "Full replacement. If we can't repair your product in 7 calendar days or we need to repair it more than twice, we'll replace it for free.",
   "All parts, labour and callouts included",
-  "Free delivery and recycling if your product needs replacing",
+  "Delivery charges(for stairs) and recycling if your product needs replacing",
 ];
 
 const excludedItems = ["Accidental damage", "Cosmetic damage"];

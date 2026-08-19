@@ -13,7 +13,6 @@ const CategorySection = () => {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
-  // Duplicate items if category count is small to ensure smooth infinite looping
   const displayCategories =
     categories.length < 8 ? [...categories, ...categories] : categories;
 
@@ -25,7 +24,7 @@ const CategorySection = () => {
         </h2>
 
         <div className="relative">
-          {/* Left Arrow Button */}
+
           <div
             ref={prevRef}
             className="absolute -left-4 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full !bg-blue-600 !text-white shadow-md transition-opacity hover:opacity-90 sm:-left-6"
@@ -33,7 +32,6 @@ const CategorySection = () => {
             <SliderArrow direction="left" className="!bg-transparent !text-white" />
           </div>
 
-          {/* Right Arrow Button */}
           <div
             ref={nextRef}
             className="absolute -right-4 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full !bg-blue-600 !text-white shadow-md transition-opacity hover:opacity-90 sm:-right-6"

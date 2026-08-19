@@ -2,6 +2,8 @@ import CartItemCheckbox from "./CartItemCheckbox";
 import QuantitySelector from "./QuantitySelector";
 import DeliveryOptionsBox from "./DeliveryOptionsBox";
 import CareAndRepairBox from "./CareAndRepairBox";
+import InstallationBox from "./InstallationBox";
+import RecyclingBox from "./RecyclingBox";
 
 const CartLineItem = ({ product, qty, checked, onToggle, onQtyChange, onRemove }) => (
   <article className="grid gap-6 border-b border-navy-900/10 py-6 first:pt-0 lg:grid-cols-[24px_140px_1fr]">
@@ -45,6 +47,8 @@ const CartLineItem = ({ product, qty, checked, onToggle, onQtyChange, onRemove }
       <div className="mt-5 grid gap-4">
         <DeliveryOptionsBox deliveryInfo={product.deliveryInfo} />
         <CareAndRepairBox carePlans={product.carePlans} />
+        <InstallationBox price={30.00} isDeliverable={true} />
+        <RecyclingBox price={25.00} isDeliverable={true} />
       </div>
     </div>
   </article>

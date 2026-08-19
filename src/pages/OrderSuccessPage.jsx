@@ -16,7 +16,7 @@ const OrderSuccessPage = () => {
             <Link to="/checkout/review" className="flex-1 rounded border border-navy-900/15 px-5 py-3 font-semibold text-brand-blue">
               View Order
             </Link>
-            <Link to="/" className="flex-1 rounded bg-brand-blue px-5 py-3 font-semibold text-white">
+            <Link to="/" className="flex-1 rounded bg-brand-blue hover:bg-black px-5 py-3 font-semibold text-white">
               Continue Shopping
             </Link>
           </div>
