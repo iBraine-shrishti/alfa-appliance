@@ -35,7 +35,7 @@ const ProductCard = ({ product }) => {
           <img
             src={image}
             alt={name}
-            className="mx-auto aspect-square w-[82%] object-contain transition duration-300 group-hover:scale-105"
+            className="mx-auto aspect-square w-[100%] object-cover transition duration-300 group-hover:scale-105"
           />
         </Link>
       </div>
