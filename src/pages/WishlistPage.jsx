@@ -5,6 +5,10 @@ import WishlistItemCard from "../components/wishlist/WishlistItemCard";
 import WishlistSummarySidebar from "../components/wishlist/WishlistSummarySidebar";
 import WishlistEmptyState from "../components/wishlist/WishlistEmptyState";
 
+import refrigeratorImage from "../assets/products/product1/product1.png";
+import washingMachineImage from "../assets/products/product2/product2.png";
+import rangeCookerImage from "../assets/products/product3/product3.png";
+
 const INITIAL_WISHLIST = [
   {
     id: "1",
@@ -16,7 +20,7 @@ const INITIAL_WISHLIST = [
     rating: 4.8,
     reviewsCount: 124,
     inStock: true,
-    image: "https://via.placeholder.com/150",
+    image: refrigeratorImage,
   },
   {
     id: "2",
@@ -28,7 +32,7 @@ const INITIAL_WISHLIST = [
     rating: 4.6,
     reviewsCount: 89,
     inStock: true,
-    image: "https://via.placeholder.com/150",
+    image: washingMachineImage,
   },
   {
     id: "3",
@@ -40,7 +44,7 @@ const INITIAL_WISHLIST = [
     rating: 4.9,
     reviewsCount: 42,
     inStock: false,
-    image: "https://via.placeholder.com/150",
+    image: rangeCookerImage,
   },
 ];
 
@@ -88,7 +92,6 @@ const WishlistPage = () => {
           <WishlistEmptyState />
         ) : (
           <div className="grid gap-8 lg:grid-cols-[1fr_380px]">
-         
             <section className="space-y-4">
               <WishlistBatchActions
                 selectedCount={selectedItems.length}
@@ -110,7 +113,6 @@ const WishlistPage = () => {
               </div>
             </section>
 
-           
             <WishlistSummarySidebar
               selectedCount={selectedItems.length}
               subtotal={subtotal}
