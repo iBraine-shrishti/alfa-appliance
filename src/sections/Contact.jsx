@@ -1,5 +1,7 @@
-import { FiMapPin, FiMail, FiMessageCircle, FiPhone } from "react-icons/fi";
+import { useState } from "react";
+import { FiMapPin, FiMail, FiMessageCircle, FiPhone, FiCheck, FiX } from "react-icons/fi";
 import Container from "../components/common/Container";
+import Eyebrow from "../components/common/Eyebrow";
 
 const CONTACT_ITEMS = [
   {
@@ -29,17 +31,18 @@ const MAP_EMBED_SRC =
 const DIRECTIONS_URL = "https://maps.app.goo.gl/DWjEHX56tcvevond8";
 
 const Contact = () => {
+  const [isMessageSent, setIsMessageSent] = useState(false);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // TODO: wire up to your form/email backend
+    e.currentTarget.reset();
+    setIsMessageSent(true);
   };
 
   return (
     <Container className="grid grid-cols-1 gap-12 py-16 lg:grid-cols-2 lg:gap-16 lg:py-20">
       <div>
-        <span className="inline-block rounded-full border border-blue-100 bg-white px-4 py-1.5 text-xs font-bold tracking-wide text-blue-600">
-          REACH US
-        </span>
+       <Eyebrow>Reach Us</Eyebrow>
 
         <h1 className="mt-6 text-4xl font-extrabold leading-tight text-navy-950 sm:text-5xl">
           We&apos;re Always Here To Help &ndash; Just One Click Away!
@@ -181,8 +184,8 @@ const Contact = () => {
         />
 
         <div className="absolute inset-x-4 bottom-4 rounded bg-white p-5 shadow-lg sm:inset-x-6 sm:bottom-6 sm:p-6">
-          <h3 className="text-lg font-extrabold text-navy-950 sm:text-xl">
-            London Showroom
+          <h3 className="text-lg font-extrabold text-navy-950 sm:text-xl uppercase">
+            Alfa Appliances
           </h3>
           <p className="mt-2 text-sm leading-relaxed text-slate-500">
             105 Stoke Newington High St
@@ -202,11 +205,53 @@ const Contact = () => {
               href="#book-appointment"
               className="text-sm font-bold text-blue-600 hover:underline"
             >
-              Book an Appointment
+              Book an Repair
             </a>
           </div>
         </div>
       </div>
+
+      {isMessageSent && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm"
+          onClick={() => setIsMessageSent(false)}
+          role="presentation"
+        >
+          <div
+            className="relative w-full max-w-md rounded-2xl bg-white p-8 text-center shadow-2xl"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="message-sent-title"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setIsMessageSent(false)}
+              aria-label="Close message confirmation"
+              className="absolute right-4 top-4 rounded-full p-1.5 text-navy-900/45 transition-colors hover:bg-navy-900/5 hover:text-navy-950"
+            >
+              <FiX size={20} />
+            </button>
+
+            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-600">
+              <FiCheck size={28} />
+            </div>
+            <h2 id="message-sent-title" className="mt-5 text-2xl font-bold text-navy-950">
+              Message sent
+            </h2>
+            <p className="mt-2 text-sm leading-relaxed text-slate-500">
+              Thank you for contacting us. Our support team will get back to you soon.
+            </p>
+            <button
+              type="button"
+              onClick={() => setIsMessageSent(false)}
+              className="mt-6 rounded-lg bg-navy-950 px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-blue-600"
+            >
+              Done
+            </button>
+          </div>
+        </div>
+      )}
     </Container>
   );
 };

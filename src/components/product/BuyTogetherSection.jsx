@@ -35,7 +35,7 @@ const BuyTogetherSection = ({ product }) => {
           <img
             src={product.image}
             alt={product.name}
-            className="h-24 w-24 shrink-0 object-contain md:h-28 md:w-28"
+            className="h-50 w-50 shrink-0 object-cover md:h-28 md:w-28"
           />
           <div>
             <p className="text-sm font-semibold text-brand-blue">Currently viewing</p>
@@ -55,7 +55,7 @@ const BuyTogetherSection = ({ product }) => {
           <img
             src={firstBundle.addOn.image}
             alt={firstBundle.addOn.name}
-            className="h-24 w-24 shrink-0 object-contain md:h-28 md:w-28"
+            className="h-24 w-24 shrink-0 object-cover md:h-28 md:w-28"
           />
           <div>
             <p className="text-base font-bold text-navy-950">{firstBundle.addOn.name}</p>

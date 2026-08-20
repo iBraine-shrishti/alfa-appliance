@@ -9,7 +9,7 @@ const CartLineItem = ({ product, qty, checked, onToggle, onQtyChange, onRemove }
   <article className="grid gap-6 border-b border-navy-900/10 py-6 first:pt-0 lg:grid-cols-[24px_140px_1fr]">
     <CartItemCheckbox checked={checked} onChange={onToggle} label={`Include ${product.name} in total`} />
 
-    <img src={product.image} alt={product.name} className="h-32 w-full rounded object-contain lg:h-36" />
+    <img src={product.image} alt={product.name} className="h-auto w-full object-contain rounded lg:h-64 lg:object-cover" />
 
     <div>
       <h2 className="text-lg font-semibold text-navy-950">{product.name}</h2>

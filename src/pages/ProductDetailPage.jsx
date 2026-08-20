@@ -15,7 +15,7 @@ const ProductDetailPage = () => {
 
   const gallery = useMemo(() => {
     if (!product) return [];
-    return product.gallery?.length ? product.gallery : [product.image, product.image, product.image];
+    return product.gallery?.length ? product.gallery : [product.image];
   }, [product]);
 
   if (!product) {

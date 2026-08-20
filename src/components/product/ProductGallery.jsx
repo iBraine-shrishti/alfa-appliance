@@ -1,8 +1,22 @@
+import { useEffect } from "react";
 import { FiHeart } from "react-icons/fi";
+import SliderArrow from "../common/SliderArrow";
 import ProductHeader from "./ProductHeader";
 
 const ProductGallery = ({ product, gallery, activeImageIndex, setActiveImageIndex }) => {
   const activeImage = gallery[activeImageIndex] ?? product.image;
+
+  useEffect(() => {
+    setActiveImageIndex(0);
+  }, [product, setActiveImageIndex]);
+
+  const showPreviousImage = () => {
+    setActiveImageIndex((currentIndex) => (currentIndex - 1 + gallery.length) % gallery.length);
+  };
+
+  const showNextImage = () => {
+    setActiveImageIndex((currentIndex) => (currentIndex + 1) % gallery.length);
+  };
 
   return (
     <div className="lg:sticky lg:top-24 lg:self-start">
@@ -30,8 +44,28 @@ const ProductGallery = ({ product, gallery, activeImageIndex, setActiveImageInde
           <FiHeart />
         </button>
 
-        <div className="flex min-h-[420px] items-center justify-center lg:min-h-[520px]">
-          <img src={activeImage} alt={product.name} className="max-h-[600px] w-full object-contain transition duration-300" />
+        <div className="relative flex h-[420px] items-center justify-center lg:h-[520px]">
+          {gallery.length > 1 ? (
+            <SliderArrow
+              direction="left"
+              onClick={showPreviousImage}
+              className="absolute left-0 top-1/2 z-10 -translate-y-1/2"
+            />
+          ) : null}
+
+          <img
+            src={activeImage}
+            alt={product.name}
+            className="h-full max-h-[600px] max-w-[82%] object-contain transition duration-300"
+          />
+
+          {gallery.length > 1 ? (
+            <SliderArrow
+              direction="right"
+              onClick={showNextImage}
+              className="absolute right-0 top-1/2 z-10 -translate-y-1/2"
+            />
+          ) : null}
         </div>
       </div>
 
@@ -46,7 +80,7 @@ const ProductGallery = ({ product, gallery, activeImageIndex, setActiveImageInde
             }`}
             aria-label={`Show image ${index + 1}`}
           >
-            <img src={image} alt={`${product.name} thumbnail ${index + 1}`} className="h-16 w-16 object-contain" />
+            <img src={image} alt={`${product.name} thumbnail ${index + 1}`} className="h-35 w-35 object-cover" />
           </button>
         ))}
       </div>

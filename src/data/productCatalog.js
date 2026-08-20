@@ -2,8 +2,45 @@ import { products as homeProducts } from "./products";
 import { categoryPages } from "./categoryPages";
 import feature1 from "../assets/products/product-feature/feature1.png";
 import feature2 from "../assets/products/product-feature/feature2.png";
+import { getProductGallery } from "./productGalleries";
 
 const allCategoryProducts = Object.values(categoryPages).flatMap((page) => page.products);
+
+const createDefaultReviews = (image) => {
+  const gallery = getProductGallery(image);
+  const reviewTemplates = [
+    { author: "Ramesh", time: "10:30 AM", rating: 5, text: "Excellent build and exceptional cooling. The controls feel intuitive and premium." },
+    { author: "Suresh", time: "10:30 AM", rating: 5, text: "Beautiful finish and quiet operation. Very happy with the overall quality." },
+    { author: "Priya", time: "9:15 AM", rating: 4, text: "Great value for the price. Setup was quick and the app integration works well." },
+    { author: "Arjun", time: "6:42 PM", rating: 5, text: "Sleek design that fits our kitchen perfectly. Would definitely recommend." },
+    { author: "Meera", time: "2:05 PM", rating: 4, text: "Does exactly what it promises. A few minor quirks with the touch controls but overall solid." },
+  ];
+  const reviewTexts = [
+    "The finish looks premium and has stayed easy to clean after regular use.",
+    "Delivery was straightforward, and the appliance was simple to set up.",
+    "It runs quietly enough for our open-plan kitchen and performs consistently.",
+    "The storage layout is practical, with plenty of room for our weekly shop.",
+    "The controls are clear, responsive, and easy for everyone in the household.",
+    "Good everyday performance and a design that fits neatly into our kitchen.",
+    "The temperature stays stable, and food has been keeping fresh for longer.",
+    "A dependable appliance with useful features and a solid overall build.",
+    "The doors and drawers feel sturdy, and the interior is easy to organise.",
+    "A worthwhile upgrade with good capacity and reliable day-to-day performance.",
+  ];
+  const reviewTimes = ["8:20 AM", "11:45 AM", "1:10 PM", "3:35 PM", "5:50 PM", "7:25 PM"];
+
+  return Array.from({ length: 50 }, (_, index) => {
+    const template = reviewTemplates[index % reviewTemplates.length];
+    const isNamedReview = index < reviewTemplates.length;
+    return {
+      author: isNamedReview ? template.author : `Customer ${String(index + 1).padStart(2, "0")}`,
+      time: isNamedReview ? template.time : reviewTimes[index % reviewTimes.length],
+      rating: isNamedReview ? template.rating : [5, 4, 5, 4, 3][index % 5],
+      text: isNamedReview ? template.text : reviewTexts[index % reviewTexts.length],
+      image: index % 3 === 2 ? undefined : gallery[index % gallery.length],
+    };
+  });
+};
 
 const defaultColours = [
   { name: "Stainless Steel", swatchClass: "bg-gradient-to-br from-slate-200 via-slate-400 to-slate-500" },
@@ -132,6 +169,7 @@ const defaultBreakdownSupport = {
 
 export const productCatalog = [...homeProducts, ...allCategoryProducts].map((product) => ({
   ...product,
+  gallery: product.gallery?.length ? product.gallery : getProductGallery(product.image),
   slug:
     product.slug ??
     product.name
@@ -151,13 +189,13 @@ export const productCatalog = [...homeProducts, ...allCategoryProducts].map((pro
   discountBadge: product.discountBadge ?? "15% OFF",
   colours: product.colours ?? defaultColours,
   ratingAverage: product.ratingAverage ?? 4.5,
-  reviewCount: product.reviewCount ?? 128,
+  reviewCount: product.reviewCount ?? 50,
   ratingBreakdown:
     product.ratingBreakdown ?? [
-      { star: 5, count: 108 },
-      { star: 4, count: 12 },
-      { star: 3, count: 4 },
-      { star: 2, count: 2 },
+      { star: 5, count: 30 },
+      { star: 4, count: 10 },
+      { star: 3, count: 5 },
+      { star: 2, count: 3 },
       { star: 1, count: 2 },
     ],
   featureRatings:
@@ -225,13 +263,7 @@ export const productCatalog = [...homeProducts, ...allCategoryProducts].map((pro
     { label: "Smart / Connectivity", value: "Wi-Fi Enabled (App Control)" },
   ],
   reviews:
-    product.reviewsData ?? [
-      { author: "Ramesh", time: "10:30 AM", rating: 5, text: "Excellent build and exceptional cooling. The controls feel intuitive and premium.", image: product.image },
-      { author: "Suresh", time: "10:30 AM", rating: 5, text: "Beautiful finish and quiet operation. Very happy with the overall quality.", image: product.image },
-      { author: "Priya", time: "9:15 AM", rating: 4, text: "Great value for the price. Setup was quick and the app integration works well." },
-      { author: "Arjun", time: "6:42 PM", rating: 5, text: "Sleek design that fits our kitchen perfectly. Would definitely recommend.", image: product.image },
-      { author: "Meera", time: "2:05 PM", rating: 4, text: "Does exactly what it promises. A few minor quirks with the touch controls but overall solid." },
-    ],
+    product.reviewsData ?? createDefaultReviews(product.image),
     
 }));
 

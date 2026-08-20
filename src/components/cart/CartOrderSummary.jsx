@@ -86,7 +86,7 @@ const CartOrderSummary = ({ itemCount, subtotal, totalSavings, flexpay }) => {
 
       <Link
         to="/checkout/delivery"
-        className="mt-5 block rounded-full bg-navy-950 px-4 py-3.5 text-center font-semibold text-white"
+        className="mt-5 block rounded bg-brand-blue hover:bg-navy-950 px-4 py-3.5 text-center font-semibold text-white"
       >
         Checkout
       </Link>

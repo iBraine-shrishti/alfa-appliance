@@ -19,6 +19,7 @@ import AddressBookTab from "../components/profile-tabs/AddressBookTab";
 
 const ProfilePage = () => {
   const [activeTab, setActiveTab] = useState("orders"); 
+  const [trackingNumber, setTrackingNumber] = useState("ALFA-904218");
   const [user] = useState({
     name: "Alex Morgan",
     email: "alex.morgan@example.com",
@@ -137,8 +138,17 @@ const ProfilePage = () => {
 
           <main className="min-h-[500px]">
             {activeTab === "settings" && <AccountSettingsTab user={user} />}
-            {activeTab === "orders" && <OrdersHistoryTab />}
-            {activeTab === "track" && <TrackOrderTab />}
+            {activeTab === "orders" && (
+              <OrdersHistoryTab
+                onTrackOrder={(orderId) => {
+                  setTrackingNumber(orderId);
+                  setActiveTab("track");
+                }}
+              />
+            )}
+            {activeTab === "track" && (
+              <TrackOrderTab key={trackingNumber} initialTrackingNumber={trackingNumber} />
+            )}
             {activeTab === "addresses" && <AddressBookTab />}
           </main>
         </div>

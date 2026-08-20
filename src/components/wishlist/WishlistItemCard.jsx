@@ -17,11 +17,11 @@ const WishlistItemCard = ({ product, isSelected, onToggleSelect, onRemove }) => 
           className="mt-1.5 h-4 w-4 rounded border-slate-300 text-amber-500 focus:ring-amber-500 sm:mt-0"
         />
 
-        <div className="relative flex h-24 w-24 shrink-0 items-center justify-center rounded-lg border border-slate-100 bg-slate-50 p-2">
+        <div className="relative flex h-50 w-50 shrink-0 items-center justify-center rounded-lg border border-slate-100 bg-slate-50 ">
           <img
             src={product.image}
             alt={product.name}
-            className="h-full w-full object-contain"
+            className="h-full w-full object-conatin"
           />
         </div>
 

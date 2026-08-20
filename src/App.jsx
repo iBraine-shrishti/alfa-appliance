@@ -13,6 +13,7 @@ import Contact from "./sections/Contact";
 import Auth from "./pages/Auth";
 import WishlistPage from "./pages/WishlistPage";
 import ProfilePage from "./pages/ProfilePage";
+import TrackOrderPage from "./pages/TrackOrderPage";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/order-success" element={<OrderSuccessPage />} />
         <Route path="/collections" element={<AllCollectionsPage />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/track-order" element={<TrackOrderPage />} />
         <Route path="/login" element={<Auth />} />
         <Route path="/wishlist" element={<WishlistPage />} />
         <Route path="/account" element={<ProfilePage />} />

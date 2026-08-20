@@ -17,7 +17,19 @@ const WriteReviewModal = ({ isOpen, onClose, onSubmitReview }) => {
       alert("You can upload a maximum of 5 photos.");
       return;
     }
-    setUploadedFiles((prev) => [...prev, ...files]);
+
+    const filesWithPreviews = files.map((file) => ({
+      file,
+      previewUrl: URL.createObjectURL(file),
+    }));
+
+    setUploadedFiles((prev) => [...prev, ...filesWithPreviews]);
+    e.target.value = "";
+  };
+
+  const handleRemoveFile = (previewUrl) => {
+    URL.revokeObjectURL(previewUrl);
+    setUploadedFiles((prev) => prev.filter((file) => file.previewUrl !== previewUrl));
   };
 
   const handleSubmit = (e) => {
@@ -33,7 +45,7 @@ const WriteReviewModal = ({ isOpen, onClose, onSubmitReview }) => {
       rating,
       text: reviewText,
       time: "Just now",
-      image: uploadedFiles.length > 0 ? URL.createObjectURL(uploadedFiles[0]) : null,
+      image: uploadedFiles.length > 0 ? uploadedFiles[0].previewUrl : null,
     };
 
     if (onSubmitReview) {
@@ -132,9 +144,21 @@ const WriteReviewModal = ({ isOpen, onClose, onSubmitReview }) => {
               </p>
             </div>
             {uploadedFiles.length > 0 && (
-              <p className="mt-1.5 text-xs font-medium text-brand-blue">
-                {uploadedFiles.length} file(s) attached
-              </p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {uploadedFiles.map(({ previewUrl, file }) => (
+                  <div key={previewUrl} className="relative h-25 w-25 overflow-hidden rounded-lg border border-navy-900/10 bg-navy-900/5">
+                    <img src={previewUrl} alt={file.name} className="h-full w-full object-cover" />
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveFile(previewUrl)}
+                      aria-label={`Remove ${file.name}`}
+                      className="absolute right-1 top-1 flex h-5 w-5 items-center justify-center rounded-full bg-black/65 text-white transition-colors hover:bg-black/85"
+                    >
+                      <FiX size={12} />
+                    </button>
+                  </div>
+                ))}
+              </div>
             )}
           </div>
 
@@ -174,7 +198,7 @@ const WriteReviewModal = ({ isOpen, onClose, onSubmitReview }) => {
         
           <button
             type="submit"
-            className="w-full rounded-xl bg-navy-900 py-3.5 text-sm font-bold text-white shadow-md transition-all hover:bg-navy-950"
+            className="w-full rounded-xl bg-navy-900 py-3.5 text-sm font-bold text-white shadow-md transition-all hover:bg-brand-blue"
           >
             Submit Review
           </button>

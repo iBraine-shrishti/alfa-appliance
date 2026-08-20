@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FiMapPin, FiPlus, FiTrash2, FiEdit2, FiCheck } from "react-icons/fi";
+import { FiMapPin, FiPlus, FiTrash2, FiEdit2, FiCheck, FiX } from "react-icons/fi";
 
 const initialAddresses = [
   {
@@ -27,6 +27,14 @@ const initialAddresses = [
 const AddressBookTab = () => {
   const [addresses, setAddresses] = useState(initialAddresses);
   const [showAddModal, setShowAddModal] = useState(false);
+  const [newAddress, setNewAddress] = useState({
+    label: "Home",
+    fullName: "",
+    street: "",
+    city: "",
+    postcode: "",
+    phone: "",
+  });
 
   const setAsDefault = (id) => {
     setAddresses((prev) =>
@@ -36,6 +44,21 @@ const AddressBookTab = () => {
 
   const deleteAddress = (id) => {
     setAddresses((prev) => prev.filter((addr) => addr.id !== id));
+  };
+
+  const handleAddressChange = (event) => {
+    const { name, value } = event.target;
+    setNewAddress((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleAddAddress = (event) => {
+    event.preventDefault();
+    setAddresses((prev) => [
+      ...prev,
+      { ...newAddress, id: Date.now().toString(), isDefault: prev.length === 0 },
+    ]);
+    setNewAddress({ label: "Home", fullName: "", street: "", city: "", postcode: "", phone: "" });
+    setShowAddModal(false);
   };
 
   return (
@@ -119,6 +142,64 @@ const AddressBookTab = () => {
           </div>
         ))}
       </div>
+
+      {showAddModal && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm"
+          onClick={() => setShowAddModal(false)}
+          role="presentation"
+        >
+          <div
+            className="relative max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-white p-6 shadow-2xl sm:p-8"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setShowAddModal(false)}
+              aria-label="Close add address form"
+              className="absolute right-5 top-5 rounded-full p-1 text-navy-900/40 hover:bg-navy-900/5 hover:text-navy-950"
+            >
+              <FiX size={20} />
+            </button>
+
+            <div className="flex items-center gap-2">
+              <FiMapPin className="text-brand-blue" />
+              <h3 className="text-xl font-bold text-navy-950">Add Address</h3>
+            </div>
+
+            <form onSubmit={handleAddAddress} className="mt-6 grid gap-4 sm:grid-cols-2">
+              <label className="text-sm font-semibold text-navy-950">
+                Address label
+                <input name="label" value={newAddress.label} onChange={handleAddressChange} placeholder="Home" required className="mt-1.5 w-full rounded border border-navy-900/15 px-3 py-2.5 font-normal focus:border-brand-blue focus:outline-none" />
+              </label>
+              <label className="text-sm font-semibold text-navy-950">
+                Full name
+                <input name="fullName" value={newAddress.fullName} onChange={handleAddressChange} placeholder="Alex Morgan" required className="mt-1.5 w-full rounded border border-navy-900/15 px-3 py-2.5 font-normal focus:border-brand-blue focus:outline-none" />
+              </label>
+              <label className="text-sm font-semibold text-navy-950 sm:col-span-2">
+                Street address
+                <input name="street" value={newAddress.street} onChange={handleAddressChange} placeholder="House number and street" required className="mt-1.5 w-full rounded border border-navy-900/15 px-3 py-2.5 font-normal focus:border-brand-blue focus:outline-none" />
+              </label>
+              <label className="text-sm font-semibold text-navy-950">
+                City
+                <input name="city" value={newAddress.city} onChange={handleAddressChange} placeholder="London" required className="mt-1.5 w-full rounded border border-navy-900/15 px-3 py-2.5 font-normal focus:border-brand-blue focus:outline-none" />
+              </label>
+              <label className="text-sm font-semibold text-navy-950">
+                Postcode
+                <input name="postcode" value={newAddress.postcode} onChange={handleAddressChange} placeholder="NW1 6XE" required className="mt-1.5 w-full rounded border border-navy-900/15 px-3 py-2.5 font-normal uppercase focus:border-brand-blue focus:outline-none" />
+              </label>
+              <label className="text-sm font-semibold text-navy-950 sm:col-span-2">
+                Phone number
+                <input type="tel" name="phone" value={newAddress.phone} onChange={handleAddressChange} placeholder="+44 7700 900077" required className="mt-1.5 w-full rounded border border-navy-900/15 px-3 py-2.5 font-normal focus:border-brand-blue focus:outline-none" />
+              </label>
+              <div className="flex justify-end gap-2 sm:col-span-2">
+                <button type="button" onClick={() => setShowAddModal(false)} className="rounded border border-navy-900/15 px-4 py-2.5 text-sm font-semibold text-navy-950 hover:bg-navy-900/5">Cancel</button>
+                <button type="submit" className="rounded bg-brand-blue px-4 py-2.5 text-sm font-semibold text-white hover:bg-black">Save Address</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

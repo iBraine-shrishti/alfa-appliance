@@ -1,4 +1,6 @@
-import { FiPackage, FiExternalLink, FiTruck, FiRotateCcw, FiCheckCircle } from "react-icons/fi";
+import { FiExternalLink, FiTruck, FiRotateCcw, FiCheckCircle, FiXCircle } from "react-icons/fi";
+import refrigeratorImage from "../../assets/products/product1/product1.png";
+import washingMachineImage from "../../assets/products/product2/product2.png";
 
 const mockOrders = [
   {
@@ -12,7 +14,7 @@ const mockOrders = [
         name: "ALFA Precision French Door Refrigerator",
         sku: "ALFA-RF-9051X",
         price: 3499.0,
-        image: "https://via.placeholder.com/100",
+        image: refrigeratorImage,
         services: ["🏢 Stair Heroes Delivery", "♻️ Free Removal & Recycling"],
       },
     ],
@@ -28,14 +30,30 @@ const mockOrders = [
         name: "ALFA Ultra-Quiet Front Load Washing Machine",
         sku: "ALFA-WM-3011S",
         price: 899.0,
-        image: "https://via.placeholder.com/100",
+        image: washingMachineImage,
         services: ["Pro Installation & Setup (£30.00)"],
+      },
+    ],
+  },
+  {
+    id: "ALFA-867530",
+    date: "03 May 2026",
+    status: "Cancelled",
+    statusColor: "bg-rose-500/10 text-rose-700 border-rose-200",
+    total: 599.0,
+    items: [
+      {
+        name: "ALFA Compact Frost Free Refrigerator",
+        sku: "ALFA-RF-2040W",
+        price: 599.0,
+        image: refrigeratorImage,
+        services: ["Order cancelled before dispatch"],
       },
     ],
   },
 ];
 
-const OrdersHistoryTab = () => {
+const OrdersHistoryTab = ({ onTrackOrder }) => {
   return (
     <div className="space-y-6">
       <div>
@@ -64,7 +82,7 @@ const OrdersHistoryTab = () => {
                 <span
                   className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-bold ${order.statusColor}`}
                 >
-                  <FiCheckCircle size={12} /> {order.status}
+                  {order.status === "Cancelled" ? <FiXCircle size={12} /> : <FiCheckCircle size={12} />} {order.status}
                 </span>
               </div>
             </div>
@@ -74,8 +92,8 @@ const OrdersHistoryTab = () => {
               {order.items.map((item, idx) => (
                 <div key={idx} className="flex flex-col gap-4 py-4 sm:flex-row sm:items-center sm:justify-between">
                   <div className="flex items-center gap-4">
-                    <div className="h-16 w-16 shrink-0 rounded border border-navy-900/10 bg-navy-900/5 p-2">
-                      <img src={item.image} alt={item.name} className="h-full w-full object-contain" />
+                    <div className="h-60 w-60 shrink-0 rounded border border-navy-900/10 bg-navy-900/5 p-2">
+                      <img src={item.image} alt={item.name} className="h-full w-full object-cover" />
                     </div>
                     <div>
                       <h4 className="text-sm font-bold text-navy-950">{item.name}</h4>
@@ -117,9 +135,11 @@ const OrdersHistoryTab = () => {
                 </button>
                 <button
                   type="button"
-                  className="inline-flex items-center gap-1.5 rounded bg-brand-blue hover:bg-black px-4 py-2 text-xs font-bold text-white transition-all"
+                  onClick={() => onTrackOrder(order.id)}
+                  disabled={order.status === "Cancelled"}
+                  className="inline-flex items-center gap-1.5 rounded bg-brand-blue px-4 py-2 text-xs font-bold text-white transition-all hover:bg-black disabled:cursor-not-allowed disabled:bg-navy-900/15 disabled:text-navy-900/40 disabled:hover:bg-navy-900/15"
                 >
-                  <FiTruck size={14} /> Track Delivery
+                  <FiTruck size={14} /> {order.status === "Cancelled" ? "Tracking Unavailable" : "Track Delivery"}
                 </button>
               </div>
             </div>
