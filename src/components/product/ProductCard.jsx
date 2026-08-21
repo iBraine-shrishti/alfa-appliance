@@ -5,7 +5,9 @@ import StarRating from "../common/StarRating";
 
 const ProductCard = ({ product }) => {
   const { brand, name, image, rating, reviews, price, oldPrice, discount, badge } = product;
-  const productSlug = product.slug ?? name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const productSlug = product.slug ?? (name || "product").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
+  const displayImage = image || "https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?w=800&q=80";
 
   return (
     <div className="group flex flex-col rounded-lg border border-navy-900/10 bg-white shadow-sm transition-shadow hover:shadow-md">
@@ -33,22 +35,25 @@ const ProductCard = ({ product }) => {
         </div>
         <Link to={`/product/${productSlug}`} className="block">
           <img
-            src={image}
-            alt={name}
+            src={displayImage}
+            alt={name || "Appliance"}
+            onError={(e) => {
+              e.target.src = "https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?w=800&q=80";
+            }}
             className="mx-auto aspect-square w-[100%] object-cover transition duration-300 group-hover:scale-105"
           />
         </Link>
       </div>
 
       <div className="flex flex-1 flex-col gap-1.5 pt-3 px-3 pb-4">
-        <p className="text-xs font-semibold uppercase tracking-wide text-brand-blue">{brand}</p>
+        <p className="text-xs font-semibold uppercase tracking-wide text-brand-blue">{brand || "Alfa"}</p>
         <Link to={`/product/${productSlug}`} className="block">
           <h3 className="line-clamp-2 min-h-[2.5rem] text-sm font-medium text-navy-900">{name}</h3>
         </Link>
-        <StarRating rating={rating} reviews={reviews} />
+        <StarRating rating={rating || 4.5} reviews={reviews || 50} />
         <div className="mt-1 flex items-baseline gap-2">
-          <span className="text-lg font-semibold text-navy-950">${price}</span>
-          {oldPrice && <span className="text-sm text-navy-900/40 line-through">${oldPrice}</span>}
+          <span className="text-lg font-semibold text-navy-950">£{parseFloat(price).toFixed(2)}</span>
+          {oldPrice && <span className="text-sm text-navy-900/40 line-through">£{parseFloat(oldPrice).toFixed(2)}</span>}
           {discount && <span className="text-xs font-semibold text-brand-orange-dark">{discount}% off</span>}
         </div>
         <label className="mt-2 flex items-center gap-2 text-xs text-navy-900/60">

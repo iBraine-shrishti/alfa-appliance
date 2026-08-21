@@ -20,19 +20,21 @@ function App() {
     <Routes>
       <Route element={<MainLayout />}>
         <Route path="/" element={<Home />} />
-        <Route path="/:slug" element={<CategoryPage />} />
+        <Route path="/collections" element={<AllCollectionsPage />} />
+        <Route path="/collection/:slug" element={<CategoryPage />} />
+        <Route path="/collections/:slug" element={<CategoryPage />} />
         <Route path="/product/:slug" element={<ProductDetailPage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/checkout/delivery" element={<CheckoutDeliveryPage />} />
         <Route path="/checkout/payment" element={<CheckoutPaymentPage />} />
         <Route path="/checkout/review" element={<CheckoutReviewPage />} />
         <Route path="/order-success" element={<OrderSuccessPage />} />
-        <Route path="/collections" element={<AllCollectionsPage />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/track-order" element={<TrackOrderPage />} />
         <Route path="/login" element={<Auth />} />
         <Route path="/wishlist" element={<WishlistPage />} />
         <Route path="/account" element={<ProfilePage />} />
+        <Route path="/:slug" element={<CategoryPage />} />
       </Route>
     </Routes>
   );

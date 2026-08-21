@@ -20,11 +20,10 @@ const CategorySection = () => {
     <section className="py-12 sm:py-16">
       <Container>
         <h2 className="mb-8 text-center font-display text-3xl font-semibold text-navy-950 sm:text-4xl md:text-5xl lg:text-[44px]">   
-                 Shop by Category
+          Shop by Category
         </h2>
 
         <div className="relative">
-
           <div
             ref={prevRef}
             className="absolute -left-4 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full !bg-blue-600 !text-white shadow-md transition-opacity hover:opacity-90 sm:-left-6"

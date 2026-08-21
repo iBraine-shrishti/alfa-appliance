@@ -9,8 +9,8 @@ const BrandSection = () => {
       <Container>
         <div className="mb-10 text-center">
           <Eyebrow>Welcome to Our store</Eyebrow>
-         <h2 className="mb-8 mt-8 text-center font-display text-3xl font-semibold text-navy-950 sm:text-4xl md:text-5xl lg:text-[44px]">   
-           Our premium brands
+          <h2 className="mb-8 mt-8 text-center font-display text-3xl font-semibold text-navy-950 sm:text-4xl md:text-5xl lg:text-[44px]">   
+            Our premium brands
           </h2>
         </div>
 

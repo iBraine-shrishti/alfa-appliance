@@ -1,13 +1,13 @@
-const ProductInfoContent = ({ product }) => {
+const ProductInfoContent = ({ product = {} }) => {
   const rows = [
-    ["Category", "Refrigerators"],
-    ["Brand", "ALFA APPLIANCES"],
-    ["Color", product.finish],
-    ["Material", "Premium Grade Stainless Steel"],
-    ["Weight", "142 kg"],
-    ["Dimensions", '70" x 35.75" x 31.5"'],
-    ["Department", "Home Appliances"],
-    ["Manufacturer", "ALFA Global Manufacturing Ltd."],
+    ["Category", product.categoryName || product.category_name || product.category || "Home Appliances"],
+    ["Brand", product.brandName || product.brand_name || product.brand || "Alfa"],
+    ["Color / Finish", product.color || product.finish || "Brushed Stainless Steel"],
+    ["Capacity", product.capacity || "8.0 Kg / 345 Litres"],
+    ["Weight", product.weight || "68 kg"],
+    ["Dimensions", product.dimensions || "60 x 55 x 85 cm"],
+    ["Energy Rating", product.energyRating || product.energy_rating || "5 Star"],
+    ["Manufacturer", "Alfa Appliances UK Ltd."],
   ];
 
   return (
