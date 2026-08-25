@@ -6,7 +6,11 @@ export const cookingPage = {
   hero: {
     breadcrumb: [{ label: "Home", href: "/" }, { label: "Cooking" }],
     title: "Cooking",
-    subtitle: "Built-in ovens, hobs, and cooking appliances that bring precision and confidence to every meal.",
+    subtitle: {
+      before: "Built-in ",
+      highlight: "ovens, hobs, and cooking appliances",
+      after: " that bring precision and confidence to every meal.",
+    },
     image: heroImage,
   },
   filters: {

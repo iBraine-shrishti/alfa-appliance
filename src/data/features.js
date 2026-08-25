@@ -1,26 +1,26 @@
 export const features = [
   {
-    id: "delivery",
-    title: "Fast UK Delivery",
+    id: "store",
+    title: " 20+ Years, A Real London Store",
     description:
-      "Enjoy quick and reliable delivery across the UK, ensuring your new appliances arrive safely and on time.",
+      "Over two decades of trading from a physical shop, with our own vans and in-house engineers — not a faceless online reseller.",
   },
   {
-    id: "returns",
-    title: "Easy Returns",
+    id: "delivery",
+    title: "Delivered & Installed by Our Own Engineers",
     description:
-      "Shop with confidence thanks to our straightforward return policy and dedicated customer assistance.",
+      "No handing you off to a courier. Our trained engineers deliver, install, and set up your appliance properly.",
+  },
+ {
+    id: "repair",
+    title: "Sales, Repairs & Full Warranty",
+    description:
+      "Sales and repairs under one roof. Every product carries the <strong>full manufacturer’s warranty</strong>, and if an installation ever faults, our engineers come out to fix or replace it.",
   },
   {
     id: "checkout",
     title: "Secure Checkout",
     description:
-      "Your payments are protected with trusted encryption and secure payment gateways for complete peace of mind.",
-  },
-  {
-    id: "support",
-    title: "Fast UK Delivery",
-    description:
-      "Your payments are protected with trusted encryption and secure payment gateways for complete peace of mind.",
+      "Your payments are protected with trusted encryption and secure gateways for complete peace of mind.",
   },
 ];

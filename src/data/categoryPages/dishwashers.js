@@ -6,7 +6,11 @@ export const dishwashersPage = {
   hero: {
     breadcrumb: [{ label: "Home", href: "/" }, { label: "Dishwashers" }],
     title: "Dishwashers",
-    subtitle: "Quiet, efficient dishwashers with flexible loading and clean, modern styling.",
+    subtitle: {
+      before: "Quiet, efficient ",
+      highlight: "dishwashers",
+      after: " with flexible loading and clean, modern styling.",
+    },
     image: heroImage,
   },
   filters: {

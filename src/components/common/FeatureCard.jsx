@@ -5,7 +5,10 @@ const FeatureCard = ({ icon: Icon, title, description }) => {
         <Icon size={20} />
       </span>
       <h3 className="font-display text-base font-semibold text-navy-950">{title}</h3>
-      <p className="text-sm leading-relaxed text-navy-900/60">{description}</p>
+      <p
+          className="mt-2 text-sm text-navy-900/60 leading-relaxed"
+          dangerouslySetInnerHTML={{ __html: description }}
+        />
     </div>
   );
 };

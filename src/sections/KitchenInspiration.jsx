@@ -1,12 +1,13 @@
 import { FiArrowRight } from "react-icons/fi";
+import { Link } from "react-router-dom";
 import Container from "../components/common/Container";
 import Eyebrow from "../components/common/Eyebrow";
 import InspirationTile from "../components/banner/InspirationTile";
-
-import kitchenImg from "../assets/inspiration/kitchen.png";
+// import ceramicHobsImg from "../assets/inspiration/ceramic-hobs.png";
+// import kitchenImg from "../assets/inspiration/kitchen.png";
 import washingMachineImg from "../assets/inspiration/washing-machine.png";
-import ceramicHobsImg from "../assets/inspiration/ceramic-hobs.png";
-
+import washerDryer from "../assets/inspiration/washer-dryer.png";
+import tumbleDryer from "../assets/inspiration/tumble-dryer.png";
 const KitchenInspiration = () => {
   return (
     <section className="py-12 sm:py-16">
@@ -21,34 +22,45 @@ const KitchenInspiration = () => {
 
           <div className="w-full max-w-[600px]">
             <p className="text-sm text-navy-900/60 sm:text-base md:text-[17px]">
-              Powerful washing machines with intelligent programmes, energy efficiency, and exceptional fabric care for every household.
+              Powerful <span className="font-bold">washing machines, washer dryers, dryers</span> with intelligent programmes, energy efficiency, and exceptional fabric care for every household.
             </p>
-            <button
-              type="button"
-              className="mt-4 inline-flex items-center gap-2 rounded-full border border-navy-900/15 px-5 py-2.5 text-sm font-medium text-navy-900 transition-colors hover:border-brand-blue hover:text-brand-blue"
-            >
-              Explore Laundry
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-blue text-white">
+            <Link to="/laundry" className="inline-block mt-4">
+              <button
+                type="button"
+                className="inline-flex items-center gap-2 rounded-full border border-navy-900/15 px-5 py-2.5 text-sm font-medium text-navy-900 transition-colors hover:border-brand-blue hover:text-brand-blue"
+              >
+                Explore Laundry
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-blue text-white">
                   <FiArrowRight size={14} />
                 </span>
-            </button>
+              </button>
+            </Link>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1.6fr_1fr]">
-          <div className="overflow-hidden rounded-lg">
-            <img
-              src={kitchenImg}
-              alt="Dream kitchen with premium appliances"
-              className="h-[280px] w-full object-cover sm:h-[380px] lg:h-full"
-            />
-          </div>
+        
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1.6fr_1fr]">
+        <InspirationTile
+          image={washingMachineImg}
+          label="Washing Machines"
+          slug="washing-machines"
+          className="h-full"
+          imgClassName="h-[280px] w-full object-cover sm:h-[380px] lg:h-full"
+        />
 
-          <div className="grid grid-cols-2 gap-4 lg:grid-cols-1">
-            <InspirationTile image={washingMachineImg} label="Washing Machine" />
-            <InspirationTile image={ceramicHobsImg} label="Ceramic Hobs" />
-          </div>
+        <div className="grid grid-cols-2 gap-4 lg:grid-cols-1">
+          <InspirationTile
+            image={washerDryer}
+            label="Waher Dryers"
+            slug="washer-dryers"
+          />
+          <InspirationTile
+            image={tumbleDryer}
+            label="Dryers"
+            slug="tumble-dryers"
+          />
         </div>
+      </div>
       </Container>
     </section>
   );

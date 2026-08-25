@@ -6,7 +6,11 @@ export const refrigeratorPage = {
   hero: {
     breadcrumb: [{ label: "Home", href: "/" }, { label: "Refrigerators" }],
     title: "Refrigerators",
-    subtitle: "Space-saving cooling solutions that preserve freshness and fit beautifully into modern kitchens.",
+    subtitle: {
+      before: "Space-saving ",
+      highlight: "cooling solutions",
+      after: " that preserve freshness and fit beautifully into modern kitchens.",
+    },
     image: heroImage,
   },
   filters: {

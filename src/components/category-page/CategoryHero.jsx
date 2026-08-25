@@ -29,7 +29,13 @@ const CategoryHero = ({ breadcrumb, title, subtitle, image }) => {
               {title}
             </h1>
             <p className="mt-3 max-w-xl text-sm leading-6 text-white/80 sm:text-base">
-              {subtitle}
+              {typeof subtitle === "string" ? subtitle : (
+                <>
+                  {subtitle.before}
+                  <span className="font-bold text-white">{subtitle.highlight}</span>
+                  {subtitle.after}
+                </>
+              )}
             </p>
           </div>
         </div>

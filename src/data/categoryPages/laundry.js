@@ -21,21 +21,25 @@ const baseFilters = {
 };
 
 const laundryProducts = [
-  { id: "laundry-1", brand: "Samsung", name: "Eco Bubble 9kg Front Load Washing Machine", image: product1, rating: 4.8, reviews: 214, price: 749, oldPrice: 863, discount: 13, badge: "Offer" },
-  { id: "laundry-2", brand: "Bosch", name: "Serie 4 Front Load Washing Machine", image: product2, rating: 4.7, reviews: 91, price: 905, oldPrice: null, discount: null, badge: null },
-  { id: "laundry-3", brand: "Miele", name: "Heat Pump Tumble Dryer", image: product3, rating: 4.8, reviews: 126, price: 1199, oldPrice: 1320, discount: 9, badge: "New" },
-  { id: "laundry-4", brand: "LG", name: "TurboWash 8kg Washing Machine", image: product4, rating: 4.6, reviews: 74, price: 945, oldPrice: null, discount: null, badge: null },
-  { id: "laundry-5", brand: "Samsung", name: "10kg Front Load Washing Machine", image: product5, rating: 4.7, reviews: 88, price: 999, oldPrice: null, discount: null, badge: null },
-  { id: "laundry-6", brand: "Beko", name: "Series 6 Heat Pump Tumble Dryer", image: product6, rating: 4.7, reviews: 63, price: 849, oldPrice: null, discount: null, badge: "New" },
-  { id: "laundry-7", brand: "Miele", name: "W1 Front Load Washing Machine", image: product7, rating: 4.8, reviews: 55, price: 1499, oldPrice: 1599, discount: 6, badge: "Offer" },
-  { id: "laundry-8", brand: "Bosch", name: "Serie 4 Front Load Washing Machine", image: product8, rating: 4.7, reviews: 78, price: 599, oldPrice: 699, discount: 14, badge: null },
+  { id: "laundry-1", subcategory: "washing-machines", brand: "Samsung", name: "Eco Bubble 9kg Front Load Washing Machine", image: product1, rating: 4.8, reviews: 214, price: 749, oldPrice: 863, discount: 13, badge: "Offer" },
+  { id: "laundry-2", subcategory: "washing-machines", brand: "Bosch", name: "Serie 4 Front Load Washing Machine", image: product2, rating: 4.7, reviews: 91, price: 905, oldPrice: null, discount: null, badge: null },
+  { id: "laundry-3", subcategory: "tumble-dryers", brand: "Miele", name: "Heat Pump Tumble Dryer", image: product3, rating: 4.8, reviews: 126, price: 1199, oldPrice: 1320, discount: 9, badge: "New" },
+  { id: "laundry-4", subcategory: "washer-dryers", brand: "LG", name: "TurboWash 8kg Washer Dryer", image: product4, rating: 4.6, reviews: 74, price: 945, oldPrice: null, discount: null, badge: null },
+  { id: "laundry-5", subcategory: "washing-machines", brand: "Samsung", name: "10kg Front Load Washing Machine", image: product5, rating: 4.7, reviews: 88, price: 999, oldPrice: null, discount: null, badge: null },
+  { id: "laundry-6", subcategory: "tumble-dryers", brand: "Beko", name: "Series 6 Heat Pump Tumble Dryer", image: product6, rating: 4.7, reviews: 63, price: 849, oldPrice: null, discount: null, badge: "New" },
+  { id: "laundry-7", subcategory: "washing-machines", brand: "Miele", name: "W1 Front Load Washing Machine", image: product7, rating: 4.8, reviews: 55, price: 1499, oldPrice: 1599, discount: 6, badge: "Offer" },
+  { id: "laundry-8", subcategory: "washer-dryers", brand: "Bosch", name: "Serie 4 Washer Dryer", image: product8, rating: 4.7, reviews: 78, price: 599, oldPrice: 699, discount: 14, badge: null },
 ];
 
 export const laundryPage = {
   hero: {
     breadcrumb: [{ label: "Home", href: "/" }, { label: "Laundry" }],
     title: "Laundry",
-    subtitle: "Discover high-performance washing machines and dryers designed to make everyday care easier, cleaner, and faster.",
+    subtitle: {
+      before: "Discover high-performance ",
+      highlight: "washing machines, dryers, and washer dryers",
+      after: " designed to make everyday care easier, cleaner, and faster.",
+    },
     image: heroImage,
   },
   filters: baseFilters,
@@ -46,4 +50,5 @@ export const laundryPage = {
   ],
   totalPages: 3,
   products: laundryProducts,
+  subcategorySlugs: ["washing-machines", "tumble-dryers", "washer-dryers"],
 };

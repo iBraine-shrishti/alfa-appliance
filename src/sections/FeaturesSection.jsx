@@ -1,14 +1,15 @@
-import { TbPackage, TbRotate, TbWallet, TbMedal } from "react-icons/tb";
+import { TbBuildingCommunity, TbPackage, TbWallet } from "react-icons/tb";
+import { FaScrewdriverWrench } from "react-icons/fa6";
 import Eyebrow from "../components/common/Eyebrow";
 import FeatureCard from "../components/common/FeatureCard";
 import { features } from "../data/features";
 import advantageImg from "../assets/advantages.png";
 
 const FEATURE_ICONS = {
+  store: TbBuildingCommunity,
   delivery: TbPackage,
-  returns: TbRotate,
   checkout: TbWallet,
-  support: TbMedal,
+  repair: FaScrewdriverWrench,
 };
 
 const FeaturesSection = () => {

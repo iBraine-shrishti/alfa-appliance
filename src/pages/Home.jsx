@@ -1,7 +1,7 @@
 import Hero from "../sections/Hero";
 import CategorySection from "../sections/CategorySection";
 import FeaturedProducts from "../sections/FeaturedProducts";
-import OfferBanner from "../sections/OfferBanner";
+// import OfferBanner from "../sections/OfferBanner";
 import FridgeFreezerSection from "../sections/FridgeFreezerSection";
 import KitchenInspiration from "../sections/KitchenInspiration";
 import BrandSection from "../sections/BrandSection";
@@ -13,7 +13,7 @@ const Home = () => {
       <Hero />
       <CategorySection />
       <FeaturedProducts />
-      <OfferBanner />
+      {/* <OfferBanner /> */}
       <FridgeFreezerSection />
       <KitchenInspiration />
       <BrandSection />

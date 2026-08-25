@@ -1,15 +1,19 @@
 import { useMemo, useState } from "react";
-import { useParams, Navigate } from "react-router-dom";
+import { useParams, useSearchParams, Navigate } from "react-router-dom";
 import CategoryHero from "./CategoryHero";
+import CategoryGateway from "./CategoryGateway";
 import FilterSidebar from "./FilterSidebar";
 import MobileFilterDrawer from "./MobileFilterDrawer";
 import CategoryProductGrid from "./CategoryProductGrid";
 import { categoryPages } from "../../data/categoryPages";
+import { categoryGateways } from "../../data/categoryGateways";
 
 const stripTrailingS = (str) => (str.endsWith("s") ? str.slice(0, -1) : str);
 
 const CategoryPage = () => {
   const { slug } = useParams();
+  const [searchParams] = useSearchParams();
+  const brandQuery = searchParams.get("brand");
   const page = categoryPages[slug];
   const [viewMode, setViewMode] = useState("grid");
   const [sortValue, setSortValue] = useState("featured");
@@ -18,10 +22,13 @@ const CategoryPage = () => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   const filteredProducts = useMemo(() => {
-    const products = page?.products ?? [];
-    if (!appliedFilters) return products;
+    const products = page?.subcategorySlugs?.includes(slug)
+      ? page.products.filter((product) => product.subcategory === slug)
+      : page?.products ?? [];
+    if (!appliedFilters && !brandQuery) return products;
 
     return products.filter((product) => {
+      if (brandQuery && product.brand !== brandQuery) return false;
       if (appliedFilters.categories?.length) {
         const haystack = product.name.toLowerCase();
         const matchesAny = appliedFilters.categories.some((cat) =>
@@ -48,7 +55,7 @@ const CategoryPage = () => {
 
       return true;
     });
-  }, [page, appliedFilters]);
+  }, [page, appliedFilters, brandQuery, slug]);
 
   const sortedProducts = useMemo(() => {
     const products = [...filteredProducts];
@@ -64,6 +71,10 @@ const CategoryPage = () => {
 
   if (!page) {
     return <Navigate to="/laundry" replace />;
+  }
+
+  if (categoryGateways[slug]) {
+    return <CategoryGateway page={page} gateway={categoryGateways[slug]} />;
   }
 
   return (

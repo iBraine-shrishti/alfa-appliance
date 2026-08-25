@@ -6,7 +6,11 @@ export const smallAppliancesPage = {
   hero: {
     breadcrumb: [{ label: "Home", href: "/" }, { label: "Small Appliances" }],
     title: "Small Appliances",
-    subtitle: "Compact, useful appliances that make daily routines faster and a little more enjoyable.",
+    subtitle: {
+      before: "Compact, useful ",
+      highlight: "appliances",
+      after: " that make daily routines faster and a little more enjoyable.",
+    },
     image: heroImage,
   },
   filters: {

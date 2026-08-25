@@ -20,6 +20,7 @@ function App() {
     <Routes>
       <Route element={<MainLayout />}>
         <Route path="/" element={<Home />} />
+        <Route path="/collection/:slug" element={<CategoryPage />} />
         <Route path="/:slug" element={<CategoryPage />} />
         <Route path="/product/:slug" element={<ProductDetailPage />} />
         <Route path="/cart" element={<CartPage />} />
