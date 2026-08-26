@@ -12,14 +12,6 @@ import CheckoutOrderSummary from "../components/checkout/CheckoutOrderSummary";
 const CheckoutReviewPage = () => {
   const [promoCode, setPromoCode] = useState("");
   const [isPromoApplied, setIsPromoApplied] = useState(false);
-  const handlePlaceOrder = () => {
-    window.localStorage.setItem("alfa-last-order", JSON.stringify({
-      orderNumber: `ALFA-${Date.now().toString().slice(-8)}`,
-      email: window.localStorage.getItem("alfa-customer-email") || "alex.morgan@example.com",
-      method: "delivery",
-      createdAt: new Date().toISOString(),
-    }));
-  };
 
   return (
     <div className="min-h-screen bg-navy-900/[0.02]">
@@ -30,12 +22,22 @@ const CheckoutReviewPage = () => {
 
         <div className="mb-8">
           <h1 className="font-display text-3xl font-bold text-navy-950 sm:text-4xl">
-            Review Your Order
+            Order Confirmation
           </h1>
           <p className="mt-1 text-sm text-navy-900/60 sm:text-base">
             Please confirm your shipping details, payment method, and items before placing the order.
           </p>
         </div>
+
+        {/* <section className="mb-8 rounded border border-navy-900/10 bg-white p-6 shadow-sm">
+          <h2 className="text-xl font-bold text-navy-950">What happens next</h2>
+          <ul className="mt-4 list-disc space-y-3 pl-5 text-sm leading-6 text-navy-900/70">
+            <li>Your delivery is booked and our team will confirm your delivery date and slot shortly.</li>
+            <li>We'll text you the night before to confirm your delivery is going ahead the next day.</li>
+            <li>On the morning of delivery, you'll get a text with a 2-hour arrival window — so you're not waiting in all day.</li>
+            <li>Need to change anything? Get in touch via Contact us and we'll sort it.</li>
+          </ul>
+        </section> */}
 
         <div className="grid gap-8 lg:grid-cols-[1fr_400px]">
           <section className="space-y-6">
@@ -54,7 +56,6 @@ const CheckoutReviewPage = () => {
 
               <Link
                 to="/order-success"
-                onClick={handlePlaceOrder}
                 className="mt-6 flex w-full items-center justify-center gap-2 rounded bg-brand-blue py-3.5 font-bold text-white shadow-md transition-all hover:bg-black hover:shadow-lg"
               >
                 <FiLock size={18} /> Place Your Order

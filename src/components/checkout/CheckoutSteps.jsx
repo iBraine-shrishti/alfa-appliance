@@ -10,8 +10,8 @@ const CheckoutSteps = ({ currentStep = 1 }) => {
   return (
     <div className="mb-8 flex items-center justify-center gap-3 text-sm font-semibold">
       {steps.map((step, idx) => {
-        const isCompleted = currentStep > step.id;
-        const isCurrent = currentStep === step.id;
+        const isCompleted = currentStep > step.id || (currentStep === 3 && step.id === 3);
+        const isCurrent = currentStep === step.id && !isCompleted;
 
         return (
           <div key={step.id} className="flex items-center gap-3">

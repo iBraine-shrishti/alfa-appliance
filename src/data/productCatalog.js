@@ -188,7 +188,7 @@ export const productCatalog = homeProducts.map((product) => ({
     "A premium appliance built for modern homes, balancing performance, durability, and refined design.",
   finish: product.finish ?? "Brushed Stainless",
   stockLabel: product.stockLabel ?? "In Stock - Ships within 48 hours",
-  categoryLabel: product.categoryLabel ?? "Pro-series collection",
+  categoryLabel: product.categoryLabel ?? "",
   badges: product.badges ?? [],
   discountBadge: product.discountBadge ?? "15% OFF",
   colours: product.colours ?? defaultColours,

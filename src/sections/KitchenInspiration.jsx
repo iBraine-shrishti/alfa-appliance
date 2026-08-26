@@ -51,7 +51,7 @@ const KitchenInspiration = () => {
         <div className="grid grid-cols-2 gap-4 lg:grid-cols-1">
           <InspirationTile
             image={washerDryer}
-            label="Waher Dryers"
+            label="Washer Dryers"
             slug="washer-dryers"
           />
           <InspirationTile
