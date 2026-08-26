@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { FiChevronDown } from "react-icons/fi";
+import { FaScrewdriverWrench } from "react-icons/fa6";
 import { dealLink, navLinks, navPillLinks } from "../../data/navLinks";
 
 const Navbar = ({ orientation = "horizontal", onLinkClick }) => {
@@ -77,7 +78,7 @@ const Navbar = ({ orientation = "horizontal", onLinkClick }) => {
             to={link.href}
             onClick={onLinkClick}
             className={({ isActive }) =>
-              `rounded-lg px-3 py-3 text-sm font-semibold transition-colors ${
+              `inline-flex items-center gap-2 rounded-lg px-3 py-3 text-sm font-semibold transition-colors ${
                 link.filled
                   ? "bg-brand-blue text-white hover:bg-brand-blue-dark"
                   : isActive
@@ -86,6 +87,8 @@ const Navbar = ({ orientation = "horizontal", onLinkClick }) => {
               }`
             }
           >
+            
+            {link.label === "BOOK A REPAIR" && <FaScrewdriverWrench aria-hidden="true" />}
             {link.label}
           </NavLink>
         ))}
@@ -148,7 +151,7 @@ const Navbar = ({ orientation = "horizontal", onLinkClick }) => {
             to={link.href}
             onClick={onLinkClick}
             className={({ isActive }) =>
-              `rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
+              `inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
                 link.filled
                   ? "bg-brand-blue text-white shadow-sm hover:bg-brand-blue-dark"
                   : isActive
@@ -157,6 +160,7 @@ const Navbar = ({ orientation = "horizontal", onLinkClick }) => {
               }`
             }
           >
+            {link.label === "BOOK A REPAIR" && <FaScrewdriverWrench aria-hidden="true" />}
             {link.label}
           </NavLink>
         ))}

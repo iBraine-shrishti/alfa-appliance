@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FiMapPin, FiMail, FiMessageCircle, FiPhone, FiCheck, FiX } from "react-icons/fi";
+import { FaScrewdriverWrench } from "react-icons/fa6";
 import Container from "../components/common/Container";
 import Eyebrow from "../components/common/Eyebrow";
 
@@ -203,9 +204,9 @@ const Contact = () => {
             </a>
             <a
               href="#book-appointment"
-              className="text-sm font-bold text-blue-600 hover:underline"
+              className="inline-flex items-center gap-1.5 text-sm font-bold text-blue-600 hover:underline"
             >
-              Book an Repair
+              <FaScrewdriverWrench aria-hidden="true" /> Book an Repair
             </a>
           </div>
         </div>

@@ -22,7 +22,7 @@ export const categories = [
   { id: "freezers", name: "Freezers ", thumbnail: freezer, href: "/refrigerator" },
   { id: "dishwasher", name: "Dishwasher", thumbnail: dishwasher, href: "/dishwashers" },
   { id: "cookers", name: "Cookers", thumbnail: cooker, href: "/cooking" },
-  { id: "ovens", name: "OVENS", thumbnail: oven, href: "/cooking" },
+  { id: "ovens", name: "Ovens", thumbnail: oven, href: "/cooking" },
   { id: "hobs", name: "Hobs", thumbnail: hobs, href: "/cooking" },
   { id: "cooker-hoods", name: "Cooker Hoods", thumbnail: cookerHood, href: "/cooking" },
   { id: "microwave", name: "Microwave", thumbnail: microwave, href: "/cooking" },
