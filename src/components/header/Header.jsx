@@ -5,9 +5,13 @@ import SearchBar from "./SearchBar";
 import Navbar from "./Navbar";
 import Logo from "./Logo";
 import useToggle from "../../hooks/useToggle";
+import { useCart } from "../../context/CartContext";
+import { useWishlist } from "../../context/WishlistContext";
 
 const Header = () => {
   const [menuOpen, { close: closeMenu, toggle: toggleMenu }] = useToggle(false);
+  const { itemCount } = useCart();
+  const { itemCount: wishlistCount } = useWishlist();
 
   return (
     
@@ -35,11 +39,12 @@ const Header = () => {
           <Link to="/cart" aria-label="Cart" className="relative hover:text-brand-blue">
             <FiShoppingCart size={20} />
             <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-brand-blue text-[10px] font-semibold text-white">
-              01
+              {itemCount}
             </span>
           </Link>
-          <Link to="/wishlist" aria-label="Wishlist" className="hover:text-brand-blue">
+          <Link to="/wishlist" aria-label="Wishlist" className="relative hover:text-brand-blue">
             <FiHeart size={20} />
+            <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-brand-orange text-[10px] font-semibold text-white">{wishlistCount}</span>
           </Link>
           <Link to="/account" aria-label="Account" className="hover:text-brand-blue">
             <FiUser size={20} />

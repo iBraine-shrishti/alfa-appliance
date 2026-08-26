@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CheckoutHeader from "../components/checkout/CheckoutHeader";
 import CheckoutSteps from "../components/checkout/CheckoutSteps";
-import OrderSummaryCard from "../components/checkout/OrderSummaryCard";
+import CheckoutOrderSummary from "../components/checkout/CheckoutOrderSummary";
 import SavedAddresses from "../components/delivery/SavedAddresses";
 import AddressForm from "../components/delivery/AddressForm";
 
@@ -110,12 +110,7 @@ const CheckoutDeliveryPage = () => {
             />
           </section>
 
-          <OrderSummaryCard
-            subtotal="3,499.00"
-            shippingLabel="FREE"
-            tax="349.90"
-            total="3,848.90"
-          />
+          <CheckoutOrderSummary />
         </div>
       </main>
     </div>

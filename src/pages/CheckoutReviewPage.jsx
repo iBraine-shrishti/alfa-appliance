@@ -7,10 +7,19 @@ import ReviewShipping from "../components/review/ReviewShipping";
 import ReviewPayment from "../components/review/ReviewPayment";
 import ReviewOrderItems from "../components/review/ReviewOrderItems";
 import PromoCodeInput from "../components/review/PromoCodeInput";
+import CheckoutOrderSummary from "../components/checkout/CheckoutOrderSummary";
 
 const CheckoutReviewPage = () => {
   const [promoCode, setPromoCode] = useState("");
   const [isPromoApplied, setIsPromoApplied] = useState(false);
+  const handlePlaceOrder = () => {
+    window.localStorage.setItem("alfa-last-order", JSON.stringify({
+      orderNumber: `ALFA-${Date.now().toString().slice(-8)}`,
+      email: window.localStorage.getItem("alfa-customer-email") || "alex.morgan@example.com",
+      method: "delivery",
+      createdAt: new Date().toISOString(),
+    }));
+  };
 
   return (
     <div className="min-h-screen bg-navy-900/[0.02]">
@@ -35,10 +44,7 @@ const CheckoutReviewPage = () => {
             <ReviewOrderItems />
           </section>
 
-          <aside className="space-y-4">
-            <div className="sticky top-24 rounded border border-navy-900/10 bg-white p-6 shadow-sm">
-              <h2 className="text-xl font-bold text-navy-950">Order Summary</h2>
-
+          <CheckoutOrderSummary>
               <PromoCodeInput
                 promoCode={promoCode}
                 setPromoCode={setPromoCode}
@@ -46,31 +52,9 @@ const CheckoutReviewPage = () => {
                 setIsPromoApplied={setIsPromoApplied}
               />
 
-              <div className="mt-4 space-y-3 border-t border-navy-900/10 pt-4 text-sm">
-                <div className="flex justify-between text-navy-900/70">
-                  <span>Subtotal (1 item)</span>
-                  <span className="font-semibold text-navy-950">$3,499.00</span>
-                </div>
-                <div className="flex justify-between text-navy-900/70">
-                  <span>Standard Shipping</span>
-                  <span className="font-semibold text-emerald-600">FREE</span>
-                </div>
-                <div className="flex justify-between text-navy-900/70">
-                  <span>Estimated Tax</span>
-                  <span className="font-semibold text-navy-950">$349.90</span>
-                </div>
-              </div>
-
-              <div className="mt-4 flex items-baseline justify-between border-t border-navy-900/10 pt-4">
-                <div>
-                  <span className="text-base font-bold text-navy-950">Total</span>
-                  <p className="text-[11px] text-navy-900/50">Includes taxes & duties</p>
-                </div>
-                <span className="text-2xl font-extrabold text-brand-blue">$3,848.90</span>
-              </div>
-
               <Link
                 to="/order-success"
+                onClick={handlePlaceOrder}
                 className="mt-6 flex w-full items-center justify-center gap-2 rounded bg-brand-blue py-3.5 font-bold text-white shadow-md transition-all hover:bg-black hover:shadow-lg"
               >
                 <FiLock size={18} /> Place Your Order
@@ -80,8 +64,7 @@ const CheckoutReviewPage = () => {
                 <FiShield size={18} className="shrink-0 text-emerald-600" />
                 <span>30-Day Money-Back Guarantee & 256-bit Encryption</span>
               </div>
-            </div>
-          </aside>
+          </CheckoutOrderSummary>
         </div>
       </main>
     </div>

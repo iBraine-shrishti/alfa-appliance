@@ -14,12 +14,17 @@ import Auth from "./pages/Auth";
 import WishlistPage from "./pages/WishlistPage";
 import ProfilePage from "./pages/ProfilePage";
 import TrackOrderPage from "./pages/TrackOrderPage";
+import { CartProvider } from "./context/CartContext";
+import { WishlistProvider } from "./context/WishlistContext";
 
 function App() {
   return (
+    <CartProvider>
+    <WishlistProvider>
     <Routes>
       <Route element={<MainLayout />}>
         <Route path="/" element={<Home />} />
+      <Route path="/:category/:slug" element={<CategoryPage />} />
         <Route path="/collection/:slug" element={<CategoryPage />} />
         <Route path="/:slug" element={<CategoryPage />} />
         <Route path="/product/:slug" element={<ProductDetailPage />} />
@@ -36,6 +41,8 @@ function App() {
         <Route path="/account" element={<ProfilePage />} />
       </Route>
     </Routes>
+    </WishlistProvider>
+    </CartProvider>
   );
 }
 

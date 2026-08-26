@@ -276,9 +276,9 @@ export const categoryGateways = {
     title: "Build your ideal cooking setup",
     description: "Start with high-performance appliances tailored precisely to your culinary techniques and kitchen layout.",
     tiles: makeTiles([
-      { slug: "cookers", name: "Freestanding Cookers" },
-      { slug: "ovens", name: "Built-in Ovens" },
-      { slug: "hobs", name: "Induction & Gas Hobs" },
+      { slug: "cookers", name: "Cookers" },
+      { slug: "ovens", name: "Ovens" },
+      { slug: "hobs", name: "Hobs" },
       { slug: "cooker-hoods", name: "Cooker Hoods" },
     ]),
     popularLinks: [
@@ -345,11 +345,11 @@ export const categoryGateways = {
     title: "Small upgrades, easier routines",
     description: "Discover versatile countertop appliances engineered for speed, convenience, and effortless daily prep.",
     tiles: makeTiles([
-      { slug: "kettles", name: "Electric Kettles" },
-      { slug: "toasters", name: "Multi-Slice Toasters" },
-      { slug: "microwaves", name: "Solo & Grill Microwaves" },
-      { slug: "air-fryers", name: "Dual-Zone Air Fryers" },
-      { slug: "hoovers", name: "Cordless Vacuums" },
+      { slug: "kettles", name: "Kettles" },
+      { slug: "toasters", name: "Toasters" },
+      { slug: "microwaves", name: "Microwaves" },
+      { slug: "air-fryers", name: "Air Fryers" },
+      { slug: "hoovers", name: "Hoovers" },
     ]),
     popularLinks: [
       { label: "Smeg designer kettles", slug: "kettles", brand: "Smeg" },

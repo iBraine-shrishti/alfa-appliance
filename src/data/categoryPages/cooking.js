@@ -1,6 +1,5 @@
 import heroImage from "../../assets/categories/heading-categories/cooking.png";
-import product1 from "../../assets/products/product3/product3.png";
-import product2 from "../../assets/products/product4/product4.png";
+import { products } from "../products";
 
 export const cookingPage = {
   hero: {
@@ -29,8 +28,6 @@ export const cookingPage = {
     { value: "price-high", label: "Price: High to Low" },
   ],
   totalPages: 1,
-  products: [
-    { id: "cook-1", brand: "Miele", name: "Built-in Single Oven", image: product1, rating: 4.8, reviews: 143, price: 2149, oldPrice: null, discount: null, badge: "New" },
-    { id: "cook-2", brand: "Bosch", name: "Ceramic Hob", image: product2, rating: 4.7, reviews: 88, price: 599, oldPrice: 669, discount: 10, badge: null },
-  ],
+  products: products.filter((product) => product.category === "cooking"),
+  subcategorySlugs: ["cookers", "ovens", "hobs", "cooker-hoods"],
 };

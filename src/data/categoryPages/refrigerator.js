@@ -1,6 +1,5 @@
 import heroImage from "../../assets/categories/heading-categories/fridge.png";
-import product1 from "../../assets/products/product1/product1.png";
-import product2 from "../../assets/products/product4/product4.png";
+import { products } from "../products";
 
 export const refrigeratorPage = {
   hero: {
@@ -26,8 +25,6 @@ export const refrigeratorPage = {
     { value: "price-high", label: "Price: High to Low" },
   ],
   totalPages: 1,
-  products: [
-    { id: "ref-1", brand: "Samsung", name: "470L Frost Free Refrigerator", image: product1, rating: 4.8, reviews: 214, price: 2499, oldPrice: null, discount: null, badge: "New" },
-    { id: "ref-2", brand: "LG", name: "Multi Door Fridge Freezer", image: product2, rating: 4.7, reviews: 97, price: 1749, oldPrice: 1899, discount: 8, badge: null },
-  ],
+  products: products.filter((product) => product.category === "refrigerator"),
+  subcategorySlugs: ["fridge-freezers", "fridges", "freezers", "chest-freezers"],
 };

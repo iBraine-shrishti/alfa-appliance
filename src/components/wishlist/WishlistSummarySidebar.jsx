@@ -1,6 +1,6 @@
 import { FiShoppingCart, FiTruck, FiShield } from "react-icons/fi";
 
-const WishlistSummarySidebar = ({ selectedCount, subtotal, totalSavings }) => {
+const WishlistSummarySidebar = ({ selectedCount, subtotal, totalSavings, onMoveSelected }) => {
   return (
     <aside className="space-y-4">
       <div className="sticky top-24 rounded border border-slate-200 bg-white p-6 shadow-sm">
@@ -35,8 +35,9 @@ const WishlistSummarySidebar = ({ selectedCount, subtotal, totalSavings }) => {
           </span>
         </div>
 
-        <button
-          type="button"
+          <button
+            type="button"
+            onClick={onMoveSelected}
           disabled={selectedCount === 0}
           className={`mt-6 flex w-full items-center justify-center gap-2 rounded py-3.5 text-sm font-bold shadow-md transition-all ${
             selectedCount > 0

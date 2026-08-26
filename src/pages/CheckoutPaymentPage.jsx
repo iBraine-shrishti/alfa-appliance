@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CheckoutHeader from "../components/checkout/CheckoutHeader";
 import CheckoutSteps from "../components/checkout/CheckoutSteps";
-import OrderSummaryCard from "../components/checkout/OrderSummaryCard";
+import CheckoutOrderSummary from "../components/checkout/CheckoutOrderSummary";
 import PaymentMethods from "../components/payment/PaymentMethods";
 
 const CheckoutPaymentPage = () => {
@@ -44,14 +44,7 @@ const CheckoutPaymentPage = () => {
             />
           </section>
 
-          <OrderSummaryCard
-            subtotal="2,499.00"
-            shippingLabel="$150.00"
-            shippingIsFree={false}
-            tax="211.92"
-            total="2,860.92"
-            badgeText="256-bit SSL Secure Checkout"
-          />
+          <CheckoutOrderSummary />
         </div>
       </main>
     </div>

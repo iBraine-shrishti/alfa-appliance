@@ -3,9 +3,12 @@ import { Link } from "react-router-dom";
 
 const paymentIcons = ["Amex", "Visa", "Maestro", "Mastercard", "PayPal"];
 
-const CartOrderSummary = ({ itemCount, subtotal, totalSavings, flexpay }) => {
+const CartOrderSummary = ({ itemCount, subtotal, totalSavings, flexpay, items = [] }) => {
   const [paymentMethod, setPaymentMethod] = useState("card");
-  const [promoOpen, setPromoOpen] = useState(false);
+  const [promoCode, setPromoCode] = useState("");
+  const [appliedCode, setAppliedCode] = useState("");
+  const promoOpen = false;
+  const setPromoOpen = () => {};
 
   return (
     <aside className="rounded border border-navy-900/10 bg-white p-5">
@@ -36,10 +39,34 @@ const CartOrderSummary = ({ itemCount, subtotal, totalSavings, flexpay }) => {
         <span className="font-semibold text-navy-950">£{subtotal.toFixed(2)}</span>
       </div>
 
+      <div className="mt-4 space-y-3 border-y border-navy-900/10 py-4">
+        {items.map((item, index) => {
+          const selection = item.product.essentialServicesSelection ?? {};
+          const services = selection.bundle ? 49 : (item.product.price >= 399 ? 0 : 14.99) + (selection.installation ? 29.99 : 0) + (selection.recycling ? 24.99 : 0);
+          const itemSubtotal = (item.product.price + services) * item.qty;
+          const serviceLabels = selection.bundle
+            ? ["Alfa Bundle — Delivery, Installation & Recycling"]
+            : [
+                `Delivery — ${item.product.price >= 399 ? "FREE" : "£14.99"}`,
+                ...(selection.installation ? ["Installation — £29.99"] : []),
+                ...(selection.recycling ? ["Disposal of old appliance — £24.99"] : []),
+              ];
+          return (
+            <div key={item.product.slug} className="rounded bg-navy-900/[0.03] p-3 text-sm">
+              <div className="flex justify-between gap-3 font-semibold text-navy-950"><span>Item {index + 1} · {item.product.name}</span><span>£{itemSubtotal.toFixed(2)}</span></div>
+              <p className="mt-1 text-xs text-navy-900/60">Product £{(item.product.price * item.qty).toFixed(2)} + essential services £{(services * item.qty).toFixed(2)}</p>
+              <div className="mt-1 space-y-0.5 text-xs text-navy-900/60">
+                {serviceLabels.map((label) => <p key={label}>{label}</p>)}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
       <button
         type="button"
         onClick={() => setPromoOpen((open) => !open)}
-        className="mt-3 flex w-full items-center justify-between border-t border-navy-900/10 pt-3 text-sm font-semibold text-brand-blue underline"
+        className="hidden"
       >
         Add a promo code
         <span aria-hidden>{promoOpen ? "▾" : "›"}</span>
@@ -48,9 +75,18 @@ const CartOrderSummary = ({ itemCount, subtotal, totalSavings, flexpay }) => {
         <input
           type="text"
           placeholder="Enter code"
-          className="mt-2 w-full rounded border border-navy-900/15 px-3 py-2 text-sm"
+          className="hidden"
         />
       )}
+
+      <div className="mt-5 border-t border-navy-900/10 pt-4">
+        <p className="mb-2 text-sm font-bold text-navy-950">Discount code</p>
+        <div className="flex overflow-hidden rounded border-2 border-navy-900/15 bg-white shadow-sm focus-within:border-brand-blue">
+          <input type="text" value={promoCode} onChange={(event) => setPromoCode(event.target.value)} placeholder="Enter discount code" className="min-w-0 flex-1 px-4 py-3 text-sm outline-none" aria-label="Enter discount code" />
+          <button type="button" onClick={() => setAppliedCode(promoCode.trim())} className="bg-brand-blue px-5 py-3 text-sm font-bold text-white hover:bg-navy-950">Apply</button>
+        </div>
+        {appliedCode && <p className="mt-2 text-xs font-semibold text-emerald-600">Code {appliedCode} applied.</p>}
+      </div>
 
       <div className="mt-4 flex items-baseline justify-between border-t border-navy-900/10 pt-4">
         <span className="text-lg font-semibold text-navy-950">Total</span>

@@ -1,7 +1,12 @@
 import { FiX, FiPlus } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 import ProductRatingInline from "./ProductRatingInline";
+import { Link } from "react-router-dom";
+import { useCart } from "../../context/CartContext";
 
 const BundleDrawer = ({ product, isOpen, onClose }) => {
+  const { addToCart } = useCart();
+  const navigate = useNavigate();
   return (
     <div
       className={`fixed inset-0 z-50 flex justify-end transition-opacity duration-300 ${
@@ -46,9 +51,9 @@ const BundleDrawer = ({ product, isOpen, onClose }) => {
                 </p>
 
                 <div className="flex items-center gap-3">
-                  <img src={product.image} alt={product.name} className="h-14 w-14 shrink-0 object-contain" />
+                  <Link to={`/product/${product.slug}`} className="block shrink-0"><img src={product.image} alt={product.name} className="h-14 w-14 object-contain" /></Link>
                   <div className="min-w-0">
-                    <p className="truncate text-sm font-semibold text-navy-950">{product.name}</p>
+                    <Link to={`/product/${product.slug}`} className="block truncate text-sm font-semibold text-navy-950 hover:text-brand-blue">{product.name}</Link>
                     <ProductRatingInline average={product.ratingAverage} count={product.reviewCount} />
                     <p className="text-sm font-semibold text-navy-950">£{product.price.toFixed(2)}</p>
                   </div>
@@ -62,9 +67,9 @@ const BundleDrawer = ({ product, isOpen, onClose }) => {
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <img src={bundle.addOn.image} alt={bundle.addOn.name} className="h-14 w-14 shrink-0 object-contain" />
+                  <Link to={`/product/${bundle.addOn.slug}`} className="block shrink-0"><img src={bundle.addOn.image} alt={bundle.addOn.name} className="h-14 w-14 object-contain" /></Link>
                   <div className="min-w-0">
-                    <p className="truncate text-sm font-semibold text-navy-950">{bundle.addOn.name}</p>
+                    <Link to={`/product/${bundle.addOn.slug}`} className="block truncate text-sm font-semibold text-navy-950 hover:text-brand-blue">{bundle.addOn.name}</Link>
                     <ProductRatingInline average={bundle.addOn.rating} count={bundle.addOn.reviewCount} />
                     <p className="text-sm font-semibold text-navy-950">£{bundle.addOn.price.toFixed(2)}</p>
                   </div>
@@ -79,17 +84,12 @@ const BundleDrawer = ({ product, isOpen, onClose }) => {
                   </div>
                   <button
                     type="button"
+                    onClick={() => { addToCart(product); addToCart(bundle.addOn.product ?? bundle.addOn); onClose(); navigate("/cart"); }}
                     className="shrink-0 rounded-full bg-brand-blue px-5 py-2.5 text-sm font-semibold text-white"
                   >
                     Add bundle to basket
                   </button>
                 </div>
-                <p className="mt-2 flex items-center gap-1 text-xs text-navy-900/45">
-                  <span className="inline-block h-3.5 w-3.5 rounded-full border border-navy-900/30 text-center text-[10px] leading-3">
-                    £
-                  </span>
-                  Alfa flexpay available
-                </p>
               </div>
             );
           })}

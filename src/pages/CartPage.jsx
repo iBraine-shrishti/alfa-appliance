@@ -1,35 +1,23 @@
 import { useMemo, useState } from "react";
 import CheckoutHeader from "../components/checkout/CheckoutHeader";
-import { findProductBySlug } from "../data/productCatalog";
 import CartLineItem from "../components/cart/CartLineItem";
 import CartOrderSummary from "../components/cart/CartOrderSummary";
-
-const initialCartItems = [
-  { slug: "pro-series-smart-refrigerator", qty: 1 },
-  { slug: "precision-induction-cooktop-30", qty: 1 },
-];
+import { useCart } from "../context/CartContext";
 
 const CartPage = () => {
-  const [cartItems, setCartItems] = useState(
-    initialCartItems.map((item) => ({
-      ...item,
-      product: findProductBySlug(item.slug) ?? findProductBySlug("470l-frost-free-refrigerator"),
-    }))
-  );
-  const [checkedSlugs, setCheckedSlugs] = useState(() =>
-    Object.fromEntries(initialCartItems.map((item) => [item.slug, true]))
-  );
+  const { items: cartItems, updateQuantity, updateItemServices, removeFromCart } = useCart();
+  const [checkedSlugs, setCheckedSlugs] = useState({});
 
   const toggleChecked = (slug) => {
     setCheckedSlugs((current) => ({ ...current, [slug]: !current[slug] }));
   };
 
   const updateQty = (slug, qty) => {
-    setCartItems((current) => current.map((item) => (item.product.slug === slug ? { ...item, qty } : item)));
+    updateQuantity(slug, qty);
   };
 
   const removeItem = (slug) => {
-    setCartItems((current) => current.filter((item) => item.product.slug !== slug));
+    removeFromCart(slug);
     setCheckedSlugs((current) => {
       const next = { ...current };
       delete next[slug];
@@ -38,11 +26,16 @@ const CartPage = () => {
   };
 
   const selectedItems = useMemo(
-    () => cartItems.filter((item) => checkedSlugs[item.product.slug]),
+    () => cartItems.filter((item) => checkedSlugs[item.product.slug] !== false),
     [cartItems, checkedSlugs]
   );
 
-  const subtotal = selectedItems.reduce((sum, item) => sum + item.product.price * item.qty, 0);
+  const itemServiceTotal = (item) => {
+    const selection = item.product.essentialServicesSelection ?? {};
+    if (selection.bundle) return 49;
+    return (item.product.price >= 399 ? 0 : 14.99) + (selection.installation ? 29.99 : 0) + (selection.recycling ? 24.99 : 0);
+  };
+  const subtotal = selectedItems.reduce((sum, item) => sum + (item.product.price + itemServiceTotal(item)) * item.qty, 0);
   const totalSavings = selectedItems.reduce(
     (sum, item) => sum + (item.product.savingAmount ?? 0) * item.qty,
     0
@@ -74,9 +67,10 @@ const CartPage = () => {
                   key={item.product.slug}
                   product={item.product}
                   qty={item.qty}
-                  checked={!!checkedSlugs[item.product.slug]}
+                  checked={checkedSlugs[item.product.slug] !== false}
                   onToggle={() => toggleChecked(item.product.slug)}
                   onQtyChange={(qty) => updateQty(item.product.slug, qty)}
+                  onServicesChange={(services) => updateItemServices(item.product.slug, services)}
                   onRemove={() => removeItem(item.product.slug)}
                 />
               ))}
@@ -88,6 +82,7 @@ const CartPage = () => {
             subtotal={subtotal}
             totalSavings={totalSavings}
             flexpay={flexpay}
+            items={selectedItems}
           />
         </div>
       </main>

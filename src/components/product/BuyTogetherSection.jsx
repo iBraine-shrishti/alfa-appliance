@@ -2,10 +2,15 @@ import { useState } from "react";
 import { FiPlus, FiChevronRight, FiShoppingCart } from "react-icons/fi";
 import ProductRatingInline from "./ProductRatingInline";
 import BundleDrawer from "./BundleDrawer";
+import { useCart } from "../../context/CartContext";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const BuyTogetherSection = ({ product }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const firstBundle = product.bundles?.[0];
+  const { addToCart } = useCart();
+  const navigate = useNavigate();
 
   if (!firstBundle) return null;
 
@@ -32,14 +37,12 @@ const BuyTogetherSection = ({ product }) => {
       <div className="mt-6 flex flex-col items-stretch gap-4 lg:flex-row lg:items-center">
 
         <div className="flex flex-1 items-center gap-5 rounded border border-navy-900/10 bg-navy-900/[0.02] p-5">
-          <img
-            src={product.image}
-            alt={product.name}
-            className="h-50 w-50 shrink-0 object-cover md:h-28 md:w-28"
-          />
+          <Link to={`/product/${product.slug}`} className="block shrink-0">
+            <img src={product.image} alt={product.name} className="h-50 w-50 object-cover md:h-28 md:w-28" />
+          </Link>
           <div>
             <p className="text-sm font-semibold text-brand-blue">Currently viewing</p>
-            <p className="mt-1 text-base font-bold text-navy-950">{product.name}</p>
+            <Link to={`/product/${product.slug}`} className="mt-1 block text-base font-bold text-navy-950 hover:text-brand-blue">{product.name}</Link>
             <div className="mt-1.5">
               <ProductRatingInline average={product.ratingAverage} count={product.reviewCount} />
             </div>
@@ -52,13 +55,11 @@ const BuyTogetherSection = ({ product }) => {
         </span>
 
         <div className="flex flex-1 items-center gap-5 rounded border border-navy-900/10 bg-navy-900/[0.02] p-5">
-          <img
-            src={firstBundle.addOn.image}
-            alt={firstBundle.addOn.name}
-            className="h-24 w-24 shrink-0 object-cover md:h-28 md:w-28"
-          />
+          <Link to={`/product/${firstBundle.addOn.slug}`} className="block shrink-0">
+            <img src={firstBundle.addOn.image} alt={firstBundle.addOn.name} className="h-24 w-24 object-cover md:h-28 md:w-28" />
+          </Link>
           <div>
-            <p className="text-base font-bold text-navy-950">{firstBundle.addOn.name}</p>
+            <Link to={`/product/${firstBundle.addOn.slug}`} className="text-base font-bold text-navy-950 hover:text-brand-blue">{firstBundle.addOn.name}</Link>
             <div className="mt-1.5">
               <ProductRatingInline average={firstBundle.addOn.rating} count={firstBundle.addOn.reviewCount} />
             </div>
@@ -85,6 +86,7 @@ const BuyTogetherSection = ({ product }) => {
 
         <button
           type="button"
+          onClick={() => { addToCart(product); addToCart(firstBundle.addOn.product ?? firstBundle.addOn); navigate("/cart"); }}
           className="flex shrink-0 items-center justify-center gap-2.5 rounded-full bg-navy-950 px-8 py-3.5 text-base font-bold text-white shadow-md hover:bg-navy-900 transition-colors"
         >
           <FiShoppingCart size={18} /> Add bundle to basket

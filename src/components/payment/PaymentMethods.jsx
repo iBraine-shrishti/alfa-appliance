@@ -1,13 +1,12 @@
 import { Link } from "react-router-dom";
 import {
   FiCreditCard,
-  FiGlobe,
-  FiDollarSign,
   FiLock,
   FiArrowLeft,
   FiCalendar,
   FiUser,
 } from "react-icons/fi";
+import { FaApple } from "react-icons/fa";
 
 const PaymentMethods = ({
   selectedMethod,
@@ -126,53 +125,30 @@ const PaymentMethods = ({
         </div>
 
         <div
-          onClick={() => setSelectedMethod("banking")}
+          onClick={() => setSelectedMethod("applePay")}
           className={`cursor-pointer rounded border transition-all ${
-            selectedMethod === "banking"
-              ? "border-brand-blue bg-brand-blue/[0.02] shadow-sm"
-              : "border-navy-900/10 bg-white hover:border-navy-900/20"
-          }`}
-        >
-          <label className="flex cursor-pointer items-center gap-3 p-4">
-            <input
-              type="radio"
-              name="payment"
-              checked={selectedMethod === "banking"}
-              onChange={() => setSelectedMethod("banking")}
-              className="h-4 w-4 text-brand-blue focus:ring-brand-blue"
-            />
-            <div className="flex items-center gap-2">
-              <FiGlobe className="text-brand-blue" size={18} />
-              <span className="text-sm font-bold text-navy-950">Net Banking / Direct Transfer</span>
-            </div>
-          </label>
-        </div>
-
-        <div
-          onClick={() => setSelectedMethod("cod")}
-          className={`cursor-pointer rounded border transition-all ${
-            selectedMethod === "cod"
+            selectedMethod === "applePay"
               ? "border-brand-blue bg-brand-blue/[0.02] shadow-sm"
               : "border-navy-900/10 bg-white hover:border-navy-900/20"
           }`}
         >
           <label className="flex cursor-pointer items-center justify-between p-4">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 [&>span]:hidden">
               <input
                 type="radio"
                 name="payment"
-                checked={selectedMethod === "cod"}
-                onChange={() => setSelectedMethod("cod")}
+                checked={selectedMethod === "applePay"}
+                onChange={() => setSelectedMethod("applePay")}
                 className="h-4 w-4 text-brand-blue focus:ring-brand-blue"
               />
-              <div className="flex items-center gap-2">
-                <FiDollarSign className="text-brand-blue" size={18} />
-                <span className="text-sm font-bold text-navy-950">Cash / Pay on Delivery</span>
+              <div className="flex items-center gap-2 [&>span]:!inline">
+                <span className="text-lg font-extrabold leading-none text-navy-950"><FaApple /></span>
+                <span className="text-sm font-bold text-navy-950">Apple Pay</span>
               </div>
+              <span className="text-sm font-bold">Pay now</span>
+              <span className="text-lg font-extrabold leading-none"></span>
+              <span className="text-sm font-bold">Pay</span>
             </div>
-            <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[11px] font-semibold text-emerald-600">
-              Available
-            </span>
           </label>
         </div>
       </div>

@@ -2,10 +2,21 @@ import { Link } from "react-router-dom";
 import { FiHeart, FiShoppingCart } from "react-icons/fi";
 import { LuScale } from "react-icons/lu";
 import StarRating from "../common/StarRating";
+import { useCart } from "../../context/CartContext";
+import { useWishlist } from "../../context/WishlistContext";
+
+const stopAll = (event) => {
+  event.preventDefault();
+  event.stopPropagation();
+};
 
 const ProductCard = ({ product }) => {
   const { brand, name, image, rating, reviews, price, oldPrice, discount, badge } = product;
   const productSlug = product.slug ?? name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const { toggleCart, isInCart } = useCart();
+  const { toggleWishlist, isWishlisted } = useWishlist();
+  const wishlistProduct = { ...product, slug: productSlug };
+  const wishlisted = isWishlisted(wishlistProduct);
 
   return (
     <div className="group flex flex-col rounded-lg border border-navy-900/10 bg-white shadow-sm transition-shadow hover:shadow-md">
@@ -15,18 +26,33 @@ const ProductCard = ({ product }) => {
             {badge}
           </span>
         )}
-        <div className="absolute right-2 top-2 flex gap-2">
+        <div className="absolute right-2 top-2 z-10 flex gap-2">
           <button
             type="button"
-            aria-label="Add to wishlist"
-            className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-navy-900 shadow-sm transition-colors hover:text-brand-orange"
+            aria-label={wishlisted ? "Remove from wishlist" : "Add to wishlist"}
+            aria-pressed={wishlisted}
+            onMouseDown={stopAll}
+            onClick={(event) => {
+              stopAll(event);
+              toggleWishlist(wishlistProduct);
+            }}
+            className={`flex h-8 w-8 items-center justify-center rounded-full bg-white shadow-sm transition-colors hover:text-brand-orange ${
+              wishlisted ? "text-brand-orange" : "text-navy-900"
+            }`}
           >
-            <FiHeart size={15} />
+            <FiHeart size={15} className={wishlisted ? "fill-current" : ""} />
           </button>
           <button
             type="button"
-            aria-label="Add to cart"
-            className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-navy-900 shadow-sm transition-colors hover:text-brand-blue"
+            aria-label={isInCart(product) ? "Already in cart" : "Add to cart"}
+            onMouseDown={stopAll}
+            onClick={(event) => {
+              stopAll(event);
+              toggleCart(product);
+            }}
+            className={`flex h-8 w-8 items-center justify-center rounded-full bg-white shadow-sm transition-colors hover:text-brand-blue ${
+              isInCart(product) ? "text-emerald-600 ring-1 ring-emerald-200" : "text-navy-900"
+            }`}
           >
             <FiShoppingCart size={15} />
           </button>

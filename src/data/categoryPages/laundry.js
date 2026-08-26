@@ -1,12 +1,5 @@
 import heroImage from "../../assets/categories/heading-categories/laundry.png";
-import product1 from "../../assets/products/product2/product2.png";
-import product2 from "../../assets/products/product1/product1.png";
-import product3 from "../../assets/products/product2/product2.png";
-import product4 from "../../assets/products/product1/product1.png";
-import product5 from "../../assets/products/product2/product2.png";
-import product6 from "../../assets/products/product1/product1.png";
-import product7 from "../../assets/products/product2/product2.png";
-import product8 from "../../assets/products/product1/product1.png";
+import { products } from "../products";
 
 const baseFilters = {
   featured: ["Featured", "Price Low to High", "Price High to Low", "Discount High to Low"],
@@ -20,16 +13,7 @@ const baseFilters = {
   priceRange: [0, 2000],
 };
 
-const laundryProducts = [
-  { id: "laundry-1", subcategory: "washing-machines", brand: "Samsung", name: "Eco Bubble 9kg Front Load Washing Machine", image: product1, rating: 4.8, reviews: 214, price: 749, oldPrice: 863, discount: 13, badge: "Offer" },
-  { id: "laundry-2", subcategory: "washing-machines", brand: "Bosch", name: "Serie 4 Front Load Washing Machine", image: product2, rating: 4.7, reviews: 91, price: 905, oldPrice: null, discount: null, badge: null },
-  { id: "laundry-3", subcategory: "tumble-dryers", brand: "Miele", name: "Heat Pump Tumble Dryer", image: product3, rating: 4.8, reviews: 126, price: 1199, oldPrice: 1320, discount: 9, badge: "New" },
-  { id: "laundry-4", subcategory: "washer-dryers", brand: "LG", name: "TurboWash 8kg Washer Dryer", image: product4, rating: 4.6, reviews: 74, price: 945, oldPrice: null, discount: null, badge: null },
-  { id: "laundry-5", subcategory: "washing-machines", brand: "Samsung", name: "10kg Front Load Washing Machine", image: product5, rating: 4.7, reviews: 88, price: 999, oldPrice: null, discount: null, badge: null },
-  { id: "laundry-6", subcategory: "tumble-dryers", brand: "Beko", name: "Series 6 Heat Pump Tumble Dryer", image: product6, rating: 4.7, reviews: 63, price: 849, oldPrice: null, discount: null, badge: "New" },
-  { id: "laundry-7", subcategory: "washing-machines", brand: "Miele", name: "W1 Front Load Washing Machine", image: product7, rating: 4.8, reviews: 55, price: 1499, oldPrice: 1599, discount: 6, badge: "Offer" },
-  { id: "laundry-8", subcategory: "washer-dryers", brand: "Bosch", name: "Serie 4 Washer Dryer", image: product8, rating: 4.7, reviews: 78, price: 599, oldPrice: 699, discount: 14, badge: null },
-];
+const laundryProducts = products.filter((product) => product.category === "laundry");
 
 export const laundryPage = {
   hero: {

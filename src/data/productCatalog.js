@@ -1,10 +1,7 @@
 import { products as homeProducts } from "./products";
-import { categoryPages } from "./categoryPages";
 import feature1 from "../assets/products/product-feature/feature1.png";
 import feature2 from "../assets/products/product-feature/feature2.png";
 import { getProductGallery } from "./productGalleries";
-
-const allCategoryProducts = Object.values(categoryPages).flatMap((page) => page.products);
 
 const createDefaultReviews = (image) => {
   const gallery = getProductGallery(image);
@@ -42,10 +39,7 @@ const createDefaultReviews = (image) => {
   });
 };
 
-const defaultColours = [
-  { name: "Stainless Steel", swatchClass: "bg-gradient-to-br from-slate-200 via-slate-400 to-slate-500" },
-  { name: "White", swatchClass: "bg-white" },
-];
+const defaultColours = [];
 
 const defaultFlexpay = {
   monthlyAmount: 28.32,
@@ -90,30 +84,40 @@ const defaultAccessories = [
   },
 ];
 
-const defaultBundles = [
-  {
-    id: "bundle-care-kit",
+const createMatchingBundle = (product) => {
+  const matchingSubcategories = {
+    "washing-machines": "tumble-dryers",
+    "washer-dryers": "tumble-dryers",
+    "tumble-dryers": "washing-machines",
+  };
+  const matchingSubcategory = matchingSubcategories[product.subcategory];
+  const sameBrand = homeProducts.filter(
+    (candidate) => candidate.id !== product.id && candidate.brand === product.brand
+  );
+  const preferred = sameBrand.filter(
+    (candidate) => matchingSubcategory && candidate.subcategory === matchingSubcategory
+  );
+  const sameType = sameBrand.filter(
+    (candidate) => candidate.category === product.category && candidate.subcategory === product.subcategory
+  );
+  const recommendations = [...preferred, ...sameType, ...sameBrand].filter(
+    (candidate, index, list) => list.findIndex((item) => item.id === candidate.id) === index
+  ).slice(0, 3);
+
+  return recommendations.map((matchingProduct, index) => ({
+    id: `${product.id}-matching-set-${index + 1}`,
     addOn: {
-      name: "WPRO Fridge Care Kit",
-      image: "/assets/bundles/wpro-care-kit.png",
-      rating: 4.5,
-      reviewCount: 34,
-      price: 21.99,
+      product: matchingProduct,
+      slug: matchingProduct.slug,
+      name: matchingProduct.name,
+      image: matchingProduct.image,
+      rating: matchingProduct.rating ?? 4.5,
+      reviewCount: matchingProduct.reviews ?? 0,
+      price: matchingProduct.price,
     },
-    saving: 5.5,
-  },
-  {
-    id: "bundle-induction-hob",
-    addOn: {
-      name: "BOSCH Series 2 PUG61RAA5B 59cm Plug-in Electric Induction Hob - Black",
-      image: "/assets/bundles/bosch-induction-hob.png",
-      rating: 4.5,
-      reviewCount: 786,
-      price: 299,
-    },
-    saving: 0,
-  },
-];
+    saving: Number((matchingProduct.price * 0.05).toFixed(2)),
+  }));
+};
 const defaultCarePlans = [
   { id: "monthly", label: "Monthly plan", price: 6, priceLabel: "£6.00 a month", note: "Annual equivalent £72.00" },
   { id: "3yr", label: "3 Years plan", price: 170, priceLabel: "£170.00" },
@@ -167,7 +171,7 @@ const defaultBreakdownSupport = {
   planPriceFrom: 4.5,
 };
 
-export const productCatalog = [...homeProducts, ...allCategoryProducts].map((product) => ({
+export const productCatalog = homeProducts.map((product) => ({
   ...product,
   gallery: product.gallery?.length ? product.gallery : getProductGallery(product.image),
   slug:
@@ -185,9 +189,14 @@ export const productCatalog = [...homeProducts, ...allCategoryProducts].map((pro
   finish: product.finish ?? "Brushed Stainless",
   stockLabel: product.stockLabel ?? "In Stock - Ships within 48 hours",
   categoryLabel: product.categoryLabel ?? "Pro-series collection",
-  badges: product.badges ?? ["NEW RELEASE"],
+  badges: product.badges ?? [],
   discountBadge: product.discountBadge ?? "15% OFF",
   colours: product.colours ?? defaultColours,
+  dimensions: product.dimensions ?? null,
+  coreLine: product.coreLine ?? false,
+  isNewRelease: product.uploadedAt
+    ? Date.now() - new Date(product.uploadedAt).getTime() <= 30 * 24 * 60 * 60 * 1000
+    : false,
   ratingAverage: product.ratingAverage ?? 4.5,
   reviewCount: product.reviewCount ?? 50,
   ratingBreakdown:
@@ -209,7 +218,7 @@ export const productCatalog = [...homeProducts, ...allCategoryProducts].map((pro
   deliveryReturns: product.deliveryReturns ?? defaultDeliveryReturns,
   essentialServices: product.essentialServices ?? defaultEssentialServices,
   accessories: product.accessories ?? defaultAccessories,
-  bundles: product.bundles ?? defaultBundles,
+  bundles: product.bundles ?? createMatchingBundle(product),
   breakdownSupport: product.breakdownSupport ?? defaultBreakdownSupport,
   oldPrice: product.oldPrice ?? null,
   savingAmount: product.savingAmount ?? null,

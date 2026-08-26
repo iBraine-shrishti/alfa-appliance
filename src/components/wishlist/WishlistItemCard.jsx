@@ -1,6 +1,9 @@
 import { FiStar, FiCheck, FiTrash2, FiShoppingCart } from "react-icons/fi";
+import { useCart } from "../../context/CartContext";
+import { Link } from "react-router-dom";
 
 const WishlistItemCard = ({ product, isSelected, onToggleSelect, onRemove }) => {
+  const { toggleCart, isInCart } = useCart();
   return (
     <article
       className={`relative flex flex-col gap-5 rounded border p-5 transition-all sm:flex-row sm:items-center sm:justify-between ${
@@ -17,19 +20,15 @@ const WishlistItemCard = ({ product, isSelected, onToggleSelect, onRemove }) => 
           className="mt-1.5 h-4 w-4 rounded border-slate-300 text-amber-500 focus:ring-amber-500 sm:mt-0"
         />
 
-        <div className="relative flex h-50 w-50 shrink-0 items-center justify-center rounded-lg border border-slate-100 bg-slate-50 ">
-          <img
-            src={product.image}
-            alt={product.name}
-            className="h-full w-full object-conatin"
-          />
-        </div>
+        <Link to={`/product/${product.slug}`} className="relative flex h-50 w-50 shrink-0 items-center justify-center rounded-lg border border-slate-100 bg-slate-50">
+          <img src={product.image} alt={product.name} className="h-full w-full object-contain" />
+        </Link>
 
         <div className="space-y-1">
           <span className="rounded-md bg-slate-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-slate-600">
             {product.category}
           </span>
-          <h3 className="text-base font-bold text-slate-900">{product.name}</h3>
+          <Link to={`/product/${product.slug}`} className="text-base font-bold text-slate-900 hover:text-brand-blue">{product.name}</Link>
           <p className="text-xs text-slate-400">SKU: {product.sku}</p>
 
           <div className="flex items-center gap-1 text-xs">
@@ -83,14 +82,15 @@ const WishlistItemCard = ({ product, isSelected, onToggleSelect, onRemove }) => 
 
           <button
             type="button"
-            disabled={!product.inStock}
+            disabled={product.inStock === false}
+            onClick={() => toggleCart(product)}
             className={`flex items-center gap-2 rounded-lg px-4 py-2 text-xs font-bold transition-all shadow-sm ${
-              product.inStock
+              product.inStock !== false
                 ? "bg-slate-900 text-white hover:bg-brand-blue"
                 : "cursor-not-allowed bg-slate-100 text-slate-400"
             }`}
           >
-            <FiShoppingCart size={14} /> Add to Cart
+            <FiShoppingCart size={14} /> {isInCart(product) ? "Remove from Cart" : "Add to Cart"}
           </button>
         </div>
       </div>

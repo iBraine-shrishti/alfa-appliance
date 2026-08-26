@@ -1,6 +1,5 @@
 import heroImage from "../../assets/categories/heading-categories/dishwasher.png";
-import product1 from "../../assets/products/product4/product4.png";
-import product2 from "../../assets/products/product3/product3.png";
+import { products } from "../products";
 
 export const dishwashersPage = {
   hero: {
@@ -29,8 +28,6 @@ export const dishwashersPage = {
     { value: "price-high", label: "Price: High to Low" },
   ],
   totalPages: 1,
-  products: [
-    { id: "dish-1", brand: "Bosch", name: "Serie 4 Built-In Dishwasher", image: product1, rating: 4.7, reviews: 102, price: 899, oldPrice: null, discount: null, badge: "New" },
-    { id: "dish-2", brand: "AEG", name: "Compact Slimline Dishwasher", image: product2, rating: 4.6, reviews: 75, price: 649, oldPrice: 749, discount: 13, badge: null },
-  ],
+  products: products.filter((product) => product.category === "dishwashers"),
+  subcategorySlugs: ["full-size-dishwashers", "slimline-dishwashers"],
 };

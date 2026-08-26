@@ -4,7 +4,7 @@ import ProductInfoContent from "./ProductInfoContent";
 import ProductSpecsContent from "./ProductSpecsContent";
 import ProductReviewsContent from "./ProductReviewsContent";
 import DeliveryReturnsPanel from "./DeliveryReturnsPanel";
-import ProductFeaturesSection from "../../components/product/ProductFeaturesSection";
+// import ProductFeaturesSection from "../../components/product/ProductFeaturesSection";
 
 
 const ReviewsSummaryBadge = ({ average, count }) => (
@@ -24,7 +24,7 @@ const ProductAccordion = ({ product }) => (
     <div className="mx-auto flex max-w-7xl flex-col gap-4">
 
       <AccordionItem title="Product information">
-        <ProductFeaturesSection product={product} />
+        {/* <ProductFeaturesSection product={product} /> */}
         <ProductInfoContent product={product} />
       </AccordionItem>
 

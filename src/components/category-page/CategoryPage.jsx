@@ -11,10 +11,27 @@ import { categoryGateways } from "../../data/categoryGateways";
 const stripTrailingS = (str) => (str.endsWith("s") ? str.slice(0, -1) : str);
 
 const CategoryPage = () => {
-  const { slug } = useParams();
+  const { category, slug: childSlug } = useParams();
+  const slug = childSlug || category;
   const [searchParams] = useSearchParams();
   const brandQuery = searchParams.get("brand");
   const page = categoryPages[slug];
+  const parentSlug = childSlug ? category : null;
+  const parentGateway = parentSlug ? categoryGateways[parentSlug] : null;
+  const subcategory = parentGateway?.tiles?.find((tile) => tile.slug === slug);
+  const hero = page
+    ? {
+        ...page.hero,
+        breadcrumb: subcategory
+          ? [
+              { label: "Home", href: "/" },
+              { label: parentGateway.eyebrow, href: `/${parentSlug}` },
+              { label: subcategory.name },
+            ]
+          : page.hero.breadcrumb,
+        title: subcategory?.name || page.hero.title,
+      }
+    : null;
   const [viewMode, setViewMode] = useState("grid");
   const [sortValue, setSortValue] = useState("featured");
   const [currentPage, setCurrentPage] = useState(1);
@@ -74,12 +91,12 @@ const CategoryPage = () => {
   }
 
   if (categoryGateways[slug]) {
-    return <CategoryGateway page={page} gateway={categoryGateways[slug]} />;
+    return <CategoryGateway page={page} gateway={categoryGateways[slug]} parentSlug={slug} />;
   }
 
   return (
     <div className="bg-[#f7f7fb]">
-      <CategoryHero {...page.hero} />
+      <CategoryHero {...hero} />
 
       <section className="container-page py-8 lg:py-10">
         <div className="grid gap-6 lg:grid-cols-[300px_1fr]">

@@ -1,18 +1,18 @@
 import CartItemCheckbox from "./CartItemCheckbox";
 import QuantitySelector from "./QuantitySelector";
-import DeliveryOptionsBox from "./DeliveryOptionsBox";
-import CareAndRepairBox from "./CareAndRepairBox";
-import InstallationBox from "./InstallationBox";
-import RecyclingBox from "./RecyclingBox";
+import { Link } from "react-router-dom";
+import EssentialServices from "../product/EssentialServices";
 
-const CartLineItem = ({ product, qty, checked, onToggle, onQtyChange, onRemove }) => (
+const CartLineItem = ({ product, qty, checked, onToggle, onQtyChange, onRemove, onServicesChange }) => (
   <article className="grid gap-6 border-b border-navy-900/10 py-6 first:pt-0 lg:grid-cols-[24px_140px_1fr]">
     <CartItemCheckbox checked={checked} onChange={onToggle} label={`Include ${product.name} in total`} />
 
-    <img src={product.image} alt={product.name} className="h-auto w-full object-contain rounded lg:h-64 lg:object-cover" />
+    <Link to={`/product/${product.slug}`} className="block">
+      <img src={product.image} alt={product.name} className="h-auto w-full object-contain rounded lg:h-64 lg:object-cover" />
+    </Link>
 
     <div>
-      <h2 className="text-lg font-semibold text-navy-950">{product.name}</h2>
+      <Link to={`/product/${product.slug}`} className="block text-lg font-semibold text-navy-950 hover:text-brand-blue">{product.name}</Link>
 
       <div className="mt-4 flex flex-wrap items-center gap-4 text-sm">
         <span className="text-navy-900/60">Quantity</span>
@@ -44,12 +44,11 @@ const CartLineItem = ({ product, qty, checked, onToggle, onQtyChange, onRemove }
         </div> */}
       </div>
 
-      <div className="mt-5 grid gap-4">
-        <DeliveryOptionsBox deliveryInfo={product.deliveryInfo} />
-        <CareAndRepairBox carePlans={product.carePlans} />
-        <InstallationBox price={30.00} isDeliverable={true} />
-        <RecyclingBox price={25.00} isDeliverable={true} />
-      </div>
+      <div className="mt-5"><EssentialServices deliveryPrice={product.price >= 399 ? 0 : 14.99} initialSelected={product.essentialServicesSelection} onSelectionChange={onServicesChange} /></div>
+      <p className="mt-4 flex items-center justify-between border-t border-navy-900/10 pt-4 text-base font-bold text-navy-950">
+        <span>Item subtotal</span>
+        <span>£{((product.price + (product.essentialServicesSelection?.bundle ? 49 : (product.price >= 399 ? 0 : 14.99) + (product.essentialServicesSelection?.installation ? 29.99 : 0) + (product.essentialServicesSelection?.recycling ? 24.99 : 0))) * qty).toFixed(2)}</span>
+      </p>
     </div>
   </article>
 );
