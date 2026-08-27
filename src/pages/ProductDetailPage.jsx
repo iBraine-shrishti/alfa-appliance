@@ -45,7 +45,7 @@ const SUBCATEGORY_CATEGORY_MAP = {
 
 const CATEGORY_NAME_MAP = {
   laundry: "Laundry",
-  refrigerator: "Refrigerators",
+  refrigerator: "Refrigeration",
   cooking: "Cooking",
   dishwashers: "Dishwashers",
   "small-appliances": "Small Appliances",

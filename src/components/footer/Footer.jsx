@@ -11,7 +11,6 @@ const Footer = () => {
       <Container className="py-14">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
-            {/* <span className="font-display text-2xl font-extrabold tracking-tight">ALFA</span> */}
             <DarkLogo />
 
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/60">
@@ -35,16 +34,16 @@ const Footer = () => {
               </span>
             ))}
            <span className="text-white/30">
-  Design &amp; Developed by{" "}
-  <a
-    href="https://ibraine.com/"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="font-onest text-[14px] font-bold text-[#1D60FF] underline transition-colors hover:text-[#4A7CFF]"
-  >
-    ibraine.
-  </a>
-</span>
+              Design &amp; Developed by{" "}
+              <a
+                href="https://ibraine.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-onest text-[14px] font-bold text-[#1D60FF] underline transition-colors hover:text-[#4A7CFF]"
+              >
+                ibraine.
+              </a>
+            </span>
           </div>
         </Container>
       </div>

@@ -3,8 +3,8 @@ import { products } from "../products";
 
 export const refrigeratorPage = {
   hero: {
-    breadcrumb: [{ label: "Home", href: "/" }, { label: "Refrigerations" }],
-    title: "Refrigerators",
+    breadcrumb: [{ label: "Home", href: "/" }, { label: "Refrigeration" }],
+    title: "Refrigeration",
     subtitle: {
       before: "Space-saving ",
       highlight: "cooling solutions",

@@ -7,7 +7,7 @@ export const quickLinks = [
 ];
 
 export const shopCategories = [
-  { label: "Refrigerations", href: "/refrigerator" },
+  { label: "Refrigerators", href: "/refrigerator" },
   { label: "Washing Machines", href: "/laundry" },
   { label: "Ovens & Hobs", href: "/cooking" },
   { label: "Dishwashers", href: "/dishwashers" },
