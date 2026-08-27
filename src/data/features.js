@@ -1,26 +1,26 @@
 export const features = [
   {
     id: "store",
-    title: " 20+ Years, A Real London Store",
+    title: " A Real London Store",
     description:
-      "Over two decades of trading from a physical shop, with our own vans and in-house engineers — not a faceless online reseller.",
+      "Not just a website. Visit us, look at the products physically, and deal with a real person who’s there for any questions or issues down the line.",
   },
   {
     id: "delivery",
     title: "Delivered & Installed by Our Own Engineers",
     description:
-      "No handing you off to a courier. Our trained engineers deliver, install, and set up your appliance properly.",
+      "No handing you off to a courier. Our own team delivers, installs, and sets everything up properly.",
   },
  {
     id: "repair",
     title: "Sales, Repairs & Full Warranty",
     description:
-      "Sales and repairs under one roof. Every product carries the <strong>full manufacturer’s warranty</strong>, and if an installation ever faults, our engineers come out to fix or replace it.",
+      "Sales and repairs under one roof. Every product comes with the full manufacturer’s warranty — and if an installation ever faults, we come out to fix or replace it.",
   },
   {
     id: "checkout",
     title: "Secure Checkout",
     description:
-      "Your payments are protected with trusted encryption and secure gateways for complete peace of mind.",
+      "Your payments are protected with trusted encryption and secure gateways, so you can shop with complete peace of mind.",
   },
 ];

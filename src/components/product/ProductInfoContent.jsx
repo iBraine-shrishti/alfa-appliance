@@ -1,6 +1,6 @@
 const ProductInfoContent = ({ product }) => {
   const rows = [
-    ["Category", "Refrigerators"],
+    ["Category", "Refrigerations"],
     ["Brand", "ALFA APPLIANCES"],
     ["Color", product.finish],
     ["Material", "Premium Grade Stainless Steel"],

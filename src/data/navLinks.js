@@ -9,7 +9,7 @@ export const navLinks = [
     ],
   },
   {
-    label: "Refrigerator",
+    label: "Refrigerations",
     href: "/refrigerator",
     children: [
       { label: "Fridge Freezers", slug: "fridge-freezers", href: "/refrigerator/fridge-freezers" },

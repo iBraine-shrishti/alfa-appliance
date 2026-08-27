@@ -11,7 +11,7 @@ import ProductCard from "../components/product/ProductCard";
 import SliderArrow from "../components/common/SliderArrow";
 import { products } from "../data/products";
 
-const FILTER_TABS = ["Best Sellers", "New Arrivals", "Trendings"];
+const FILTER_TABS = ["Best Sellers", "New Arrivals"];
 
 const FeaturedProducts = () => {
   const prevRef = useRef(null);

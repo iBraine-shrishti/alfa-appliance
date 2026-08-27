@@ -4,6 +4,7 @@ import washerDryer from "../assets/categories/washer-dryers.png"
 import fridgeFreezer from "../assets/categories/fridge-freezer.png";
 import fridge from "../assets/categories/fridges.png";
 import freezer from "../assets/categories/freezer.png";
+import chestFreezer from "../assets/categories/chest-freezer.png";
 import dishwasher from "../assets/categories/dishwasher.png";
 import cooker from "../assets/categories/cooker.png";
 import oven from "../assets/categories/oven.png";
@@ -20,6 +21,7 @@ export const categories = [
   { id: "fridge-freezers", name: "Fridge Freezers", thumbnail: fridgeFreezer, href: "/refrigerator" },
   { id: "fridge", name: "Fridge", thumbnail: fridge, href: "/refrigerator" },
   { id: "freezers", name: "Freezers ", thumbnail: freezer, href: "/refrigerator" },
+  { id: "chest-freezers", name: "Chest Freezers ", thumbnail: chestFreezer , href: "/refrigerator" },
   { id: "dishwasher", name: "Dishwasher", thumbnail: dishwasher, href: "/dishwashers" },
   { id: "cookers", name: "Cookers", thumbnail: cooker, href: "/cooking" },
   { id: "ovens", name: "Ovens", thumbnail: oven, href: "/cooking" },
