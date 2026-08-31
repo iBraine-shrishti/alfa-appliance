@@ -162,7 +162,6 @@ const defaultDeliveryReturns = {
     "If you purchased online and you have changed your mind you can return your items within 30 days even if you have opened it for inspection. It must be returned as new and where possible, in its original packaging.",
     "If your item develops a fault we will offer either a repair, exchange or refund if the fault occurs within 30 days of purchase (or delivery or installation). If the fault with your product occurs within its guarantee period (normally 12 months from delivery) we will offer you a prompt repair service. In all cases we reserve the right to inspect the product and verify the fault.",
   ],
-  // returnsInfoLink: "More info on returns and refunds.",
 };
 const defaultBreakdownSupport = {
   customerCount: "9 million",

@@ -14,6 +14,7 @@ import Auth from "./pages/Auth";
 import WishlistPage from "./pages/WishlistPage";
 import ProfilePage from "./pages/ProfilePage";
 import TrackOrderPage from "./pages/TrackOrderPage";
+import BookRepairPage from "./pages/BookRepairPage";
 import { CartProvider } from "./context/CartContext";
 import { WishlistProvider } from "./context/WishlistContext";
 
@@ -24,7 +25,10 @@ function App() {
     <Routes>
       <Route element={<MainLayout />}>
         <Route path="/" element={<Home />} />
-      <Route path="/:category/:slug" element={<CategoryPage />} />
+        <Route path="/book-repair" element={<BookRepairPage />} />
+        <Route path="/repair" element={<BookRepairPage />} />
+        <Route path="/services" element={<BookRepairPage />} />
+        <Route path="/:category/:slug" element={<CategoryPage />} />
         <Route path="/collection/:slug" element={<CategoryPage />} />
         <Route path="/:slug" element={<CategoryPage />} />
         <Route path="/product/:slug" element={<ProductDetailPage />} />

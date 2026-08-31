@@ -52,5 +52,5 @@ export const navLinks = [
 export const dealLink = { label: "Deals", href: "/deals" };
 
 export const navPillLinks = [
-  { label: "BOOK A REPAIR", href: "/services", filled: true },
+  { label: "BOOK A REPAIR", href: "/book-repair", filled: true },
 ];

@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { FiChevronDown } from "react-icons/fi";
 import { FaScrewdriverWrench } from "react-icons/fa6";
 import { dealLink, navLinks, navPillLinks } from "../../data/navLinks";
+import DealsButton from "../common/DealsButton";
 
 const Navbar = ({ orientation = "horizontal", onLinkClick }) => {
   const isVertical = orientation === "vertical";
@@ -67,13 +68,13 @@ const Navbar = ({ orientation = "horizontal", onLinkClick }) => {
         })}
 
         {/* Deals link highlighted in Red */}
-        <NavLink
-          to={dealLink.href}
-          onClick={onLinkClick}
-          className="rounded-lg px-3 py-3 text-base font-bold text-red-600 transition-colors hover:text-red-700 hover:bg-red-50"
-        >
-          {dealLink.label}
-        </NavLink>
+        <div className="py-1">
+          <DealsButton
+            to={dealLink.href}
+            onClick={onLinkClick}
+            className="w-full !rounded-lg !px-3 !py-3 !text-base !font-bold"
+          />
+        </div>
 
         {/* Separated Book a Repair section */}
         <div className="mt-6 pt-4 border-t border-navy-900/10 flex flex-col gap-2">
@@ -142,13 +143,10 @@ const Navbar = ({ orientation = "horizontal", onLinkClick }) => {
         })}
 
         {/* Red Deals Badge on Desktop */}
-        <NavLink
+        <DealsButton
           to={dealLink.href}
           onClick={onLinkClick}
-          className="inline-flex items-center justify-center rounded-full bg-red-600 px-3.5 py-1 text-base font-semibold text-white transition-colors hover:bg-red-700"
-        >
-          {dealLink.label}
-        </NavLink>
+        />
       </div>
 
       {/* Added ml-6 spacing divider to isolate repair pill */}
