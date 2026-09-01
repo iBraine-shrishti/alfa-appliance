@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const paymentIcons = ["Amex", "Visa", "Maestro", "Mastercard", "PayPal"];
 
-const CartOrderSummary = ({ itemCount, subtotal, totalSavings, flexpay, items = [] }) => {
+const CartOrderSummary = ({ itemCount, subtotal, totalSavings,flexpay,  items = [] }) => {
   const [paymentMethod, setPaymentMethod] = useState("card");
   const [promoCode, setPromoCode] = useState("");
   const [appliedCode, setAppliedCode] = useState("");
@@ -22,7 +22,7 @@ const CartOrderSummary = ({ itemCount, subtotal, totalSavings, flexpay, items = 
           />
           Card / PayPal
         </label>
-        <label className="flex items-center gap-2">
+        {/* <label className="flex items-center gap-2">
           <input
             type="radio"
             checked={paymentMethod === "flexpay"}
@@ -30,7 +30,7 @@ const CartOrderSummary = ({ itemCount, subtotal, totalSavings, flexpay, items = 
             className="h-4 w-4 accent-navy-950"
           />
           Spread the cost
-        </label>
+        </label> */}
       </div>
 
       <h2 className="mt-4 text-xl font-semibold text-navy-950">Order summary</h2>
@@ -96,28 +96,6 @@ const CartOrderSummary = ({ itemCount, subtotal, totalSavings, flexpay, items = 
             <p className="text-sm font-semibold text-brand-blue">Total savings: £{totalSavings.toFixed(2)}</p>
           )}
         </div>
-      </div>
-
-      <div className="mt-4 rounded border border-navy-900/10 bg-navy-900/[0.03] p-4 text-sm">
-        <p className="font-semibold text-navy-950">Spread the cost with Alfa flexpay</p>
-        <button type="button" className="text-xs font-semibold text-brand-blue underline">
-          Learn more
-        </button>
-
-        <p className="mt-3 font-medium text-navy-950">Make monthly payments</p>
-        <p className="text-navy-900/70">
-          From £{flexpay.monthlyAmount.toFixed(2)} per month for {flexpay.months} months*
-        </p>
-
-        <p className="mt-3 font-medium text-navy-950">Or buy now, pay later</p>
-        <p className="text-navy-900/70">
-          Pay as much or as little as you like for {flexpay.buyNowMonths} months. Settle in full by{" "}
-          {flexpay.settleByLabel} & pay no interest
-        </p>
-
-        <button type="button" className="mt-3 text-sm font-semibold text-brand-blue underline">
-          View all flexpay options
-        </button>
       </div>
 
       <Link

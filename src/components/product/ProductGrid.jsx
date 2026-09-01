@@ -5,7 +5,7 @@ const ProductListRow = ({ product }) => {
 
   return (
     <div className="flex gap-4 rounded-lg border border-navy-900/10 bg-white p-3 shadow-sm">
-      <img src={product.image} alt={product.name} className="h-24 w-24 rounded-md object-cover" />
+      <img src={product.image} alt={product.name} className="h-30 w-30 rounded-md object-cover" />
       <div className="flex flex-1 flex-col justify-center gap-1">
         <p className="text-xs font-semibold uppercase tracking-wide text-brand-blue">{product.brand}</p>
         <h3 className="text-sm font-medium text-navy-900">{product.name}</h3>

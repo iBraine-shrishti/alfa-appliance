@@ -63,22 +63,22 @@ const OrdersHistoryTab = ({ onTrackOrder }) => {
 
       <div className="space-y-4">
         {mockOrders.map((order) => (
-          <div key={order.id} className="rounded border border-navy-900/10 bg-white p-6 shadow-sm">
+          <div key={order.id} className="overflow-hidden rounded border border-navy-900/10 bg-white p-4 shadow-sm sm:p-6">
 
-            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-navy-900/10 pb-4">
-              <div>
+            <div className="flex flex-col gap-3 border-b border-navy-900/10 pb-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="min-w-0">
                 <span className="text-xs font-bold text-navy-900/50">ORDER ID</span>
-                <p className="text-base font-bold text-navy-950">#{order.id}</p>
+                <p className="text-base font-bold text-navy-950 break-all">#{order.id}</p>
               </div>
-              <div>
+              <div className="min-w-0">
                 <span className="text-xs font-bold text-navy-900/50">DATE PLACED</span>
                 <p className="text-sm font-semibold text-navy-950">{order.date}</p>
               </div>
-              <div>
+              <div className="min-w-0">
                 <span className="text-xs font-bold text-navy-900/50">TOTAL AMOUNT</span>
                 <p className="text-sm font-extrabold text-brand-blue">£{order.total.toFixed(2)}</p>
               </div>
-              <div>
+              <div className="min-w-0">
                 <span
                   className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-bold ${order.statusColor}`}
                 >
@@ -91,12 +91,12 @@ const OrdersHistoryTab = ({ onTrackOrder }) => {
             <div className="divide-y divide-navy-900/5 py-2">
               {order.items.map((item, idx) => (
                 <div key={idx} className="flex flex-col gap-4 py-4 sm:flex-row sm:items-center sm:justify-between">
-                  <div className="flex items-center gap-4">
-                    <div className="h-60 w-60 shrink-0 rounded border border-navy-900/10 bg-navy-900/5 p-2">
+                  <div className="flex min-w-0 items-center gap-4">
+                    <div className="h-20 w-20 shrink-0 rounded border border-navy-900/10 bg-navy-900/5 p-2 sm:h-60 sm:w-60">
                       <img src={item.image} alt={item.name} className="h-full w-full object-cover" />
                     </div>
-                    <div>
-                      <h4 className="text-sm font-bold text-navy-950">{item.name}</h4>
+                    <div className="min-w-0 flex-1">
+                      <h4 className="text-sm font-bold text-navy-950 break-words">{item.name}</h4>
                       <p className="text-xs text-navy-900/50">SKU: {item.sku}</p>
                       
      
@@ -117,7 +117,7 @@ const OrdersHistoryTab = ({ onTrackOrder }) => {
             </div>
 
      
-            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-navy-900/10 pt-4">
+            <div className="flex flex-col gap-3 border-t border-navy-900/10 pt-4 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex items-center gap-2">
                 <button
                   type="button"
@@ -126,10 +126,10 @@ const OrdersHistoryTab = ({ onTrackOrder }) => {
                   <FiExternalLink size={14} /> Download Tax Invoice
                 </button>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
                 <button
                   type="button"
-                  className="inline-flex items-center gap-1.5 rounded border border-navy-900/15 px-4 py-2 text-xs font-bold text-navy-950 transition-colors hover:bg-navy-900/5"
+                  className="inline-flex items-center justify-center gap-1.5 rounded border border-navy-900/15 px-4 py-2 text-xs font-bold text-navy-950 transition-colors hover:bg-navy-900/5"
                 >
                   <FiRotateCcw size={14} /> Reorder Items
                 </button>
@@ -137,7 +137,7 @@ const OrdersHistoryTab = ({ onTrackOrder }) => {
                   type="button"
                   onClick={() => onTrackOrder(order.id)}
                   disabled={order.status === "Cancelled"}
-                  className="inline-flex items-center gap-1.5 rounded bg-brand-blue px-4 py-2 text-xs font-bold text-white transition-all hover:bg-black disabled:cursor-not-allowed disabled:bg-navy-900/15 disabled:text-navy-900/40 disabled:hover:bg-navy-900/15"
+                  className="inline-flex items-center justify-center gap-1.5 rounded bg-brand-blue px-4 py-2 text-xs font-bold text-white transition-all hover:bg-black disabled:cursor-not-allowed disabled:bg-navy-900/15 disabled:text-navy-900/40 disabled:hover:bg-navy-900/15"
                 >
                   <FiTruck size={14} /> {order.status === "Cancelled" ? "Tracking Unavailable" : "Track Delivery"}
                 </button>

@@ -21,7 +21,7 @@ const BundleDrawer = ({ product, isOpen, onClose }) => {
       />
 
       <div
-        className={`relative flex h-full w-full max-w-md flex-col overflow-y-auto bg-white shadow-2xl transition-transform duration-300 ${
+        className={`relative flex h-full w-full max-w-[95vw] sm:max-w-md flex-col overflow-y-auto bg-white shadow-2xl transition-transform duration-300 ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -52,7 +52,7 @@ const BundleDrawer = ({ product, isOpen, onClose }) => {
 
                 <div className="flex items-center gap-3">
                   <Link to={`/product/${product.slug}`} className="block shrink-0"><img src={product.image} alt={product.name} className="h-14 w-14 object-contain" /></Link>
-                  <div className="min-w-0">
+                  <div className="min-w-0 flex-1">
                     <Link to={`/product/${product.slug}`} className="block truncate text-sm font-semibold text-navy-950 hover:text-brand-blue">{product.name}</Link>
                     <ProductRatingInline average={product.ratingAverage} count={product.reviewCount} />
                     <p className="text-sm font-semibold text-navy-950">£{product.price.toFixed(2)}</p>
@@ -68,15 +68,15 @@ const BundleDrawer = ({ product, isOpen, onClose }) => {
 
                 <div className="flex items-center gap-3">
                   <Link to={`/product/${bundle.addOn.slug}`} className="block shrink-0"><img src={bundle.addOn.image} alt={bundle.addOn.name} className="h-14 w-14 object-contain" /></Link>
-                  <div className="min-w-0">
+                  <div className="min-w-0 flex-1">
                     <Link to={`/product/${bundle.addOn.slug}`} className="block truncate text-sm font-semibold text-navy-950 hover:text-brand-blue">{bundle.addOn.name}</Link>
                     <ProductRatingInline average={bundle.addOn.rating} count={bundle.addOn.reviewCount} />
                     <p className="text-sm font-semibold text-navy-950">£{bundle.addOn.price.toFixed(2)}</p>
                   </div>
                 </div>
 
-                <div className="mt-4 flex items-center justify-between gap-4">
-                  <div className="text-sm">
+                <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+                  <div className="text-sm min-w-0">
                     <p className="font-semibold text-navy-950">Total: £{total.toFixed(2)}</p>
                     {bundle.saving > 0 && (
                       <p className="text-brand-pink">Total saving: £{bundle.saving.toFixed(2)}</p>
@@ -85,7 +85,7 @@ const BundleDrawer = ({ product, isOpen, onClose }) => {
                   <button
                     type="button"
                     onClick={() => { addToCart(product); addToCart(bundle.addOn.product ?? bundle.addOn); onClose(); navigate("/cart"); }}
-                    className="shrink-0 rounded-full bg-brand-blue px-5 py-2.5 text-sm font-semibold text-white"
+                    className="w-full rounded-full bg-brand-blue px-5 py-2.5 text-sm font-semibold text-white sm:w-auto"
                   >
                     Add bundle to basket
                   </button>

@@ -12,7 +12,7 @@ const SignUpForm = ({ role }) => {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-      <div>``
+      <div>
         <label htmlFor="signup-name" className="mb-2 block text-sm font-semibold text-navy-950">
           Full Name
         </label>

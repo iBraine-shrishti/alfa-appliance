@@ -3,12 +3,12 @@ import Container from "../common/Container";
 
 const RepairHero = () => {
   return (
-    <section className="relative h-[420px] w-full overflow-hidden sm:h-[460px] lg:h-[720px] bg-navy-950">
+    <section className="relative h-[300px] w-full overflow-hidden bg-navy-950 sm:h-[420px] md:h-[520px] lg:h-[720px]">
    
       <img
         src={heroBg}
         alt="Alfa Appliance Repair Service"
-        className="h-full w-full object-cover"
+        className="h-full w-full object-cover object-center"
       />
 
       <div className="absolute inset-0 z-10 flex items-center bg-gradient-to-r from-navy-950/60 via-navy-950/20 to-transparent">

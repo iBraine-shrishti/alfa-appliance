@@ -220,13 +220,13 @@ const BookingModal = ({ isOpen, onClose }) => {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fadeIn"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-3 backdrop-blur-sm animate-fadeIn sm:p-4"
       onClick={handleClose}
       role="dialog"
       aria-modal="true"
     >
       <div
-        className="relative w-full max-w-xl rounded-2xl bg-white p-6 sm:p-8 shadow-2xl transition-all max-h-[90vh] overflow-y-auto"
+        className="relative w-full max-w-xl rounded-2xl bg-white p-4 shadow-2xl transition-all max-h-[92vh] overflow-y-auto sm:p-6 sm:p-8"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -311,7 +311,7 @@ const BookingModal = ({ isOpen, onClose }) => {
             </div>
 
             <div className="mt-5 border-b border-slate-100 pb-5">
-              <div className="flex items-center justify-between text-xs">
+              <div className="flex flex-wrap items-center justify-between gap-2 text-[10px] sm:text-xs">
                 <div className="flex items-center gap-1.5">
                   <span
                     className={`flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-bold ${
@@ -558,7 +558,7 @@ const BookingModal = ({ isOpen, onClose }) => {
                     Select date (September 2026)
                   </p>
 
-                  <div className="grid grid-cols-7 gap-1.5 sm:gap-2">
+                  <div className="grid grid-cols-4 gap-1.5 sm:grid-cols-7 sm:gap-2">
                     {DAYS.map((d, index) => {
                       const isSelected = selectedDayIndex === index;
                       return (
@@ -566,16 +566,16 @@ const BookingModal = ({ isOpen, onClose }) => {
                           key={d.dateNum}
                           type="button"
                           onClick={() => setSelectedDayIndex(index)}
-                          className={`flex flex-col items-center justify-center rounded-xl p-2 sm:py-3 transition-all cursor-pointer ${
+                          className={`flex flex-col items-center justify-center rounded-xl p-2 transition-all cursor-pointer sm:py-3 ${
                             isSelected
                               ? "bg-brand-blue text-white shadow-md"
                               : "border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100"
                           }`}
                         >
-                          <span className={`text-[10px] font-medium ${isSelected ? "text-white/80" : "text-slate-400"}`}>
+                          <span className={`text-[9px] font-medium sm:text-[10px] ${isSelected ? "text-white/80" : "text-slate-400"}`}>
                             {d.dayName}
                           </span>
-                          <span className="text-sm sm:text-base font-bold mt-0.5">
+                          <span className="mt-0.5 text-xs font-bold sm:text-base">
                             {d.dateNum}
                           </span>
                         </button>
@@ -626,7 +626,7 @@ const BookingModal = ({ isOpen, onClose }) => {
               </div>
             )}
 
-            <div className="mt-8 flex items-center justify-between border-t border-slate-100 pt-5">
+            <div className="mt-8 flex flex-col gap-3 border-t border-slate-100 pt-5 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <span className="text-[11px] text-slate-400 block leading-tight">
                   Callout & diagnostic
@@ -636,7 +636,7 @@ const BookingModal = ({ isOpen, onClose }) => {
                 </span>
               </div>
 
-              <div className="flex items-center gap-3">
+              <div className="flex flex-wrap items-center justify-end gap-3">
                 {step > 1 && (
                   <button
                     type="button"
@@ -650,7 +650,7 @@ const BookingModal = ({ isOpen, onClose }) => {
                 <button
                   type="button"
                   onClick={handleNext}
-                  className="rounded-xl bg-brand-blue px-6 py-2.5 text-xs sm:text-sm font-bold text-white shadow-md hover:bg-brand-blue-dark transition-all cursor-pointer"
+                  className="rounded-xl bg-brand-blue px-5 py-2.5 text-xs font-bold text-white shadow-md hover:bg-brand-blue-dark transition-all cursor-pointer sm:px-6 sm:text-sm"
                 >
                   {step === 4 ? "Confirm Booking" : "Next Step"}
                 </button>
