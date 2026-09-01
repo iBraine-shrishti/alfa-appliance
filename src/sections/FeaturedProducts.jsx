@@ -36,7 +36,7 @@ const FeaturedProducts = () => {
     }
 
     if (list.length < 8) {
-      list = products.slice(0, 12);
+      list = products.slice(0, 13);
     }
 
     // Ensure we have enough items for continuous looping
@@ -88,29 +88,28 @@ const FeaturedProducts = () => {
               swiper.params.navigation.nextEl = nextRef.current;
             }}
             loop={true}
-            loopAddBlankSlides={true}
             autoplay={{
-              delay: 2500,
+              delay: 1500,
               disableOnInteraction: false,
               pauseOnMouseEnter: true,
             }}
             slidesPerView={1}
-            slidesPerGroup={2}
+            slidesPerGroup={1}
             spaceBetween={16}
             breakpoints={{
               640: {
                 slidesPerView: 2,
-                slidesPerGroup: 2,
+                slidesPerGroup: 1,
                 spaceBetween: 20,
               },
               768: {
                 slidesPerView: 3,
-                slidesPerGroup: 2,
+                slidesPerGroup: 1,
                 spaceBetween: 24,
               },
               1024: {
                 slidesPerView: 4,
-                slidesPerGroup: 2,
+                slidesPerGroup: 1,
                 spaceBetween: 24,
               },
             }}

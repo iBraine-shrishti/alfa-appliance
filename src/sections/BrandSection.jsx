@@ -5,7 +5,7 @@ const brands = [
     name: 'Beko',
     url: '#',
     svg: (
-      <svg className="h-7 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 160 50" fill="currentColor">
+      <svg className="h-10 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 160 50" fill="currentColor">
         <text 
           x="10" 
           y="35" 
@@ -32,7 +32,7 @@ const brands = [
     name: 'Hisense',
     url: '#',
     svg: (
-      <svg className="h-6 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 150 40" fill="currentColor">
+      <svg className="h-9 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 150 40" fill="currentColor">
         <text 
           x="5" 
           y="28" 
@@ -51,7 +51,7 @@ const brands = [
     name: 'Teknix',
     url: '#',
     svg: (
-      <svg className="h-6 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 160 40" fill="currentColor">
+      <svg className="h-9 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 160 40" fill="currentColor">
         <g className="transition-colors duration-300 text-slate-700 group-hover:text-[#111827]">
           <circle cx="18" cy="20" r="12" stroke="currentColor" strokeWidth="3" fill="none" />
           <path d="M 11 15 L 25 15 M 18 15 L 18 27" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
@@ -73,7 +73,7 @@ const brands = [
     name: 'LG',
     url: '#',
     svg: (
-      <svg className="h-8 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 120 45" fill="none">
+      <svg className="h-11 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 120 45" fill="none">
         <g className="transition-colors duration-300 text-slate-700 group-hover:text-[#A50034]">
           <circle cx="22" cy="22" r="18" stroke="currentColor" strokeWidth="3.2" fill="none" />
           <path d="M 14 17 A 8 8 0 1 0 22 14" stroke="currentColor" strokeWidth="2.8" fill="none" strokeLinecap="round" />
@@ -97,7 +97,7 @@ const brands = [
     name: 'Samsung',
     url: '#',
     svg: (
-      <svg className="h-5 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 160 30" fill="currentColor">
+      <svg className="h-8 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 160 30" fill="currentColor">
         <text 
           x="5" 
           y="22" 
@@ -116,7 +116,7 @@ const brands = [
     name: 'Miele',
     url: '#',
     svg: (
-      <svg className="h-6 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 140 36" fill="currentColor">
+      <svg className="h-9 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 140 36" fill="currentColor">
         <text 
           x="5" 
           y="27" 
@@ -136,7 +136,7 @@ const brands = [
     name: 'Smeg',
     url: '#',
     svg: (
-      <svg className="h-6 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 150 36" fill="currentColor">
+      <svg className="h-9 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 150 36" fill="currentColor">
         <g className="transition-colors duration-300 text-slate-700 group-hover:text-[#000000]">
           <circle cx="8" cy="24" r="3.2" />
           <circle cx="16" cy="24" r="3.2" />
@@ -162,7 +162,7 @@ const brands = [
     name: 'AEG',
     url: '#',
     svg: (
-      <svg className="h-6 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 120 36" fill="currentColor">
+      <svg className="h-9 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 120 36" fill="currentColor">
         <text 
           x="5" 
           y="28" 
@@ -181,7 +181,7 @@ const brands = [
     name: 'Belling',
     url: '#',
     svg: (
-      <svg className="h-6 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 140 36" fill="currentColor">
+      <svg className="h-9 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 140 36" fill="currentColor">
         <text 
           x="5" 
           y="27" 
@@ -200,7 +200,7 @@ const brands = [
     name: 'Bosch',
     url: '#',
     svg: (
-      <svg className="h-7 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 160 40" fill="currentColor">
+      <svg className="h-10 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 160 40" fill="currentColor">
         <g className="transition-colors duration-300 text-slate-700 group-hover:text-[#EA1D25]">
           <circle cx="20" cy="20" r="15" stroke="currentColor" strokeWidth="3" fill="none" />
           <rect x="15" y="11" width="10" height="18" stroke="currentColor" strokeWidth="2.5" fill="none" />
@@ -222,7 +222,7 @@ const brands = [
     name: 'Fridgemaster',
     url: '#',
     svg: (
-      <svg className="h-5 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 180 30" fill="currentColor">
+      <svg className="h-8 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 180 30" fill="currentColor">
         <text 
           x="5" 
           y="22" 
@@ -241,7 +241,7 @@ const brands = [
     name: 'Haier',
     url: '#',
     svg: (
-      <svg className="h-6 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 130 36" fill="currentColor">
+      <svg className="h-9 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 130 36" fill="currentColor">
         <text 
           x="5" 
           y="26" 
@@ -260,7 +260,7 @@ const brands = [
     name: 'Hoover',
     url: '#',
     svg: (
-      <svg className="h-7 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 150 40" fill="none">
+      <svg className="h-10 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 150 40" fill="none">
         <g className="transition-colors duration-300 text-slate-700 group-hover:text-[#D6001C]">
           <circle cx="20" cy="20" r="15" stroke="currentColor" strokeWidth="3.5" fill="none" />
           <path d="M 8 20 L 32 20" stroke="currentColor" strokeWidth="3" />
@@ -284,7 +284,7 @@ const brands = [
     name: 'Hotpoint',
     url: '#',
     svg: (
-      <svg className="h-6 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 160 36" fill="currentColor">
+      <svg className="h-9 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 160 36" fill="currentColor">
         <text 
           x="5" 
           y="26" 
@@ -303,7 +303,7 @@ const brands = [
     name: 'Indesit',
     url: '#',
     svg: (
-      <svg className="h-6 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 150 36" fill="currentColor">
+      <svg className="h-9 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 150 36" fill="currentColor">
         <g className="transition-colors duration-300 text-slate-700 group-hover:text-[#053769]">
           <path d="M 8 12 A 10 10 0 0 1 24 12 L 24 24 A 10 10 0 0 1 8 24 Z" stroke="currentColor" strokeWidth="2.5" fill="none" />
           <circle cx="16" cy="18" r="3" fill="currentColor" />
@@ -325,7 +325,7 @@ const brands = [
     name: 'Leisure',
     url: '#',
     svg: (
-      <svg className="h-6 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 150 36" fill="currentColor">
+      <svg className="h-9 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 150 36" fill="currentColor">
         <text 
           x="5" 
           y="26" 
@@ -344,7 +344,7 @@ const brands = [
     name: 'Neff',
     url: '#',
     svg: (
-      <svg className="h-6 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 130 36" fill="currentColor">
+      <svg className="h-9 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 130 36" fill="currentColor">
         <text 
           x="5" 
           y="26" 
@@ -363,7 +363,7 @@ const brands = [
     name: 'Rangemaster',
     url: '#',
     svg: (
-      <svg className="h-5 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 190 30" fill="currentColor">
+      <svg className="h-8 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 190 30" fill="currentColor">
         <text 
           x="5" 
           y="22" 
@@ -382,7 +382,7 @@ const brands = [
     name: 'Siemens',
     url: '#',
     svg: (
-      <svg className="h-5 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 160 30" fill="currentColor">
+      <svg className="h-8 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 160 30" fill="currentColor">
         <text 
           x="5" 
           y="22" 
@@ -401,7 +401,7 @@ const brands = [
     name: 'Zanussi',
     url: '#',
     svg: (
-      <svg className="h-6 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 150 36" fill="currentColor">
+      <svg className="h-9 w-auto transition-all duration-300 group-hover:scale-105" viewBox="0 0 150 36" fill="currentColor">
         <text 
           x="5" 
           y="26" 
