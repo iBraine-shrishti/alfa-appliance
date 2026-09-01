@@ -421,7 +421,6 @@ const brands = [
 const BrandSection = () => {
   return (
   <section className="py-12 sm:py-16">
-    {/* Inline styles for custom keyframe slider */}
     <style>{`
       @keyframes marquee {
         0% { transform: translateX(0%); }
@@ -445,10 +444,9 @@ const BrandSection = () => {
         </div>
       </div>
 
-      {/* Sliding Slider Container */}
       <div className="relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
         <div className="group flex w-max gap-12 sm:gap-16 items-center animate-marquee hover:[animation-play-state:paused]">
-          {/* Render array twice to make animation loop seamlessly */}
+         
           {[...brands, ...brands].map((brand, index) => (
             <a
               key={`${brand.name}-${index}`}

@@ -61,7 +61,7 @@ const CategoryProductGrid = ({
       </div>
 
       <div className="mt-5">
-        <ProductGrid products={products} />
+        <ProductGrid products={products} viewMode={viewMode} />
       </div>
 
       <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />

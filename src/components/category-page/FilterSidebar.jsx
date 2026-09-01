@@ -1,5 +1,4 @@
-import { useMemo, useState } from "react";
-import { FiSearch } from "react-icons/fi";
+import { useEffect, useMemo, useState } from "react";
 import FilterAccordion from "./FilterAccordion";
 import ActiveFilterPill from "./ActiveFilterPill";
 
@@ -42,35 +41,57 @@ const FilterSidebar = ({ filters, onChange }) => {
   const [openSections, setOpenSections] = useState({ featured: true });
   const [selected, setSelected] = useState(() => buildInitialSelected(filters));
 
+  useEffect(() => {
+    setSelected(buildInitialSelected(filters));
+  }, [filters]);
+
   const toggleSection = (section) =>
     setOpenSections((current) => ({ ...current, [section]: !current[section] }));
 
   const setFeatured = (value) =>
-    setSelected((current) => ({ ...current, featured: current.featured === value ? null : value }));
+    setSelected((current) => {
+      const next = { ...current, featured: current.featured === value ? null : value };
+      onChange?.(next);
+      return next;
+    });
 
-  const toggleInList = (key) => (value) =>
-    setSelected((current) => ({
-      ...current,
-      [key]: current[key].includes(value)
-        ? current[key].filter((v) => v !== value)
-        : [...current[key], value],
-    }));
+  const toggleInList = (key) => (value) => {
+    setSelected((current) => {
+      const next = {
+        ...current,
+        [key]: current[key].includes(value)
+          ? current[key].filter((v) => v !== value)
+          : [...current[key], value],
+      };
+
+      onChange?.(next);
+      return next;
+    });
+  };
 
   const toggleCategory = toggleInList("categories");
   const toggleBrand = toggleInList("brands");
   const toggleAvailability = toggleInList("availability");
 
-  const setPriceMax = (value) => setSelected((current) => ({ ...current, priceMax: value }));
+  const setPriceMax = (value) => {
+    setSelected((current) => {
+      const next = { ...current, priceMax: value };
+      onChange?.(next);
+      return next;
+    });
+  };
 
   const clearAll = () => {
-    setSelected({
+    const empty = {
       featured: null,
       categories: [],
       brands: [],
       availability: [],
       priceMax: filters.priceRange[1],
-    });
-    onChange?.(null);
+    };
+
+    setSelected(empty);
+    onChange?.(empty);
   };
 
   const applyFilters = () => onChange?.(selected);
@@ -161,14 +182,14 @@ const FilterSidebar = ({ filters, onChange }) => {
       </FilterAccordion>
 
       <FilterAccordion title="Brands" open={!!openSections.brands} onToggle={() => toggleSection("brands")}>
-        <label className="mb-3 flex items-center gap-2 rounded-xl border border-navy-900/10 bg-white px-3 py-2 text-sm text-navy-900/55">
+        {/* <label className="mb-3 flex items-center gap-2 rounded-xl border border-navy-900/10 bg-white px-3 py-2 text-sm text-navy-900/55">
           <FiSearch />
           <input
             type="text"
             placeholder="Search brands"
             className="w-full bg-transparent text-sm outline-none placeholder:text-navy-900/35"
           />
-        </label>
+        </label> */}
         <CheckboxList items={filters.brands} selected={selected.brands} onToggle={toggleBrand} />
       </FilterAccordion>
 

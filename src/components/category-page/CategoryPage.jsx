@@ -10,6 +10,22 @@ import { categoryGateways } from "../../data/categoryGateways";
 
 const stripTrailingS = (str) => (str.endsWith("s") ? str.slice(0, -1) : str);
 
+const requestedBrandNames = [
+  "Belling",
+  "Bosch",
+  "Fridgemaster",
+  "Haier",
+  "Hoover",
+  "Hotpoint",
+  "Indesit",
+  "Leisure",
+  "Neff",
+  "Rangemaster",
+  "Siemens",
+  "Zanussi",
+  "AEG",
+];
+
 const CategoryPage = () => {
   const { category, slug: childSlug } = useParams();
   const slug = childSlug || category;
@@ -38,41 +54,81 @@ const CategoryPage = () => {
   const [appliedFilters, setAppliedFilters] = useState(null);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
-  const filteredProducts = useMemo(() => {
-    const products = page?.subcategorySlugs?.includes(slug)
+  const visibleProducts = useMemo(() => {
+    if (!page) return [];
+    return page.subcategorySlugs?.includes(slug)
       ? page.products.filter((product) => product.subcategory === slug)
-      : page?.products ?? [];
-    if (!appliedFilters && !brandQuery) return products;
+      : page.products;
+  }, [page, slug]);
+
+  const categoryOptions = useMemo(() => {
+    const normalizedVisibleCategories = [...new Set(visibleProducts.map((product) => product.subcategory).filter(Boolean))];
+
+    if (normalizedVisibleCategories.length > 0) {
+      return normalizedVisibleCategories.map((label) => ({
+        label: label
+          .split("-")
+          .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+          .join(" "),
+        children: [],
+      }));
+    }
+
+    return page?.filters?.categories ?? [];
+  }, [page, visibleProducts]);
+
+  const brandOptions = useMemo(() => {
+    const productBrands = visibleProducts.map((product) => product.brand).filter(Boolean);
+    const matchingRequestedBrands = requestedBrandNames.filter((brand) => productBrands.includes(brand));
+    return [...new Set([...productBrands, ...matchingRequestedBrands])].sort((a, b) => a.localeCompare(b));
+  }, [visibleProducts]);
+
+  const sidebarFilters = useMemo(
+    () => ({ ...page?.filters, categories: categoryOptions, brands: brandOptions }),
+    [page, categoryOptions, brandOptions]
+  );
+
+  const filteredProducts = useMemo(() => {
+    const products = visibleProducts;
+    const activeFilters = appliedFilters ?? {};
+
+    if (!activeFilters.categories?.length && !activeFilters.brands?.length && !activeFilters.availability?.length && !brandQuery && typeof activeFilters.priceMax !== "number") {
+      return products;
+    }
 
     return products.filter((product) => {
       if (brandQuery && product.brand !== brandQuery) return false;
-      if (appliedFilters.categories?.length) {
-        const haystack = product.name.toLowerCase();
-        const matchesAny = appliedFilters.categories.some((cat) =>
-          haystack.includes(stripTrailingS(cat).toLowerCase())
-        );
+
+      if (activeFilters.categories?.length) {
+        const matchesAny = activeFilters.categories.some((cat) => {
+          const categoryName = stripTrailingS(cat).toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+          const subcategory = (product.subcategory ?? "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+          const category = (product.category ?? "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+          return subcategory.includes(categoryName) || category.includes(categoryName) || product.name.toLowerCase().includes(categoryName);
+        });
+
         if (!matchesAny) return false;
       }
 
-      if (appliedFilters.brands?.length && !appliedFilters.brands.includes(product.brand)) {
+      if (activeFilters.brands?.length && !activeFilters.brands.includes(product.brand)) {
         return false;
       }
 
-      if (appliedFilters.availability?.length) {
-        const wantsInStock = appliedFilters.availability.includes("In Stock");
-        const wantsOutOfStock = appliedFilters.availability.includes("Out of Stock");
+      if (activeFilters.availability?.length) {
+        const wantsInStock = activeFilters.availability.includes("In Stock");
+        const wantsOutOfStock = activeFilters.availability.includes("Out of Stock");
         const isInStock = product.inStock !== false;
         if (wantsInStock && !wantsOutOfStock && !isInStock) return false;
         if (wantsOutOfStock && !wantsInStock && isInStock) return false;
       }
 
-      if (typeof appliedFilters.priceMax === "number" && product.price > appliedFilters.priceMax) {
+      if (typeof activeFilters.priceMax === "number" && product.price > activeFilters.priceMax) {
         return false;
       }
 
       return true;
     });
-  }, [page, appliedFilters, brandQuery, slug]);
+  }, [visibleProducts, appliedFilters, brandQuery, slug]);
 
   const sortedProducts = useMemo(() => {
     const products = [...filteredProducts];
@@ -101,7 +157,7 @@ const CategoryPage = () => {
       <section className="container-page py-8 lg:py-10">
         <div className="grid gap-6 lg:grid-cols-[300px_1fr]">
           <div className="hidden lg:block">
-            <FilterSidebar filters={page.filters} onChange={handleFiltersChange} />
+            <FilterSidebar filters={sidebarFilters} onChange={handleFiltersChange} />
           </div>
 
           <CategoryProductGrid
@@ -123,7 +179,7 @@ const CategoryPage = () => {
       <MobileFilterDrawer
         isOpen={mobileFiltersOpen}
         onClose={() => setMobileFiltersOpen(false)}
-        filters={page.filters}
+        filters={sidebarFilters}
         onChange={handleFiltersChange}
       />
     </div>
