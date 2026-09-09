@@ -174,7 +174,7 @@ const Contact = () => {
         </form>
       </div>
 
-      <div className="relative h-[420px] overflow-hidden rounded border border-slate-200 bg-slate-100 lg:h-full lg:min-h-[780px]">
+      <div id="store-locator" className="relative h-[420px] scroll-mt-24 overflow-hidden rounded border border-slate-200 bg-slate-100 lg:h-full lg:min-h-[780px]">
         <iframe
           title="Alfa Appliances showroom location"
           src={MAP_EMBED_SRC}

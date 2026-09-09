@@ -1,20 +1,24 @@
 export const quickLinks = [
-  { label: "About us", href: "/about" },
-  { label: "Store Locator", href: "/store-locator" },
+  { label: "About us", href: "#" },
+  { label: "Store Locator", href: "/contact#store-locator" },
   { label: "Our Brands", href: "/brands" },
   { label: "Contact us", href: "/contact" },
 ];
 
 export const shopCategories = [
-  { label: "Refrigerators", href: "/refrigerator" },
-  { label: "Washing Machines", href: "/laundry" },
-  { label: "Ovens & Hobs", href: "/cooking" },
+  { label: "Refrigeration", href: "/refrigerator" },
+  { label: "Laundry", href: "/laundry" },
+  { label: "Cookers", href: "/cooking" },
   { label: "Dishwashers", href: "/dishwashers" },
   { label: "Small Appliances", href: "/small-appliances" },
 ];
 
 export const contactInfo = [
-  { id: "address", label: "Address", value: "105 Stoke Newington high street N16 0PH" },
+  {
+    id: "address",
+    label: "Address",
+    value: "105 Stoke Newington high street N16 0PH",
+  },
   { id: "phone", label: "Phone", value: "0207 923 4080" },
   { id: "email", label: "Email", value: "alfaappliancesltd@gmail.com" },
 ];

@@ -14,7 +14,10 @@ const Footer = () => {
             <DarkLogo />
 
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/60">
-              Experience smarter living with premium home appliances from the world's leading brands. From refrigeration and laundry to cooking and built-in solutions, we deliver quality products, expert installation, and trusted after-sales support for every home.
+              Experience smarter living with premium home appliances from the
+              world's leading brands. From refrigeration and laundry to cooking
+              and built-in solutions, we deliver quality products, expert
+              installation, and trusted after-sales support for every home.
             </p>
           </div>
           <FooterColumn title="Quick Link" links={quickLinks} />
@@ -29,11 +32,18 @@ const Footer = () => {
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
             {legalLinks.map((link, i) => (
               <span key={link.label} className="flex items-center gap-4">
-                <a href={link.href} className="transition-colors hover:text-white">{link.label}</a>
-                {i < legalLinks.length - 1 && <span className="text-white/20">|</span>}
+                <a
+                  href={link.href}
+                  className="transition-colors hover:text-white"
+                >
+                  {link.label}
+                </a>
+                {i < legalLinks.length - 1 && (
+                  <span className="text-white/20">|</span>
+                )}
               </span>
             ))}
-           <span className="text-white/30">
+            {/* <span className="text-white/30">
               Design &amp; Developed by{" "}
               <a
                 href="https://ibraine.com/"
@@ -43,7 +53,7 @@ const Footer = () => {
               >
                 ibraine.
               </a>
-            </span>
+            </span> */}
           </div>
         </Container>
       </div>
@@ -51,7 +61,9 @@ const Footer = () => {
       <div className="border-t border-white/10 bg-navy-950">
         <Container className="flex flex-col gap-6 py-10 sm:flex-row sm:items-end sm:justify-between">
           <h3 className="max-w-xl font-display text-2xl font-semibold leading-snug sm:text-3xl">
-            Designed for Modern Homes.<br />Built for Everyday Living.
+            Designed for Modern Homes.
+            <br />
+            Built for Everyday Living.
           </h3>
           <div className="flex items-center gap-3">
             <span className="text-sm text-white/60">Follow us:</span>

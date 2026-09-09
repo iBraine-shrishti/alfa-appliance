@@ -4,7 +4,6 @@ import Container from "../common/Container";
 const RepairHero = () => {
   return (
     <section className="relative h-[300px] w-full overflow-hidden bg-navy-950 sm:h-[420px] md:h-[520px] lg:h-[720px]">
-   
       <img
         src={heroBg}
         alt="Alfa Appliance Repair Service"
@@ -14,10 +13,8 @@ const RepairHero = () => {
       <div className="absolute inset-0 z-10 flex items-center bg-gradient-to-r from-navy-950/60 via-navy-950/20 to-transparent">
         <Container className="w-full">
           <div className="max-w-2xl text-white">
-
             <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs sm:text-sm font-medium text-white backdrop-blur-md">
-             
-              <span>Trusted by 100,000+ UK households</span>
+              <span> Alfa Repairs</span>
             </div>
 
             <h1 className="font-['Instrument_Sans',_sans-serif] text-4xl font-semibold leading-tight sm:text-5xl md:text-[56px] lg:text-[66px] text-white">
