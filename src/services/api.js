@@ -181,6 +181,29 @@ export const formatBackendProduct = (p) => {
         note: "Save 30% when purchased with large appliances",
       },
     ],
+    colours: p.color
+      ? [{ name: p.color, swatchClass: "bg-slate-400" }]
+      : [],
+    bundles: [],
+    flexpay: {
+      monthlyAmount: Number((numPrice / 36).toFixed(2)),
+      months: 36,
+      buyNowMonths: 9,
+      apr: 29.9,
+      creditLimit: 1200,
+    },
+    delivery: {
+      fromPrice: 30,
+      cutoffLabel: "order by 7pm",
+      standardPrice: 20,
+      perks: ["Choose your delivery day (Monday-Sunday)", "Morning, afternoon and evening slots"],
+      collectionAvailable: true,
+    },
+    essentialServices: [
+      { label: "Add installation with door reversal", price: 40 },
+      { label: "Add installation", price: 15 },
+      { label: "Recycle my old appliance", price: 25 },
+    ],
     carePlans: [
       { id: "monthly", label: "Monthly plan", price: 6, priceLabel: "£6.00 a month", note: "Annual equivalent £72.00" },
       { id: "3yr", label: "3 Years plan", price: 170, priceLabel: "£170.00" },

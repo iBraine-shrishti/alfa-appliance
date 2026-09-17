@@ -34,7 +34,7 @@ const ProductGallery = ({ product, gallery, activeImageIndex, setActiveImageInde
               New Release
             </span>
           ) : null}
-          {product.badges.filter((badge) => badge.toLowerCase() !== "new release").map((badge) => (
+          {(product.badges || []).filter((badge) => badge.toLowerCase() !== "new release").map((badge) => (
             <span key={badge} className="rounded-full bg-navy-900/10 px-3 py-1 text-[11px] font-semibold text-navy-900">
               {badge}
             </span>
@@ -105,7 +105,7 @@ const ProductGallery = ({ product, gallery, activeImageIndex, setActiveImageInde
         {activeImageIndex + 1} / {gallery.length}
       </p>
 
-      {product.colours.length > 1 ? (
+      {product.colours?.length > 1 ? (
         <div className="mt-5">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-navy-900/45">Colour</p>
           <div className="mt-3 flex items-center gap-3">
