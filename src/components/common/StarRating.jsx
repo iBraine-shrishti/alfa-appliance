@@ -13,7 +13,7 @@ const StarRating = ({ rating = 0, reviews = 0 }) => {
         ))}
       </div>
       <span className="text-xs text-navy-900/60">
-        {rating.toFixed(1)} ({reviews})
+        {rating.toFixed(1)} ({Array.isArray(reviews) ? reviews.length : reviews})
       </span>
     </div>
   );

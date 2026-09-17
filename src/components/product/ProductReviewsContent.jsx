@@ -10,9 +10,14 @@ const ProductReviewsContent = ({ product }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isRemainingImagesOpen, setIsRemainingImagesOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [reviewsList, setReviewsList] = useState(product.reviews || []);
+  const initialReviews = Array.isArray(product.reviews)
+    ? product.reviews
+    : Array.isArray(product.reviewsData)
+    ? product.reviewsData
+    : [];
+  const [reviewsList, setReviewsList] = useState(initialReviews);
 
-  const reviewsWithImages = reviewsList.filter((review) => review.image);
+  const reviewsWithImages = reviewsList.filter((review) => review?.image);
   const visibleReviewImages = reviewsWithImages.slice(0, 5);
   const remainingReviewImageCount = reviewsWithImages.length - visibleReviewImages.length;
   const totalReviewPages = Math.max(1, Math.ceil(reviewsList.length / REVIEWS_PER_PAGE));
@@ -49,8 +54,8 @@ const ProductReviewsContent = ({ product }) => {
           <p className="mt-2 text-sm text-navy-900/55">Total {product.reviewCount} reviews</p>
 
           <div className="mt-5 flex flex-col gap-2">
-            {product.ratingBreakdown.map(({ star, count }) => {
-              const pct = Math.round((count / product.reviewCount) * 100);
+            {(product.ratingBreakdown || []).map(({ star, count }) => {
+              const pct = Math.round((count / (product.reviewCount || 1)) * 100);
               return (
                 <div key={star} className="flex items-center gap-2 text-xs text-navy-900/60">
                   <span className="w-10 shrink-0">{star} star</span>
@@ -67,7 +72,7 @@ const ProductReviewsContent = ({ product }) => {
         <div className="rounded-3xl border border-brand-blue/10 bg-brand-blue/5 p-5">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-navy-900/45">By Feature</p>
           <div className="mt-3 flex flex-col gap-3">
-            {product.featureRatings.map((item) => (
+            {(product.featureRatings || []).map((item) => (
               <div key={item.label} className="flex items-center justify-between text-sm">
                 <span className="text-navy-900/70">{item.label}</span>
                 <span className="flex items-center gap-1 text-brand-blue">
