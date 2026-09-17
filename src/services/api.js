@@ -179,6 +179,12 @@ export const formatBackendProduct = (p) => {
         ],
       },
       tracking: "Delivery updates sent via SMS & email tracking link.",
+      restrictions: [
+        "Weekend and next-day delivery is available in most areas, but not all.",
+        "And, of course, delivery is always dependent upon stock availability.",
+        "You can use the availability checker to quickly find out about stock availability and delivery information.",
+      ],
+      largeItems: "If you're getting a large item delivered to a room or flat, our team will safely deliver it when they arrive.",
       collectService: ["Safe and free store pickup in as little as 1 hour."],
       returns: ["30-day money-back return policy for complete peace of mind."],
     },
