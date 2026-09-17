@@ -1,13 +1,13 @@
-const ProductInfoContent = ({ product }) => {
+const ProductInfoContent = ({ product = {} }) => {
   const rows = [
-    ["Category", "Refrigeration"],
-    ["Brand", "ALFA APPLIANCES"],
-    ["Color", product.finish],
-    ["Material", "Premium Grade Stainless Steel"],
-    ["Weight", "142 kg"],
-    ["Dimensions", '70" x 35.75" x 31.5"'],
+    ["Category", product.category_name || (typeof product.category === "string" ? product.category : "Home Appliances")],
+    ["Brand", product.brand_name || product.brand || "Alfa Appliances"],
+    ["Type", product.appliance_type || "Freestanding Appliance"],
+    ["Color / Finish", product.color || product.finish || "Standard Finish"],
+    ["Warranty", product.warranty || "2 Years Manufacturer Guarantee"],
+    ["Dimensions", product.dimensions || "Standard Domestic Dimensions"],
+    ["Capacity", product.capacity || "Standard Volume"],
     ["Department", "Home Appliances"],
-    ["Manufacturer", "ALFA Global Manufacturing Ltd."],
   ];
 
   return (

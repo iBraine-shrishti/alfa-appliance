@@ -7,15 +7,15 @@ import DeliveryReturnsPanel from "./DeliveryReturnsPanel";
 // import ProductFeaturesSection from "../../components/product/ProductFeaturesSection";
 
 
-const ReviewsSummaryBadge = ({ average, count }) => (
+const ReviewsSummaryBadge = ({ average = 4.7, count = 0 }) => (
   <span className="flex items-center gap-1.5 text-sm text-navy-900/70">
     <span className="flex items-center gap-0.5 text-brand-blue">
       {Array.from({ length: 5 }, (_, index) => (
-        <FiStar key={index} size={13} className={index < Math.round(average) ? "fill-amber-400 text-amber-400"     : "text-navy-900/15"} />
+        <FiStar key={index} size={13} className={index < Math.round(Number(average) || 0) ? "fill-amber-400 text-amber-400" : "text-navy-900/15"} />
       ))}
     </span>
-    <span className="font-medium text-navy-950">{average}/5</span>
-    <span className="text-navy-900/45">{count.toLocaleString()} reviews</span>
+    <span className="font-medium text-navy-950">{average || 4.7}/5</span>
+    <span className="text-navy-900/45">{(Number(count) || 0).toLocaleString()} reviews</span>
   </span>
 );
 

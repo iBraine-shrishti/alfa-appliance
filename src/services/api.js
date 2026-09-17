@@ -8,20 +8,62 @@ let cacheTimestamp = 0;
 const CACHE_TTL = 30000; // 30 seconds
 
 /**
+ * Detects if a media URL points to a video
+ */
+export const isVideoUrl = (url) => {
+  if (!url || typeof url !== "string") return false;
+  return (
+    /\.(mp4|webm|ogg|mov)($|\?)/i.test(url) ||
+    /\/video\/upload\//i.test(url) ||
+    url.includes("youtube.com") ||
+    url.includes("youtu.be") ||
+    url.includes("vimeo.com")
+  );
+};
+
+/**
+ * Returns an image thumbnail URL for any media URL (converts Cloudinary videos to jpg automatically)
+ */
+export const getMediaThumbnail = (url) => {
+  if (!url || typeof url !== "string") return "";
+  if (isVideoUrl(url)) {
+    if (/\/video\/upload\//i.test(url)) {
+      return url.replace(/\.(mp4|webm|ogg|mov)($|\?)/i, ".jpg$2");
+    }
+  }
+  return url;
+};
+
+/**
  * Normalizes backend product object to conform to frontend schema
  */
 export const formatBackendProduct = (p) => {
   if (!p) return null;
-  const primaryImage = p.image_display_url || p.image_url || p.image || "";
+  const rawPrimaryImage = p.image_display_url || p.image_url || p.image || "";
 
   // 1. Gallery
   let gallery = [];
   if (Array.isArray(p.gallery) && p.gallery.length > 0) {
-    gallery = p.gallery;
+    gallery = p.gallery.filter((item) => typeof item === "string" && item.trim().length > 0);
   } else if (Array.isArray(p.images) && p.images.length > 0) {
-    gallery = p.images.map((img) => (typeof img === "string" ? img : img.url || img.image_url || primaryImage));
-  } else if (primaryImage) {
-    gallery = [primaryImage];
+    gallery = p.images
+      .map((img) => (typeof img === "string" ? img : img?.url || img?.image_url || ""))
+      .filter((item) => typeof item === "string" && item.trim().length > 0);
+  }
+
+  if (rawPrimaryImage && !gallery.includes(rawPrimaryImage)) {
+    gallery.unshift(rawPrimaryImage);
+  }
+  if (gallery.length === 0 && rawPrimaryImage) {
+    gallery = [rawPrimaryImage];
+  }
+  // Deduplicate while preserving order
+  gallery = Array.from(new Set(gallery));
+
+  let primaryImage = rawPrimaryImage;
+  if (isVideoUrl(primaryImage)) {
+    const firstNonVideo = gallery.find((u) => !isVideoUrl(u));
+    primaryImage = firstNonVideo || getMediaThumbnail(primaryImage);
   }
 
   // 2. Brand & Category & Subcategory

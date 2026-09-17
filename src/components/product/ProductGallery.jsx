@@ -5,22 +5,38 @@ import SliderArrow from "../common/SliderArrow";
 import ProductHeader from "./ProductHeader";
 import { useWishlist } from "../../context/WishlistContext";
 import { useCart } from "../../context/CartContext";
+import { isVideoUrl, getMediaThumbnail } from "../../services/api";
 
-const ProductGallery = ({ product, gallery, activeImageIndex, setActiveImageIndex }) => {
-  const activeImage = gallery[activeImageIndex] ?? product.image;
+const ProductGallery = ({ product = {}, gallery = [], activeImageIndex = 0, setActiveImageIndex }) => {
+  const currentGallery =
+    Array.isArray(gallery) && gallery.length > 0
+      ? gallery
+      : product?.image
+      ? [product.image]
+      : [];
+
+  const safeIndex =
+    activeImageIndex >= 0 && activeImageIndex < currentGallery.length ? activeImageIndex : 0;
+  const activeMedia = currentGallery[safeIndex] || product?.image || "";
+  const isVideo = isVideoUrl(activeMedia);
+
   const { toggleWishlist, isWishlisted } = useWishlist();
   const { toggleCart, isInCart } = useCart();
 
   useEffect(() => {
-    setActiveImageIndex(0);
-  }, [product, setActiveImageIndex]);
+    if (typeof setActiveImageIndex === "function") {
+      setActiveImageIndex(0);
+    }
+  }, [product?.id, setActiveImageIndex]);
 
   const showPreviousImage = () => {
-    setActiveImageIndex((currentIndex) => (currentIndex - 1 + gallery.length) % gallery.length);
+    if (!currentGallery.length || typeof setActiveImageIndex !== "function") return;
+    setActiveImageIndex((currentIndex) => (currentIndex - 1 + currentGallery.length) % currentGallery.length);
   };
 
   const showNextImage = () => {
-    setActiveImageIndex((currentIndex) => (currentIndex + 1) % gallery.length);
+    if (!currentGallery.length || typeof setActiveImageIndex !== "function") return;
+    setActiveImageIndex((currentIndex) => (currentIndex + 1) % currentGallery.length);
   };
 
   return (
@@ -28,7 +44,7 @@ const ProductGallery = ({ product, gallery, activeImageIndex, setActiveImageInde
       <ProductHeader product={product} />
 
       <div className="relative overflow-hidden rounded border border-navy-900/10 bg-white p-5 shadow-sm">
-        <div className="absolute left-4 top-4 flex flex-col items-start gap-2">
+        <div className="absolute left-4 top-4 flex flex-col items-start gap-2 z-10">
           {product.isNewRelease ? (
             <span className="rounded-full bg-brand-blue px-3 py-1 text-[11px] font-semibold text-white">
               New Release
@@ -61,7 +77,7 @@ const ProductGallery = ({ product, gallery, activeImageIndex, setActiveImageInde
         </div> */}
 
         <div className="relative flex h-[420px] items-center justify-center lg:h-[520px]">
-          {gallery.length > 1 ? (
+          {currentGallery.length > 1 ? (
             <SliderArrow
               direction="left"
               onClick={showPreviousImage}
@@ -69,13 +85,34 @@ const ProductGallery = ({ product, gallery, activeImageIndex, setActiveImageInde
             />
           ) : null}
 
-          <img
-            src={activeImage}
-            alt={product.name}
-            className="h-full max-h-[600px] max-w-[82%] object-contain transition duration-300"
-          />
+          {isVideo ? (
+            <video
+              key={activeMedia}
+              src={activeMedia}
+              controls
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="h-full max-h-[600px] max-w-[82%] object-contain rounded"
+            >
+              Your browser does not support the video tag.
+            </video>
+          ) : (
+            <img
+              key={activeMedia}
+              src={activeMedia}
+              alt={product?.name || "Product image"}
+              className="h-full max-h-[600px] max-w-[82%] object-contain transition duration-300"
+              onError={(e) => {
+                if (product?.image && e.target.src !== product.image) {
+                  e.target.src = product.image;
+                }
+              }}
+            />
+          )}
 
-          {gallery.length > 1 ? (
+          {currentGallery.length > 1 ? (
             <SliderArrow
               direction="right"
               onClick={showNextImage}
@@ -86,30 +123,52 @@ const ProductGallery = ({ product, gallery, activeImageIndex, setActiveImageInde
       </div>
 
       <div className="mt-4 flex gap-3 overflow-x-auto pb-1">
-        {gallery.map((image, index) => (
-          <button
-            key={`${image}-${index}`}
-            type="button"
-            onClick={() => setActiveImageIndex(index)}
-            className={`relative shrink-0 overflow-hidden rounded border bg-white p-1 transition ${
-              activeImageIndex === index ? "border-brand-blue ring-2 ring-brand-blue/15" : "border-navy-900/10"
-            }`}
-            aria-label={`Show image ${index + 1}`}
-          >
-            <img src={image} alt={`${product.name} thumbnail ${index + 1}`} className="h-35 w-35 object-cover" />
-          </button>
-        ))}
+        {currentGallery.map((item, index) => {
+          const isItemVideo = isVideoUrl(item);
+          const thumbSrc = isItemVideo ? getMediaThumbnail(item) : item;
+          return (
+            <button
+              key={`${item}-${index}`}
+              type="button"
+              onClick={() => typeof setActiveImageIndex === "function" && setActiveImageIndex(index)}
+              className={`relative shrink-0 overflow-hidden rounded border bg-white p-1 transition ${
+                safeIndex === index ? "border-brand-blue ring-2 ring-brand-blue/15" : "border-navy-900/10"
+              }`}
+              aria-label={`Show ${isItemVideo ? "video" : "image"} ${index + 1}`}
+            >
+              <img
+                src={thumbSrc}
+                alt={`${product?.name || "Product"} thumbnail ${index + 1}`}
+                className="h-35 w-35 object-cover"
+                onError={(e) => {
+                  if (product?.image && e.target.src !== product.image) {
+                    e.target.src = product.image;
+                  }
+                }}
+              />
+              {isItemVideo && (
+                <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/25">
+                  <div className="flex h-7 w-7 items-center justify-center rounded-full bg-white/90 text-navy-900 shadow">
+                    <svg className="ml-0.5 h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </div>
+                </div>
+              )}
+            </button>
+          );
+        })}
       </div>
 
       <p className="mt-2 text-center text-xs text-navy-900/45 lg:text-left">
-        {activeImageIndex + 1} / {gallery.length}
+        {currentGallery.length > 0 ? `${safeIndex + 1} / ${currentGallery.length}` : ""}
       </p>
 
-      {product.colours?.length > 1 ? (
+      {(product?.colours || []).length > 1 ? (
         <div className="mt-5">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-navy-900/45">Colour</p>
           <div className="mt-3 flex items-center gap-3">
-            {product.colours.map((colour) => (
+            {(product.colours || []).map((colour) => (
               <Link
                 key={colour.name}
                 to={colour.href || "#"}

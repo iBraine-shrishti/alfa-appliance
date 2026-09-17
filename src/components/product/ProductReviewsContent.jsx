@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FiStar, FiX } from "react-icons/fi";
 import WriteReviewModal from "../review/WriteReviewModal";
 
@@ -10,12 +10,21 @@ const ProductReviewsContent = ({ product }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isRemainingImagesOpen, setIsRemainingImagesOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const initialReviews = Array.isArray(product.reviews)
+  const initialReviews = Array.isArray(product?.reviews)
     ? product.reviews
-    : Array.isArray(product.reviewsData)
+    : Array.isArray(product?.reviewsData)
     ? product.reviewsData
     : [];
   const [reviewsList, setReviewsList] = useState(initialReviews);
+
+  useEffect(() => {
+    const nextReviews = Array.isArray(product?.reviews)
+      ? product.reviews
+      : Array.isArray(product?.reviewsData)
+      ? product.reviewsData
+      : [];
+    setReviewsList(nextReviews);
+  }, [product]);
 
   const reviewsWithImages = reviewsList.filter((review) => review?.image);
   const visibleReviewImages = reviewsWithImages.slice(0, 5);
