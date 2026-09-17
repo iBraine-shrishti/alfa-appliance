@@ -20,13 +20,13 @@ const ProductCard = ({ product }) => {
 
   return (
     <div className="group flex flex-col rounded-lg border border-navy-900/10 bg-white shadow-sm transition-shadow hover:shadow-md">
-      <div className="relative bg-[#F1F1F199] p-6">
+      <div className="relative rounded-t-lg bg-[#fffffff] p-4 sm:p-5">
         {badge && (
-          <span className="absolute left-2 top-2 rounded-full bg-brand-orange px-2.5 py-1 text-[10px] font-semibold uppercase text-white">
+          <span className="absolute left-2.5 top-2.5 z-20 rounded-full bg-brand-orange px-2.5 py-1 text-[10px] font-semibold uppercase text-white shadow-sm pointer-events-none">
             {badge}
           </span>
         )}
-        <div className="absolute right-2 top-2 z-10 flex gap-2">
+        <div className="absolute right-2.5 top-2.5 z-20 flex gap-2">
           <button
             type="button"
             aria-label={wishlisted ? "Remove from wishlist" : "Add to wishlist"}
@@ -58,11 +58,14 @@ const ProductCard = ({ product }) => {
           </button>
         </div>
         <Link to={`/product/${productSlug}`} className="block">
-          <img
-            src={image}
-            alt={name}
-            className="mx-auto aspect-square w-[100%] object-cover transition duration-300 group-hover:scale-105"
-          />
+          <div className="flex aspect-square w-full items-center justify-center overflow-hidden">
+            <img
+              src={image}
+              alt={name}
+              className="h-full w-full object-contain transition-transform duration-300 ease-out group-hover:scale-105"
+              loading="lazy"
+            />
+          </div>
         </Link>
       </div>
 

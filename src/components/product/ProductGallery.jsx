@@ -139,7 +139,7 @@ const ProductGallery = ({ product = {}, gallery = [], activeImageIndex = 0, setA
               <img
                 src={thumbSrc}
                 alt={`${product?.name || "Product"} thumbnail ${index + 1}`}
-                className="h-35 w-35 object-cover"
+                className="h-35 w-35 object-contain"
                 onError={(e) => {
                   if (product?.image && e.target.src !== product.image) {
                     e.target.src = product.image;
