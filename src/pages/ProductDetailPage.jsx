@@ -1,7 +1,8 @@
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { findProductBySlug } from "../data/productCatalog";
+import { fetchProductBySlug } from "../services/api";
 import { categoryGateways } from "../data/categoryGateways"; // Adjust path as needed
 import ProductGallery from "../components/product/ProductGallery";
 import ProductBuyBox from "../components/product/ProductBuyBox";
@@ -89,8 +90,32 @@ const resolveProductTaxonomy = (product) => {
 
 const ProductDetailPage = () => {
   const { slug } = useParams();
-  const product = findProductBySlug(slug);
+  const [product, setProduct] = useState(() => findProductBySlug(slug));
+  const [loading, setLoading] = useState(!product);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+
+  useEffect(() => {
+    let isMounted = true;
+    const loadProduct = async () => {
+      try {
+        const backendProduct = await fetchProductBySlug(slug);
+        if (isMounted && backendProduct) {
+          setProduct(backendProduct);
+        } else if (isMounted && !product) {
+          const local = findProductBySlug(slug);
+          if (local) setProduct(local);
+        }
+      } catch (err) {
+        console.warn("Failed to load backend product:", err);
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    };
+    loadProduct();
+    return () => {
+      isMounted = false;
+    };
+  }, [slug]);
 
   const gallery = useMemo(() => {
     if (!product) return [];
@@ -117,6 +142,14 @@ const ProductDetailPage = () => {
     });
   }, [categoryConfig, taxonomy.subcategory]);
   const hasSubcategoryTrail = Boolean(taxonomy.subcategory && subcategoryTile);
+
+  if (loading && !product) {
+    return (
+      <div className="container-page py-20 text-center text-navy-900/60">
+        Loading product details...
+      </div>
+    );
+  }
 
   if (!product) {
     return <div className="container-page py-20">Product not found.</div>;

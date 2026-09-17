@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -10,6 +10,7 @@ import FilterTabs from "../components/product/FilterTabs";
 import ProductCard from "../components/product/ProductCard";
 import SliderArrow from "../components/common/SliderArrow";
 import { products } from "../data/products";
+import { fetchProducts } from "../services/api";
 
 const FILTER_TABS = ["Best Sellers", "New Arrivals", "Deals"];
 
@@ -17,26 +18,43 @@ const FeaturedProducts = () => {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
   const [activeTab, setActiveTab] = useState("Best Sellers");
+  const [allProducts, setAllProducts] = useState(products);
+
+  useEffect(() => {
+    let isMounted = true;
+    fetchProducts().then((backendProducts) => {
+      if (isMounted && backendProducts && backendProducts.length > 0) {
+        const backendSlugs = new Set(backendProducts.map((p) => p.slug));
+        const nonDuplicateInitial = products.filter((p) => !backendSlugs.has(p.slug));
+        setAllProducts([...backendProducts, ...nonDuplicateInitial]);
+      }
+    });
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   // Filter products based on selected tab
   const getFilteredProducts = () => {
     let list = [];
     if (activeTab === "Deals") {
-      list = products.filter(
+      list = allProducts.filter(
         (p) => p.discount || p.oldPrice || p.badge === "Offer"
       );
     } else if (activeTab === "New Arrivals") {
-      list = products.filter((p) => p.badge === "New" || p.id.includes("p4") || p.id.includes("p3"));
+      list = allProducts.filter(
+        (p) => p.isNewRelease || p.badge === "New" || p.id?.includes?.("p4") || p.id?.includes?.("p3")
+      );
       if (list.length < 8) {
-        list = [...products].reverse();
+        list = [...allProducts].reverse();
       }
     } else {
       // Best Sellers
-      list = products.filter((p) => p.badge === "Best Seller" || p.rating >= 4.7);
+      list = allProducts.filter((p) => p.badge === "Best Seller" || p.rating >= 4.7);
     }
 
     if (list.length < 8) {
-      list = products.slice(0, 13);
+      list = allProducts.slice(0, 13);
     }
 
     // Ensure we have enough items for continuous looping

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useParams, useSearchParams, Navigate } from "react-router-dom";
 import CategoryHero from "./CategoryHero";
 import CategoryGateway from "./CategoryGateway";
@@ -7,6 +7,7 @@ import MobileFilterDrawer from "./MobileFilterDrawer";
 import CategoryProductGrid from "./CategoryProductGrid";
 import { categoryPages } from "../../data/categoryPages";
 import { categoryGateways } from "../../data/categoryGateways";
+import { fetchProducts } from "../../services/api";
 
 const stripTrailingS = (str) => (str.endsWith("s") ? str.slice(0, -1) : str);
 
@@ -53,13 +54,52 @@ const CategoryPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [appliedFilters, setAppliedFilters] = useState(null);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [backendProducts, setBackendProducts] = useState([]);
+
+  useEffect(() => {
+    let isMounted = true;
+    fetchProducts().then((res) => {
+      if (isMounted && res && res.length > 0) {
+        setBackendProducts(res);
+      }
+    });
+    return () => {
+      isMounted = false;
+    };
+  }, [slug]);
 
   const visibleProducts = useMemo(() => {
-    if (!page) return [];
-    return page.subcategorySlugs?.includes(slug)
-      ? page.products.filter((product) => product.subcategory === slug)
-      : page.products;
-  }, [page, slug]);
+    const targetSlug = (slug || "").toLowerCase();
+    const pageSubSlugs = page?.subcategorySlugs || [];
+
+    const matchingBackend = backendProducts.filter((p) => {
+      const pCat = (p.category || "").toLowerCase();
+      const pSub = (p.subcategory || "").toLowerCase();
+      const pCollections = (p.collections || []).map((c) => (c.slug || c.title || "").toLowerCase());
+
+      // Match on subcategory or collection
+      if (pSub === targetSlug || pCollections.includes(targetSlug)) return true;
+
+      // Match on parent category
+      if (pCat === targetSlug) return true;
+      if (pageSubSlugs.includes(pSub)) return true;
+      if (pageSubSlugs.some((sub) => pCollections.includes(sub))) return true;
+
+      return false;
+    });
+
+    const baseProducts = page
+      ? page.subcategorySlugs?.includes(slug)
+        ? page.products.filter((product) => product.subcategory === slug)
+        : page.products
+      : [];
+
+    if (matchingBackend.length === 0) return baseProducts;
+
+    const backendSlugs = new Set(matchingBackend.map((p) => p.slug));
+    const nonDuplicateBase = baseProducts.filter((p) => !backendSlugs.has(p.slug));
+    return [...matchingBackend, ...nonDuplicateBase];
+  }, [page, slug, backendProducts]);
 
   const categoryOptions = useMemo(() => {
     const normalizedVisibleCategories = [...new Set(visibleProducts.map((product) => product.subcategory).filter(Boolean))];
