@@ -323,7 +323,10 @@ export const fetchProductBySlug = async (slug) => {
     // If slug lookup failed, check in cached or fresh products list
     const all = await fetchProducts();
     const matched = all.find(
-      (p) => p.slug === slug || p.slug?.toLowerCase() === slug?.toLowerCase()
+      (p) =>
+        p.slug === slug ||
+        p.slug?.toLowerCase() === slug?.toLowerCase() ||
+        String(p.id) === String(slug)
     );
     return matched || null;
   } catch (err) {
