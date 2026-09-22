@@ -1,0 +1,36 @@
+Booking form: appliance sub-type fields (Step 2, Fault Details)
+
+General questions (appliance age, optional model number, fault description) stay as they are. Integrated / freestanding stays as-is for all appliances except Electric Cooker / Electric Oven. The changes:
+
+ELECTRIC COOKER / ELECTRIC OVEN
+
+	•	Remove integrated / freestanding for this category.
+	•	Replace with a "Type" dropdown:
+	•	Standard Freestanding Cooker
+	•	Range Cooker
+	•	Built-in Electric Oven
+
+FRIDGE FREEZER — keep integrated / freestanding, then add "Type":
+
+	•	Standard Size Fridge Freezer (50cm–70cm)
+	•	American Size Fridge Freezer (90cm)
+	•	Under Counter Fridge Freezer (Ice Box)
+
+
+FRIDGE — keep integrated / freestanding, then add "Type":
+
+	•	Larder Fridge (Tall)
+	•	Under Counter Fridge
+
+FREEZER — keep integrated / freestanding, then add "Type":
+
+	•	Standing Freezer (Tall)
+	•	Chest Freezer
+	•	Under Counter Freezer
+
+NO CHANGE — stay exactly as they are (integrated / freestanding only, no Type field):
+
+	•	Washing Machine
+	•	Washer Dryer
+	•	Tumble Dryer
+	•	Dishwasher

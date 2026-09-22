@@ -2,8 +2,8 @@ export const repairTrustData = {
   tag: "Alfa appliances — repair service",
   title: "Professional Appliance Repairs You Can Trust",
   paragraphs: [
-    "At Alfa Appliances, we provide reliable repair services for your essential home appliances. Our qualified engineers diagnose the issue, explain the repair clearly, and provide transparent pricing before any work begins.",
-    "From diagnosis to completion, we deliver reliable appliance repairs using quality workmanship, genuine parts, transparent pricing, and dependable local service. Our goal is to restore your appliance quickly and efficiently, giving you complete confidence and peace of mind.",
+    "At Alfa Appliances, we provide reliable domestic appliance repairs (laundry, refrigeration, dishwashers, and cooking) for the essential appliances your home depends on. Our qualified engineers diagnose the issue, explain the repair clearly, and give you transparent pricing before any work begins",
+    "From diagnosis to completion, we deliver dependable local repairs using quality workmanship, genuine parts, and honest pricing — restoring your appliance quickly and efficiently, and giving you complete confidence and peace of mind. And if your appliance is beyond economical repair, your visit still counts: we'll credit £20 of your £59.99 diagnostic fee toward a replacement appliance purchased from us within 7 days",
   ],
   buttonText: "Book a Repair Now",
 };
@@ -99,6 +99,6 @@ export const pricingBannerData = {
   titleMain: "Pricing",
   price: "£59.99",
   description:
-    "additional parts or chargeable work are required, your engineer will provide a clear quote before proceeding. You are under no obligation to continue.",
+    "Get your appliance up and running perfectly. A qualified engineer will visit, diagnose the fault, and explain exactly what's needed — with a clear quote before any work begins, and no obligation to continue.",
   buttonText: "Book a Repair Now",
 };

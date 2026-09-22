@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Container from "../common/Container";
 import FooterColumn from "./FooterColumn";
 import ContactColumn from "./ContactColumn";
@@ -32,12 +33,12 @@ const Footer = () => {
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
             {legalLinks.map((link, i) => (
               <span key={link.label} className="flex items-center gap-4">
-                <a
-                  href={link.href}
+                <Link
+                  to={link.href}
                   className="transition-colors hover:text-white"
                 >
                   {link.label}
-                </a>
+                </Link>
                 {i < legalLinks.length - 1 && (
                   <span className="text-white/20">|</span>
                 )}

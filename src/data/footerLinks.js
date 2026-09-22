@@ -1,14 +1,16 @@
 export const quickLinks = [
-  { label: "About us", href: "#" },
+  { label: "About us", href: "/contact" },
   { label: "Store Locator", href: "/contact#store-locator" },
   { label: "Our Brands", href: "/brands" },
+  { label: "Book Repair", href: "/book-repair" },
+  { label: "Terms & Conditions", href: "/terms-and-conditions" },
   { label: "Contact us", href: "/contact" },
 ];
 
 export const shopCategories = [
   { label: "Refrigeration", href: "/refrigerator" },
   { label: "Laundry", href: "/laundry" },
-  { label: "Cookers", href: "/cooking" },
+  { label: "Cooking", href: "/cooking" },
   { label: "Dishwashers", href: "/dishwashers" },
   { label: "Small Appliances", href: "/small-appliances" },
 ];
@@ -25,7 +27,6 @@ export const contactInfo = [
 
 export const legalLinks = [
   { label: "Sitemap", href: "/sitemap" },
-  { label: "Disclaimer", href: "/disclaimer" },
-  { label: "Terms & Conditions", href: "/terms" },
   { label: "Privacy Policy", href: "/privacy" },
+  { label: "Terms & Conditions", href: "/terms-and-conditions" },
 ];

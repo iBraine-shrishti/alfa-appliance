@@ -153,6 +153,28 @@ const APPLIANCE_OPTIONS = [
   { id: "dishwasher", name: "Dishwasher", icon: ApplianceIcons.dishwasher },
 ];
 
+const APPLIANCE_SUBTYPES = {
+  "electric-cooker-oven": [
+    "Standard Freestanding Cooker",
+    "Range Cooker",
+    "Built-in Electric Oven",
+  ],
+  "fridge-freezer": [
+    "Standard Size Fridge Freezer (50cm–70cm)",
+    "American Size Fridge Freezer (90cm)",
+    "Under Counter Fridge Freezer (Ice Box)",
+  ],
+  fridge: [
+    "Larder Fridge (Tall)",
+    "Under Counter Fridge",
+  ],
+  freezer: [
+    "Standing Freezer (Tall)",
+    "Chest Freezer",
+    "Under Counter Freezer",
+  ],
+};
+
 const BRANDS = [
   "Bosch",
   "Samsung",
@@ -190,7 +212,8 @@ const BookingModal = ({ isOpen, onClose }) => {
   const [step, setStep] = useState(1);
   const [selectedAppliance, setSelectedAppliance] = useState("washing-machine");
   const [applianceBrand, setApplianceBrand] = useState("Bosch");
-  const [applianceType, setApplianceType] = useState("");
+  const [integrationType, setIntegrationType] = useState("");
+  const [applianceSubType, setApplianceSubType] = useState("");
   const [applianceAge, setApplianceAge] = useState("");
   const [modelNumber, setModelNumber] = useState("");
   const [faultDescription, setFaultDescription] = useState(
@@ -206,6 +229,12 @@ const BookingModal = ({ isOpen, onClose }) => {
   const [selectedSlot, setSelectedSlot] = useState("morning");
   const [errorMessage, setErrorMessage] = useState("");
   const [bookingRef, setBookingRef] = useState("ALF-2026-00847");
+
+  const handleSelectAppliance = (id) => {
+    setSelectedAppliance(id);
+    setIntegrationType("");
+    setApplianceSubType("");
+  };
 
   useEffect(() => {
     if (isOpen) {
@@ -234,9 +263,25 @@ const BookingModal = ({ isOpen, onClose }) => {
       }
       setStep(2);
     } else if (step === 2) {
-      if (!applianceType) {
-        setErrorMessage("Please select whether your appliance is freestanding or integrated.");
-        return;
+      if (selectedAppliance === "electric-cooker-oven") {
+        if (!applianceSubType) {
+          setErrorMessage("Please select your cooker / oven type.");
+          return;
+        }
+      } else {
+        if (!integrationType) {
+          setErrorMessage("Please select whether your appliance is freestanding or integrated.");
+          return;
+        }
+        if (
+          (selectedAppliance === "fridge-freezer" ||
+            selectedAppliance === "fridge" ||
+            selectedAppliance === "freezer") &&
+          !applianceSubType
+        ) {
+          setErrorMessage("Please select your appliance type.");
+          return;
+        }
       }
       if (!applianceBrand) {
         setErrorMessage("Please select an appliance brand.");
@@ -276,7 +321,18 @@ const BookingModal = ({ isOpen, onClose }) => {
     } else if (step === 4) {
       const randomRef = `ALF-2026-00${Math.floor(100 + Math.random() * 900)}`;
       setBookingRef(randomRef);
-      localStorage.setItem("alfa-repair-booking", JSON.stringify({ bookingRef: randomRef, appliance: currentApplianceName, email: emailAddress, slot: selectedSlot, day: selectedDayIndex }));
+      localStorage.setItem(
+        "alfa-repair-booking",
+        JSON.stringify({
+          bookingRef: randomRef,
+          appliance: currentApplianceName,
+          integrationType: integrationType || null,
+          applianceSubType: applianceSubType || null,
+          email: emailAddress,
+          slot: selectedSlot,
+          day: selectedDayIndex,
+        })
+      );
       setStep(5);
     }
   };
@@ -358,10 +414,14 @@ const BookingModal = ({ isOpen, onClose }) => {
               </div>
 
               <div className="mt-4 space-y-3.5 text-xs sm:text-sm">
-                <div className="flex justify-between">
-                  <span className="text-slate-400">Appliance</span>
-                  <span className="font-semibold text-navy-950">
+                <div className="flex justify-between items-start gap-2">
+                  <span className="text-slate-400 shrink-0">Appliance</span>
+                  <span className="font-semibold text-navy-950 text-right">
                     {currentApplianceName}
+                    {applianceSubType ? ` (${applianceSubType})` : ""}
+                    {selectedAppliance !== "electric-cooker-oven" && integrationType
+                      ? ` • ${integrationType}`
+                      : ""}
                   </span>
                 </div>
 
@@ -523,7 +583,7 @@ const BookingModal = ({ isOpen, onClose }) => {
                       <button
                         key={item.id}
                         type="button"
-                        onClick={() => setSelectedAppliance(item.id)}
+                        onClick={() => handleSelectAppliance(item.id)}
                         className={`flex flex-col items-center justify-center rounded-xl border p-4 text-center transition-all cursor-pointer min-h-[110px] ${
                           isSelected
                             ? "border-brand-blue bg-[#F0F5FF] text-brand-blue ring-1 ring-brand-blue"
@@ -557,15 +617,66 @@ const BookingModal = ({ isOpen, onClose }) => {
                   .
                 </p>
 
-                <div>
-                  <label className="mb-1.5 block text-xs font-semibold text-slate-800">Appliance Type*</label>
-                  <select value={applianceType} onChange={(e) => setApplianceType(e.target.value)} className="w-full appearance-none rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-xs sm:text-sm text-navy-950 outline-none focus:border-brand-blue">
-                    <option value="">Select appliance type</option>
-                    <option value="Freestanding">Freestanding</option>
-                    <option value="Integrated">Integrated</option>
-                  </select>
-                </div>
+                {/* 1. Integrated / Freestanding (kept for all appliances EXCEPT electric-cooker-oven) */}
+                {selectedAppliance !== "electric-cooker-oven" && (
+                  <div>
+                    <label className="mb-1.5 block text-xs font-semibold text-slate-800">
+                      Appliance Type (Integrated / Freestanding)*
+                    </label>
+                    <div className="relative">
+                      <select
+                        value={integrationType}
+                        onChange={(e) => setIntegrationType(e.target.value)}
+                        className="w-full appearance-none rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-xs sm:text-sm text-navy-950 outline-none focus:border-brand-blue cursor-pointer"
+                      >
+                        <option value="">Select freestanding or integrated</option>
+                        <option value="Freestanding">Freestanding</option>
+                        <option value="Integrated">Integrated</option>
+                      </select>
+                      <FiChevronDown
+                        className="absolute right-3.5 top-3.5 text-slate-400 pointer-events-none"
+                        size={16}
+                      />
+                    </div>
+                  </div>
+                )}
 
+                {/* 2. Sub-Type Dropdown (for electric-cooker-oven, fridge-freezer, fridge, freezer) */}
+                {APPLIANCE_SUBTYPES[selectedAppliance] && (
+                  <div>
+                    <label className="mb-1.5 block text-xs font-semibold text-slate-800">
+                      Type*
+                    </label>
+                    <div className="relative">
+                      <select
+                        value={applianceSubType}
+                        onChange={(e) => setApplianceSubType(e.target.value)}
+                        className="w-full appearance-none rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-xs sm:text-sm text-navy-950 outline-none focus:border-brand-blue cursor-pointer"
+                      >
+                        <option value="">
+                          {selectedAppliance === "electric-cooker-oven"
+                            ? "Select cooker / oven type"
+                            : selectedAppliance === "fridge-freezer"
+                            ? "Select fridge freezer type"
+                            : selectedAppliance === "fridge"
+                            ? "Select fridge type"
+                            : "Select freezer type"}
+                        </option>
+                        {APPLIANCE_SUBTYPES[selectedAppliance].map((subType) => (
+                          <option key={subType} value={subType}>
+                            {subType}
+                          </option>
+                        ))}
+                      </select>
+                      <FiChevronDown
+                        className="absolute right-3.5 top-3.5 text-slate-400 pointer-events-none"
+                        size={16}
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {/* 3. Appliance Brand */}
                 <div>
                   <label className="mb-1.5 block text-xs font-semibold text-slate-800">
                     Appliance Brand*
@@ -574,7 +685,7 @@ const BookingModal = ({ isOpen, onClose }) => {
                     <select
                       value={applianceBrand}
                       onChange={(e) => setApplianceBrand(e.target.value)}
-                      className="w-full appearance-none rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-xs sm:text-sm text-navy-950 outline-none focus:border-brand-blue"
+                      className="w-full appearance-none rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-xs sm:text-sm text-navy-950 outline-none focus:border-brand-blue cursor-pointer"
                     >
                       {BRANDS.map((b) => (
                         <option key={b} value={b}>
@@ -589,6 +700,7 @@ const BookingModal = ({ isOpen, onClose }) => {
                   </div>
                 </div>
 
+                {/* 4. Model Number (optional) */}
                 <div>
                   <label className="mb-1.5 block text-xs font-semibold text-slate-800">
                     Model Number{" "}
@@ -605,6 +717,7 @@ const BookingModal = ({ isOpen, onClose }) => {
                   />
                 </div>
 
+                {/* 5. Describe the Fault */}
                 <div>
                   <label className="mb-1.5 block text-xs font-semibold text-slate-800">
                     Describe the Fault *
@@ -618,14 +731,27 @@ const BookingModal = ({ isOpen, onClose }) => {
                   />
                 </div>
 
+                {/* 6. Appliance Age */}
                 <div>
-                  <label className="mb-1.5 block text-xs font-semibold text-slate-800">How long have you had the appliance? (roughly)*</label>
-                  <select value={applianceAge} onChange={(e) => setApplianceAge(e.target.value)} className="w-full appearance-none rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-xs sm:text-sm text-navy-950 outline-none focus:border-brand-blue">
-                    <option value="">Select appliance age</option>
-                    <option value="Less than 2 years">Less than 2 years</option>
-                    <option value="2–5 years">2–5 years</option>
-                    <option value="5+ years">5+ years</option>
-                  </select>
+                  <label className="mb-1.5 block text-xs font-semibold text-slate-800">
+                    How long have you had the appliance? (roughly)*
+                  </label>
+                  <div className="relative">
+                    <select
+                      value={applianceAge}
+                      onChange={(e) => setApplianceAge(e.target.value)}
+                      className="w-full appearance-none rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-xs sm:text-sm text-navy-950 outline-none focus:border-brand-blue cursor-pointer"
+                    >
+                      <option value="">Select appliance age</option>
+                      <option value="Less than 2 years">Less than 2 years</option>
+                      <option value="2–5 years">2–5 years</option>
+                      <option value="5+ years">5+ years</option>
+                    </select>
+                    <FiChevronDown
+                      className="absolute right-3.5 top-3.5 text-slate-400 pointer-events-none"
+                      size={16}
+                    />
+                  </div>
                 </div>
               </div>
             )}
@@ -815,6 +941,18 @@ const BookingModal = ({ isOpen, onClose }) => {
                   {step === 4 ? "Make Payment" : "Next Step"}
                 </button>
               </div>
+              {step === 4 && (
+                <p className="text-center sm:text-right text-[11px] text-slate-400">
+                  By making payment, you accept our{" "}
+                  <Link
+                    to="/terms-and-conditions"
+                    target="_blank"
+                    className="text-brand-blue underline hover:text-brand-blue-dark font-medium"
+                  >
+                    Terms &amp; Conditions
+                  </Link>
+                </p>
+              )}
             </div>
           </div>
         )}

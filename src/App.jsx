@@ -15,6 +15,7 @@ import WishlistPage from "./pages/WishlistPage";
 import ProfilePage from "./pages/ProfilePage";
 import TrackOrderPage from "./pages/TrackOrderPage";
 import BookRepairPage from "./pages/BookRepairPage";
+import TermsPage from "./pages/TermsPage";
 import { CartProvider } from "./context/CartContext";
 import { WishlistProvider } from "./context/WishlistContext";
 
@@ -28,6 +29,9 @@ function App() {
         <Route path="/book-repair" element={<BookRepairPage />} />
         <Route path="/repair" element={<BookRepairPage />} />
         <Route path="/services" element={<BookRepairPage />} />
+        <Route path="/terms-and-conditions" element={<TermsPage />} />
+        <Route path="/terms-and-condition" element={<TermsPage />} />
+        <Route path="/terms" element={<TermsPage />} />
         <Route path="/:category/:slug" element={<CategoryPage />} />
         <Route path="/collection/:slug" element={<CategoryPage />} />
         <Route path="/:slug" element={<CategoryPage />} />
