@@ -1,11 +1,30 @@
 export const repairTrustData = {
-  tag: "Alfa appliances — repair service",
+  tag: "Alfa Appliances — repair service",
   title: "Professional Appliance Repairs You Can Trust",
+  titlePrefix: "Professional Appliance Repairs",
+  titleHighlight: "You Can Trust",
   paragraphs: [
-    "At Alfa Appliances, we provide reliable domestic appliance repairs (laundry, refrigeration, dishwashers, and cooking) for the essential appliances your home depends on. Our qualified engineers diagnose the issue, explain the repair clearly, and give you transparent pricing before any work begins",
-    "From diagnosis to completion, we deliver dependable local repairs using quality workmanship, genuine parts, and honest pricing — restoring your appliance quickly and efficiently, and giving you complete confidence and peace of mind. And if your appliance is beyond economical repair, your visit still counts: we'll credit £20 of your £59.99 diagnostic fee toward a replacement appliance purchased from us within 7 days",
+    "At Alfa Appliances, we provide reliable domestic appliance repairs (laundry, refrigeration, dishwashers, and cooking) for the essential appliances your home depends on. Our qualified engineers diagnose the issue, explain the repair clearly, and give you transparent pricing before any work begins.",
+    "From diagnosis to completion, we deliver dependable local repairs using quality workmanship, genuine parts, and honest pricing — restoring your appliance quickly and efficiently, and giving you complete confidence and peace of mind. And if your appliance is beyond economical repair, your visit still counts: we'll credit £20 of your £59.99 diagnostic fee toward a replacement appliance purchased from us within 7 days.",
   ],
   buttonText: "Book a Repair Now",
+  priceNote: "Diagnostic visit from £59.99",
+  trustBadges: [
+    { label: "Qualified Engineers" },
+    { label: "Genuine Parts" },
+    { label: "Local & Reliable" },
+  ],
+  coverage: {
+    tag: "CHECK COVERAGE",
+    title: "Check your postcode",
+    subtitle:
+      "Enter your postcode to confirm we cover your area and book a repair.",
+    features: [
+      { text: "Local engineers in your area" },
+      { text: "Fast & reliable service" },
+      { text: "Trusted by thousands" },
+    ],
+  },
 };
 
 export const howItWorksData = {
