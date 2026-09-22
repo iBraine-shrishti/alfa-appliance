@@ -30,7 +30,7 @@ const RepairFaqSection = () => {
               return (
                 <div
                   key={faq.id}
-                  className="rounded-2xl border border-slate-200 bg-white transition-all overflow-hidden"
+                  className="rounded border border-slate-200 bg-white transition-all overflow-hidden"
                 >
                   <button
                     type="button"

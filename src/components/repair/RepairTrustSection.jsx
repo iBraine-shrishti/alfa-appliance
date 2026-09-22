@@ -153,7 +153,7 @@ const RepairTrustSection = ({ onOpenModal }) => {
 
           {/* Right Column: Pricing & Coverage Card */}
           <div className="w-full max-w-lg mx-auto lg:max-w-none">
-            <div className="rounded-3xl border border-[#DCE8FF] bg-[#F5F9FF] p-6 sm:p-8 shadow-sm">
+            <div className="rounded border border-[#DCE8FF] bg-[#F5F9FF] p-6 sm:p-8 shadow-sm">
               {/* Header Badge */}
               <p className="text-xs font-bold uppercase tracking-widest text-[#1D60FF]">
                 Diagnostic Visit
