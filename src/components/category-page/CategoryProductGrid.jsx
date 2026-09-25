@@ -6,6 +6,7 @@ import Pagination from "./Pagination";
 const CategoryProductGrid = ({
   totalResults,
   products,
+  loading = false,
   viewMode,
   onViewModeChange,
   sortValue,
@@ -68,10 +69,22 @@ const CategoryProductGrid = ({
       </div>
 
       <div className="mt-5">
-        <ProductGrid products={products} viewMode={viewMode} />
+        {loading ? (
+          <div className="flex h-64 items-center justify-center text-sm text-navy-900/40">
+            Loading products...
+          </div>
+        ) : products.length === 0 ? (
+          <div className="flex h-48 items-center justify-center text-sm text-navy-900/40">
+            No products found matching the criteria.
+          </div>
+        ) : (
+          <ProductGrid products={products} viewMode={viewMode} />
+        )}
       </div>
 
-      <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
+      {!loading && products.length > 0 && (
+        <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
+      )}
     </section>
   );
 };

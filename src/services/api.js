@@ -3,9 +3,10 @@ export const BACKEND_DOMAIN = "https://alfa-appliances-backend.onrender.com";
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || `${BACKEND_DOMAIN}/api`;
 
 // In-memory cache for fast navigation
+const productsCache = new Map();
+const inFlightPromises = new Map();
 let cachedProducts = null;
 let cacheTimestamp = 0;
-let inFlightProductsPromise = null;
 const CACHE_TTL = 60000; // 60 seconds
 
 /**
@@ -158,6 +159,7 @@ export const formatBackendProduct = (p) => {
     reviews: reviewsList,
     reviewsData: reviewsList,
     reviewCount: reviewsCount,
+    reviewsCount: reviewsCount,
     ratingBreakdown: [
       { star: 5, count: Math.round(reviewsCount * 0.6) },
       { star: 4, count: Math.round(reviewsCount * 0.25) },
@@ -282,19 +284,20 @@ export const formatBackendProduct = (p) => {
  * Fetch all products from Django backend with caching and in-flight deduplication
  */
 export const fetchProducts = async (params = {}, forceFresh = false) => {
+  const query = new URLSearchParams(params).toString();
+  const cacheKey = query || "__ALL__";
+  const now = Date.now();
+
   try {
-    const hasParams = Object.keys(params).length > 0;
-    const now = Date.now();
-
-    if (!hasParams && !forceFresh && cachedProducts && now - cacheTimestamp < CACHE_TTL) {
-      return cachedProducts;
+    const cached = productsCache.get(cacheKey);
+    if (!forceFresh && cached && now - cached.timestamp < CACHE_TTL) {
+      return cached.data;
     }
 
-    if (!hasParams && !forceFresh && inFlightProductsPromise) {
-      return await inFlightProductsPromise;
+    if (!forceFresh && inFlightPromises.has(cacheKey)) {
+      return await inFlightPromises.get(cacheKey);
     }
 
-    const query = new URLSearchParams(params).toString();
     const url = `${API_BASE_URL}/products/${query ? `?${query}` : ""}`;
 
     const requestPromise = (async () => {
@@ -305,27 +308,31 @@ export const fetchProducts = async (params = {}, forceFresh = false) => {
         const data = await res.json();
         const formatted = Array.isArray(data) ? data.map(formatBackendProduct) : [];
 
-        if (!hasParams) {
+        productsCache.set(cacheKey, {
+          data: formatted,
+          timestamp: Date.now(),
+        });
+
+        if (cacheKey === "__ALL__") {
           cachedProducts = formatted;
           cacheTimestamp = Date.now();
         }
 
         return formatted;
       } finally {
-        if (!hasParams) {
-          inFlightProductsPromise = null;
-        }
+        inFlightPromises.delete(cacheKey);
       }
     })();
 
-    if (!hasParams && !forceFresh) {
-      inFlightProductsPromise = requestPromise;
+    if (!forceFresh) {
+      inFlightPromises.set(cacheKey, requestPromise);
     }
 
     return await requestPromise;
   } catch (err) {
     console.warn("Backend products fetch failed, using fallback:", err.message);
-    return cachedProducts || [];
+    const cached = productsCache.get(cacheKey);
+    return cached?.data || cachedProducts || [];
   }
 };
 
