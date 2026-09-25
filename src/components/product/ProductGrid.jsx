@@ -1,7 +1,13 @@
 import ProductCard from "./ProductCard";
 
 const ProductListRow = ({ product }) => {
-  const productSlug = product.slug ?? product.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const productSlug = product.slug ?? product.name?.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const reviewCount = Array.isArray(product.reviews)
+    ? product.reviews.length
+    : typeof product.reviews === "number"
+    ? product.reviews
+    : (product.reviewCount ?? product.reviewsCount ?? 0);
+  const ratingVal = typeof product.rating === "number" ? product.rating.toFixed(1) : (product.rating || "4.5");
 
   return (
     <div className="flex gap-4 rounded-lg border border-navy-900/10 bg-white p-3 shadow-sm">
@@ -12,8 +18,8 @@ const ProductListRow = ({ product }) => {
         <p className="text-xs font-semibold uppercase tracking-wide text-brand-blue">{product.brand}</p>
         <h3 className="text-sm font-medium text-navy-900">{product.name}</h3>
         <div className="flex items-center gap-2 text-sm text-navy-900/60">
-          <span>{product.rating || 0} ★</span>
-          <span>({product.reviews || 0} reviews)</span>
+          <span>{ratingVal} ★</span>
+          <span>({reviewCount} reviews)</span>
         </div>
         <div className="mt-1 flex items-baseline gap-2">
           <span className="text-lg font-semibold text-navy-950">${product.price}</span>

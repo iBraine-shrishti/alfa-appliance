@@ -159,6 +159,7 @@ export const formatBackendProduct = (p) => {
     reviews: reviewsList,
     reviewsData: reviewsList,
     reviewCount: reviewsCount,
+    reviewsCount: reviewsCount,
     ratingBreakdown: [
       { star: 5, count: Math.round(reviewsCount * 0.6) },
       { star: 4, count: Math.round(reviewsCount * 0.25) },
