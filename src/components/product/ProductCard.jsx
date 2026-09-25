@@ -76,8 +76,8 @@ const ProductCard = ({ product }) => {
         </Link>
         <StarRating rating={rating} reviews={reviews} />
         <div className="mt-1 flex items-baseline gap-2">
-          <span className="text-lg font-semibold text-navy-950">${price}</span>
-          {oldPrice && <span className="text-sm text-navy-900/40 line-through">${oldPrice}</span>}
+          <span className="text-lg font-semibold text-navy-950">£{typeof price === "number" ? price.toFixed(2) : price}</span>
+          {oldPrice && <span className="text-sm text-navy-900/40 line-through">£{typeof oldPrice === "number" ? oldPrice.toFixed(2) : oldPrice}</span>}
           {discount && <span className="text-xs font-semibold text-brand-orange-dark">{discount}% off</span>}
         </div>
         <label className="mt-2 flex items-center gap-2 text-xs text-navy-900/60">

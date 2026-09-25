@@ -27,7 +27,7 @@ const OrderSummaryCard = ({
                   ALFA Precision French Door Refrigerator
                 </h3>
                 <p className="mt-1 text-xs text-navy-900/50">Qty: 1</p>
-                <p className="mt-0.5 text-xs font-bold text-navy-950">${subtotal}</p>
+                <p className="mt-0.5 text-xs font-bold text-navy-950">£{subtotal}</p>
               </div>
             </div>
           </div>
@@ -36,7 +36,7 @@ const OrderSummaryCard = ({
         <div className="mt-4 space-y-3 border-t border-navy-900/10 pt-4 text-sm">
           <div className="flex justify-between text-navy-900/70">
             <span>Subtotal</span>
-            <span className="font-semibold text-navy-950">${subtotal}</span>
+            <span className="font-semibold text-navy-950">£{subtotal}</span>
           </div>
           <div className="flex justify-between text-navy-900/70">
             <span>Shipping</span>
@@ -50,13 +50,13 @@ const OrderSummaryCard = ({
           </div>
           <div className="flex justify-between text-navy-900/70">
             <span>Estimated Tax</span>
-            <span className="font-semibold text-navy-950">${tax}</span>
+            <span className="font-semibold text-navy-950">£{tax}</span>
           </div>
         </div>
 
         <div className="mt-4 flex items-baseline justify-between border-t border-navy-900/10 pt-4">
           <span className="text-base font-bold text-navy-950">Total</span>
-          <span className="text-2xl font-extrabold text-brand-blue">${total}</span>
+          <span className="text-2xl font-extrabold text-brand-blue">£{total}</span>
         </div>
 
         <div className="mt-6 space-y-2.5 rounded bg-navy-900/[0.03] p-4 text-xs text-navy-900/70">
@@ -69,7 +69,7 @@ const OrderSummaryCard = ({
             <>
               <div className="flex items-center gap-2">
                 <FiTruck className="text-brand-blue" size={16} />
-                <span>Free doorstep delivery on orders over $500</span>
+                <span>Free doorstep delivery on orders over £500</span>
               </div>
               <div className="flex items-center gap-2">
                 <FiShield className="text-emerald-600" size={16} />

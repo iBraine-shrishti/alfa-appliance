@@ -1,8 +1,11 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FiUserPlus } from "react-icons/fi";
+import { FiUserPlus, FiEye, FiEyeOff } from "react-icons/fi";
 
 const SignUpForm = ({ role }) => {
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -42,26 +45,46 @@ const SignUpForm = ({ role }) => {
         <label htmlFor="signup-password" className="mb-2 block text-sm font-semibold text-navy-950">
           Password
         </label>
-        <input
-          id="signup-password"
-          type="password"
-          required
-          placeholder="••••••••"
-          className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-3 text-sm text-navy-950 outline-none placeholder:text-slate-400 focus:border-blue-600"
-        />
+        <div className="relative">
+          <input
+            id="signup-password"
+            type={showPassword ? "text" : "password"}
+            required
+            placeholder="••••••••"
+            className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-3 pr-10 text-sm text-navy-950 outline-none placeholder:text-slate-400 focus:border-blue-600"
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword((prev) => !prev)}
+            aria-label={showPassword ? "Hide password" : "Show password"}
+            className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-navy-950 transition-colors"
+          >
+            {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+          </button>
+        </div>
       </div>
 
       <div>
         <label htmlFor="signup-confirm" className="mb-2 block text-sm font-semibold text-navy-950">
           Confirm Password
         </label>
-        <input
-          id="signup-confirm"
-          type="password"
-          required
-          placeholder="••••••••"
-          className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-3 text-sm text-navy-950 outline-none placeholder:text-slate-400 focus:border-blue-600"
-        />
+        <div className="relative">
+          <input
+            id="signup-confirm"
+            type={showConfirm ? "text" : "password"}
+            required
+            placeholder="••••••••"
+            className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-3 pr-10 text-sm text-navy-950 outline-none placeholder:text-slate-400 focus:border-blue-600"
+          />
+          <button
+            type="button"
+            onClick={() => setShowConfirm((prev) => !prev)}
+            aria-label={showConfirm ? "Hide confirm password" : "Show confirm password"}
+            className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-navy-950 transition-colors"
+          >
+            {showConfirm ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+          </button>
+        </div>
       </div>
 
       <button
