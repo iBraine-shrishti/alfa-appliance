@@ -55,12 +55,17 @@ const CategoryPage = () => {
   const [appliedFilters, setAppliedFilters] = useState(null);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [backendProducts, setBackendProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let isMounted = true;
+    setLoading(true);
     fetchProducts().then((res) => {
-      if (isMounted && res && res.length > 0) {
-        setBackendProducts(res);
+      if (isMounted) {
+        if (res && res.length > 0) {
+          setBackendProducts(res);
+        }
+        setLoading(false);
       }
     });
     return () => {
@@ -232,6 +237,7 @@ const CategoryPage = () => {
           <CategoryProductGrid
             totalResults={sortedProducts.length}
             products={paginatedProducts}
+            loading={loading}
             viewMode={viewMode}
             onViewModeChange={setViewMode}
             sortValue={sortValue}
