@@ -22,8 +22,8 @@ const ProductListRow = ({ product }) => {
           <span>({reviewCount} reviews)</span>
         </div>
         <div className="mt-1 flex items-baseline gap-2">
-          <span className="text-lg font-semibold text-navy-950">${product.price}</span>
-          {product.oldPrice && <span className="text-sm text-navy-900/40 line-through">${product.oldPrice}</span>}
+          <span className="text-lg font-semibold text-navy-950">£{typeof product.price === "number" ? product.price.toFixed(2) : product.price}</span>
+          {product.oldPrice && <span className="text-sm text-navy-900/40 line-through">£{typeof product.oldPrice === "number" ? product.oldPrice.toFixed(2) : product.oldPrice}</span>}
           {product.discount && <span className="text-xs font-semibold text-brand-orange-dark">{product.discount}% off</span>}
         </div>
       </div>

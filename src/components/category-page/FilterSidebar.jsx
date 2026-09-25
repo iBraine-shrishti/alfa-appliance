@@ -103,7 +103,7 @@ const FilterSidebar = ({ filters, onChange }) => {
     selected.brands.forEach((b) => pills.push({ key: `brand:${b}`, label: b, onRemove: () => toggleBrand(b) }));
     selected.availability.forEach((a) => pills.push({ key: `avail:${a}`, label: a, onRemove: () => toggleAvailability(a) }));
     if (selected.priceMax < filters.priceRange[1]) {
-      pills.push({ key: "price", label: `Up to $${selected.priceMax}`, onRemove: () => setPriceMax(filters.priceRange[1]) });
+      pills.push({ key: "price", label: `Up to £${selected.priceMax}`, onRemove: () => setPriceMax(filters.priceRange[1]) });
     }
     return pills;
   }, [selected, filters.priceRange]);
@@ -226,11 +226,11 @@ const FilterSidebar = ({ filters, onChange }) => {
             }}
           />
           <div className="flex items-center justify-between text-xs text-navy-900/55">
-            <span>${filters.priceRange[0]}</span>
+            <span>£{filters.priceRange[0]}</span>
             <span className="rounded-full bg-brand-blue/10 px-2 py-0.5 font-semibold text-brand-blue">
-              Up to ${selected.priceMax}
+              Up to £{selected.priceMax}
             </span>
-            <span>${filters.priceRange[1]}</span>
+            <span>£{filters.priceRange[1]}</span>
           </div>
         </div>
       </FilterAccordion>
