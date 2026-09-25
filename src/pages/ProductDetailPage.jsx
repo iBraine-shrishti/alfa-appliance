@@ -1,7 +1,6 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { findProductBySlug } from "../data/productCatalog";
 import { fetchProductBySlug } from "../services/api";
 import { categoryGateways } from "../data/categoryGateways"; // Adjust path as needed
 import ProductGallery from "../components/product/ProductGallery";
@@ -90,20 +89,18 @@ const resolveProductTaxonomy = (product) => {
 
 const ProductDetailPage = () => {
   const { slug } = useParams();
-  const [product, setProduct] = useState(() => findProductBySlug(slug));
-  const [loading, setLoading] = useState(!product);
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
   useEffect(() => {
     let isMounted = true;
+    setLoading(true);
     const loadProduct = async () => {
       try {
         const backendProduct = await fetchProductBySlug(slug);
-        if (isMounted && backendProduct) {
-          setProduct(backendProduct);
-        } else if (isMounted && !product) {
-          const local = findProductBySlug(slug);
-          if (local) setProduct(local);
+        if (isMounted) {
+          setProduct(backendProduct || null);
         }
       } catch (err) {
         console.warn("Failed to load backend product:", err);

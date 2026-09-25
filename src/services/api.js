@@ -5,7 +5,8 @@ export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || `${BACKEND_DOMA
 // In-memory cache for fast navigation
 let cachedProducts = null;
 let cacheTimestamp = 0;
-const CACHE_TTL = 30000; // 30 seconds
+let inFlightProductsPromise = null;
+const CACHE_TTL = 60000; // 60 seconds
 
 /**
  * Detects if a media URL points to a video
@@ -278,7 +279,7 @@ export const formatBackendProduct = (p) => {
 };
 
 /**
- * Fetch all products from Django backend with caching
+ * Fetch all products from Django backend with caching and in-flight deduplication
  */
 export const fetchProducts = async (params = {}, forceFresh = false) => {
   try {
@@ -289,20 +290,39 @@ export const fetchProducts = async (params = {}, forceFresh = false) => {
       return cachedProducts;
     }
 
-    const query = new URLSearchParams(params).toString();
-    const url = `${API_BASE_URL}/products/${query ? `?${query}` : ""}`;
-    const res = await fetch(url);
-    if (!res.ok) throw new Error(`Failed to fetch products: ${res.status}`);
-
-    const data = await res.json();
-    const formatted = Array.isArray(data) ? data.map(formatBackendProduct) : [];
-
-    if (!hasParams) {
-      cachedProducts = formatted;
-      cacheTimestamp = now;
+    if (!hasParams && !forceFresh && inFlightProductsPromise) {
+      return await inFlightProductsPromise;
     }
 
-    return formatted;
+    const query = new URLSearchParams(params).toString();
+    const url = `${API_BASE_URL}/products/${query ? `?${query}` : ""}`;
+
+    const requestPromise = (async () => {
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`Failed to fetch products: ${res.status}`);
+
+        const data = await res.json();
+        const formatted = Array.isArray(data) ? data.map(formatBackendProduct) : [];
+
+        if (!hasParams) {
+          cachedProducts = formatted;
+          cacheTimestamp = Date.now();
+        }
+
+        return formatted;
+      } finally {
+        if (!hasParams) {
+          inFlightProductsPromise = null;
+        }
+      }
+    })();
+
+    if (!hasParams && !forceFresh) {
+      inFlightProductsPromise = requestPromise;
+    }
+
+    return await requestPromise;
   } catch (err) {
     console.warn("Backend products fetch failed, using fallback:", err.message);
     return cachedProducts || [];
