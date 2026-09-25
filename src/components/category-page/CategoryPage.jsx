@@ -70,35 +70,41 @@ const CategoryPage = () => {
 
   const visibleProducts = useMemo(() => {
     const targetSlug = (slug || "").toLowerCase();
-    const pageSubSlugs = page?.subcategorySlugs || [];
+    const pageSubSlugs = (page?.subcategorySlugs || []).map((s) => s.toLowerCase());
+
+    const CATEGORY_ALIASES = {
+      refrigerator: ["refrigerator", "refrigeration", "fridges", "freezers", "fridge-freezers", "chest-freezers"],
+      refrigeration: ["refrigerator", "refrigeration", "fridges", "freezers", "fridge-freezers", "chest-freezers"],
+      cooking: ["cooking", "cookers", "ovens", "hobs", "cooker-hoods", "microwaves", "microwave"],
+      laundry: ["laundry", "washing-machines", "tumble-dryers", "washer-dryers"],
+      dishwashers: ["dishwashers", "dishwasher", "full-size-dishwashers", "slimline-dishwashers"],
+      dishwasher: ["dishwashers", "dishwasher", "full-size-dishwashers", "slimline-dishwashers"],
+      "small-appliances": ["small-appliances", "small appliances", "kettles", "toasters", "microwaves", "air-fryers", "hoovers"],
+    };
+
+    const targetAliases = CATEGORY_ALIASES[targetSlug] || [targetSlug];
 
     const matchingBackend = backendProducts.filter((p) => {
       const pCat = (p.category || "").toLowerCase();
+      const pCatName = (p.category_name || "").toLowerCase();
       const pSub = (p.subcategory || "").toLowerCase();
       const pCollections = (p.collections || []).map((c) => (c.slug || c.title || "").toLowerCase());
 
-      // Match on subcategory or collection
+      // 1. Match on subcategory or collection
       if (pSub === targetSlug || pCollections.includes(targetSlug)) return true;
 
-      // Match on parent category
-      if (pCat === targetSlug) return true;
+      // 2. Match on category
+      if (pCat === targetSlug || pCatName === targetSlug) return true;
+      if (targetAliases.includes(pCat) || targetAliases.includes(pCatName)) return true;
+
+      // 3. Match on page subcategory slugs
       if (pageSubSlugs.includes(pSub)) return true;
       if (pageSubSlugs.some((sub) => pCollections.includes(sub))) return true;
 
       return false;
     });
 
-    const baseProducts = page
-      ? page.subcategorySlugs?.includes(slug)
-        ? page.products.filter((product) => product.subcategory === slug)
-        : page.products
-      : [];
-
-    if (matchingBackend.length === 0) return baseProducts;
-
-    const backendSlugs = new Set(matchingBackend.map((p) => p.slug));
-    const nonDuplicateBase = baseProducts.filter((p) => !backendSlugs.has(p.slug));
-    return [...matchingBackend, ...nonDuplicateBase];
+    return matchingBackend;
   }, [page, slug, backendProducts]);
 
   const categoryOptions = useMemo(() => {
@@ -177,6 +183,29 @@ const CategoryPage = () => {
     return products;
   }, [filteredProducts, sortValue]);
 
+  const PAGE_SIZE = 20;
+  const totalPages = Math.max(1, Math.ceil(sortedProducts.length / PAGE_SIZE));
+
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(1);
+    }
+  }, [currentPage, totalPages]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [slug]);
+
+  const paginatedProducts = useMemo(() => {
+    const startIndex = (currentPage - 1) * PAGE_SIZE;
+    return sortedProducts.slice(startIndex, startIndex + PAGE_SIZE);
+  }, [sortedProducts, currentPage]);
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const handleFiltersChange = (selected) => {
     setAppliedFilters(selected);
     setCurrentPage(1);
@@ -202,15 +231,15 @@ const CategoryPage = () => {
 
           <CategoryProductGrid
             totalResults={sortedProducts.length}
-            products={sortedProducts}
+            products={paginatedProducts}
             viewMode={viewMode}
             onViewModeChange={setViewMode}
             sortValue={sortValue}
             onSortChange={setSortValue}
             sortOptions={page.sortOptions}
             currentPage={currentPage}
-            totalPages={page.totalPages}
-            onPageChange={setCurrentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
             onOpenFilters={() => setMobileFiltersOpen(true)}
           />
         </div>

@@ -9,7 +9,6 @@ import Eyebrow from "../components/common/Eyebrow";
 import FilterTabs from "../components/product/FilterTabs";
 import ProductCard from "../components/product/ProductCard";
 import SliderArrow from "../components/common/SliderArrow";
-import { products } from "../data/products";
 import { fetchProducts } from "../services/api";
 
 const FILTER_TABS = ["Best Sellers", "New Arrivals", "Deals"];
@@ -18,15 +17,15 @@ const FeaturedProducts = () => {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
   const [activeTab, setActiveTab] = useState("Best Sellers");
-  const [allProducts, setAllProducts] = useState(products);
+  const [allProducts, setAllProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let isMounted = true;
     fetchProducts().then((backendProducts) => {
-      if (isMounted && backendProducts && backendProducts.length > 0) {
-        const backendSlugs = new Set(backendProducts.map((p) => p.slug));
-        const nonDuplicateInitial = products.filter((p) => !backendSlugs.has(p.slug));
-        setAllProducts([...backendProducts, ...nonDuplicateInitial]);
+      if (isMounted) {
+        setAllProducts(backendProducts || []);
+        setLoading(false);
       }
     });
     return () => {
@@ -36,29 +35,34 @@ const FeaturedProducts = () => {
 
   // Filter products based on selected tab
   const getFilteredProducts = () => {
+    if (!allProducts.length) return [];
     let list = [];
     if (activeTab === "Deals") {
       list = allProducts.filter(
-        (p) => p.discount || p.oldPrice || p.badge === "Offer"
+        (p) => p.discount || p.oldPrice || p.badge === "Offer" || p.is_sale
       );
     } else if (activeTab === "New Arrivals") {
       list = allProducts.filter(
-        (p) => p.isNewRelease || p.badge === "New" || p.id?.includes?.("p4") || p.id?.includes?.("p3")
+        (p) => p.isNewRelease || p.badge === "New"
       );
-      if (list.length < 8) {
+      if (list.length === 0) {
         list = [...allProducts].reverse();
       }
     } else {
       // Best Sellers
-      list = allProducts.filter((p) => p.badge === "Best Seller" || p.rating >= 4.7);
+      list = allProducts.filter((p) => p.badge === "Best Seller" || p.rating >= 4.5);
     }
 
-    if (list.length < 8) {
-      list = allProducts.slice(0, 13);
+    if (list.length === 0) {
+      list = allProducts;
     }
 
-    // Ensure we have enough items for continuous looping
-    return list.length < 8 ? [...list, ...list] : list;
+    // Duplicate only if count is between 1 and 4 so continuous looping works
+    if (list.length > 0 && list.length < 5) {
+      return [...list, ...list];
+    }
+
+    return list;
   };
 
   const currentProducts = getFilteredProducts();
@@ -83,63 +87,77 @@ const FeaturedProducts = () => {
           />
         </div>
 
-        <div className="relative">
-          <div
-            ref={prevRef}
-            className="absolute -left-4 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full !bg-blue-600 !text-white shadow-md transition-all hover:opacity-90 sm:-left-5"
-          >
-            <SliderArrow direction="left" className="!bg-transparent !text-white" />
+        {loading ? (
+          <div className="flex h-64 items-center justify-center text-sm text-navy-900/40">
+            Loading featured appliances...
           </div>
-
-          <div
-            ref={nextRef}
-            className="absolute -right-4 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full !bg-blue-600 !text-white shadow-md transition-all hover:opacity-90 sm:-right-5"
-          >
-            <SliderArrow direction="right" className="!bg-transparent !text-white" />
+        ) : currentProducts.length === 0 ? (
+          <div className="flex h-48 items-center justify-center text-sm text-navy-900/40">
+            No products available at the moment.
           </div>
+        ) : (
+          <div className="relative">
+            {currentProducts.length > 1 && (
+              <>
+                <div
+                  ref={prevRef}
+                  className="absolute -left-4 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full !bg-blue-600 !text-white shadow-md transition-all hover:opacity-90 sm:-left-5"
+                >
+                  <SliderArrow direction="left" className="!bg-transparent !text-white" />
+                </div>
 
-          <Swiper
-            key={activeTab}
-            modules={[Navigation, Autoplay]}
-            onBeforeInit={(swiper) => {
-              swiper.params.navigation.prevEl = prevRef.current;
-              swiper.params.navigation.nextEl = nextRef.current;
-            }}
-            loop={true}
-            autoplay={{
-              delay: 1500,
-              disableOnInteraction: false,
-              pauseOnMouseEnter: true,
-            }}
-            slidesPerView={1}
-            slidesPerGroup={1}
-            spaceBetween={16}
-            breakpoints={{
-              640: {
-                slidesPerView: 2,
-                slidesPerGroup: 1,
-                spaceBetween: 20,
-              },
-              768: {
-                slidesPerView: 3,
-                slidesPerGroup: 1,
-                spaceBetween: 24,
-              },
-              1024: {
-                slidesPerView: 4,
-                slidesPerGroup: 1,
-                spaceBetween: 24,
-              },
-            }}
-            className="!px-1"
-          >
-            {currentProducts.map((product, idx) => (
-              <SwiperSlide key={`${product.id}-${idx}`}>
-                <ProductCard product={product} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
+                <div
+                  ref={nextRef}
+                  className="absolute -right-4 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full !bg-blue-600 !text-white shadow-md transition-all hover:opacity-90 sm:-right-5"
+                >
+                  <SliderArrow direction="right" className="!bg-transparent !text-white" />
+                </div>
+              </>
+            )}
+
+            <Swiper
+              key={`${activeTab}-${currentProducts.length}`}
+              modules={[Navigation, Autoplay]}
+              onBeforeInit={(swiper) => {
+                swiper.params.navigation.prevEl = prevRef.current;
+                swiper.params.navigation.nextEl = nextRef.current;
+              }}
+              loop={currentProducts.length > 4}
+              autoplay={{
+                delay: 2500,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+              }}
+              slidesPerView={1}
+              slidesPerGroup={1}
+              spaceBetween={16}
+              breakpoints={{
+                640: {
+                  slidesPerView: 2,
+                  slidesPerGroup: 1,
+                  spaceBetween: 20,
+                },
+                768: {
+                  slidesPerView: 3,
+                  slidesPerGroup: 1,
+                  spaceBetween: 24,
+                },
+                1024: {
+                  slidesPerView: 4,
+                  slidesPerGroup: 1,
+                  spaceBetween: 24,
+                },
+              }}
+              className="!px-1"
+            >
+              {currentProducts.map((product, idx) => (
+                <SwiperSlide key={`${product.id}-${idx}`}>
+                  <ProductCard product={product} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        )}
       </Container>
     </section>
   );
