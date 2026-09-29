@@ -10,6 +10,7 @@ import ovenImg from "../assets/categories/oven.png";
 import hobsImg from "../assets/categories/hobs.png";
 import cookerHoodImg from "../assets/categories/cooker-hood.png";
 import microwaveImg from "../assets/categories/microwave.png";
+import { repairFaqData } from "./repairPageData";
 
 export const repairAppliances = [
   {
@@ -364,36 +365,7 @@ export const repairTestimonials = [
   },
 ];
 
-export const repairFaqs = [
-  {
-    q: "How quickly can you send an engineer to repair my appliance?",
-    a: "We offer same-day emergency callouts for urgent issues (such as refrigeration faults or major leaks) when booked before 11:00 AM, and guaranteed next-day morning or afternoon slots across London postcodes. You'll receive an SMS with a 30-minute arrival notification.",
-  },
-  {
-    q: "What is included in the diagnostic fee?",
-    a: "The diagnostic fee covers travel to your property and up to 45 minutes of comprehensive fault-finding with professional diagnostic equipment. If you proceed with the quoted repair on the day, this fee is deducted directly from your final repair invoice.",
-  },
-  {
-    q: "Do your engineers carry spare parts in their vans?",
-    a: "Yes! Our mobile engineers carry hundreds of the most common genuine spare parts (such as pumps, heating elements, door seals, belts, thermostats, and sensors) for Bosch, Samsung, Beko, Miele, LG, Hotpoint, and other major brands. Over 85% of repairs are completed on the very first visit.",
-  },
-  {
-    q: "Are the repairs guaranteed?",
-    a: "All domestic appliance repairs carried out by Alfa Appliances come with a full 12-month warranty covering both the replaced parts and our technician's workmanship. If the same fault recurs within 12 months, we fix it free of charge.",
-  },
-  {
-    q: "Can I bring small appliances into your Stoke Newington shop?",
-    a: "Yes! For microwaves, countertop induction hobs, vacuum cleaners, and small kitchen appliances, you are welcome to drop them off at our showroom and repair counter at 105 Stoke Newington High St, London N16 0PH (Monday to Saturday, 9:00 AM to 6:00 PM).",
-  },
-  {
-    q: "What areas of London do you cover for home visits?",
-    a: "We cover all of North London, East London, Central London, and surrounding boroughs including Hackney (N16, E8, E5), Islington (N1, N5), Haringey (N4, N8, N15), Camden (NW1, NW3, NW5), Tower Hamlets (E1, E2, E3), Enfield, and Waltham Forest.",
-  },
-  {
-    q: "What happens if my appliance is beyond economical repair?",
-    a: "If an appliance is deemed unsafe or the repair costs exceed the cost of a replacement, our engineer will provide honest advice. As a premier appliance retailer, we can apply your diagnostic fee as a discount towards a brand new replacement appliance delivered and installed by our team.",
-  },
-];
+export const repairFaqs = repairFaqData.faqs;
 
 export const londonBoroughs = [
   "Hackney (N16, E8, E5, E9)",

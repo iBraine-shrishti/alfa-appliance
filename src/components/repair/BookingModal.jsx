@@ -190,24 +190,76 @@ const BRANDS = [
   "Other",
 ];
 
-const DAYS = [
-  { dayName: "Mon", dateNum: "22" },
-  { dayName: "Tue", dateNum: "23" },
-  { dayName: "Wed", dateNum: "24" },
-  { dayName: "Thu", dateNum: "25" },
-  { dayName: "Fri", dateNum: "26" },
-  { dayName: "Sat", dateNum: "27" },
-  { dayName: "Sun", dateNum: "28" },
-];
+import {
+  checkPostcodeCoverage,
+  getSlotAvailabilityForDate,
+} from "../../data/repairZones";
+
+const generateUpcomingDays = () => {
+  const days = [];
+  const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const monthNames = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  // Start from tomorrow
+  const start = new Date();
+  start.setDate(start.getDate() + 1);
+
+  for (let i = 0; i < 14; i++) {
+    const cur = new Date(start);
+    cur.setDate(start.getDate() + i);
+    days.push({
+      id: cur.toISOString().split("T")[0],
+      dayName: dayNames[cur.getDay()],
+      dateNum: cur.getDate().toString(),
+      monthName: monthNames[cur.getMonth()],
+      year: cur.getFullYear(),
+      fullString: `${dayNames[cur.getDay()]} ${cur.getDate()} ${monthNames[cur.getMonth()]} ${cur.getFullYear()}`,
+      isSunday: cur.getDay() === 0,
+    });
+  }
+  return days;
+};
 
 const TIME_SLOTS = [
-  { id: "morning", label: "Morning", time: "8am–12pm" },
-  { id: "afternoon", label: "Afternoon", time: "12pm–5pm" },
-  { id: "evening", label: "Evening", time: "5pm–8pm" },
+  {
+    id: "morning",
+    label: "Morning",
+    time: "8am–12pm",
+    capacity: "Max 6 bookings",
+  },
+  {
+    id: "afternoon",
+    label: "Afternoon",
+    time: "12pm–4pm",
+    capacity: "Max 6 bookings",
+  },
+  {
+    id: "evening",
+    label: "Evening",
+    time: "4pm–8pm",
+    capacity: "Max 6 bookings",
+  },
 ];
-const APPOINTMENT_TIMES = { morning: "8am-12pm", afternoon: "12pm-4pm", evening: "4pm-8pm" };
+const APPOINTMENT_TIMES = {
+  morning: "8am–12pm",
+  afternoon: "12pm–4pm",
+  evening: "4pm–8pm",
+};
 
-const BookingModal = ({ isOpen, onClose }) => {
+const BookingModal = ({ isOpen, onClose, initialPostcode = "" }) => {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [selectedAppliance, setSelectedAppliance] = useState("washing-machine");
@@ -223,12 +275,46 @@ const BookingModal = ({ isOpen, onClose }) => {
   const [fullName, setFullName] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
-  const [postcode, setPostcode] = useState("");
+  const [postcode, setPostcode] = useState(initialPostcode || "");
   const [fullAddress, setFullAddress] = useState("");
-  const [selectedDayIndex, setSelectedDayIndex] = useState(3); // Thu 25
+  const [calendarDays, setCalendarDays] = useState(() => generateUpcomingDays());
+  const [selectedDayIndex, setSelectedDayIndex] = useState(0);
   const [selectedSlot, setSelectedSlot] = useState("morning");
   const [errorMessage, setErrorMessage] = useState("");
   const [bookingRef, setBookingRef] = useState("ALF-2026-00847");
+  const [bookingsVersion, setBookingsVersion] = useState(0);
+
+  // Listen for real-time booking updates from admin/simulator
+  useEffect(() => {
+    const handleUpdate = () => setBookingsVersion((v) => v + 1);
+    window.addEventListener("alfa_repair_bookings_updated", handleUpdate);
+    return () => window.removeEventListener("alfa_repair_bookings_updated", handleUpdate);
+  }, []);
+
+  // Auto-switch slot if the currently selected slot is full (6/6) on the selected date
+  useEffect(() => {
+    if (step === 4 && calendarDays[selectedDayIndex]) {
+      const avail = getSlotAvailabilityForDate(
+        calendarDays[selectedDayIndex].id,
+        selectedDayIndex
+      );
+      if (avail && avail[selectedSlot]?.isFull) {
+        const firstOpen = ["morning", "afternoon", "evening"].find(
+          (s) => avail[s] && !avail[s].isFull
+        );
+        if (firstOpen) {
+          setSelectedSlot(firstOpen);
+        }
+      }
+    }
+  }, [step, selectedDayIndex, bookingsVersion]);
+
+  // Keep postcode in sync when initialPostcode prop changes
+  useEffect(() => {
+    if (initialPostcode) {
+      setPostcode(initialPostcode);
+    }
+  }, [initialPostcode]);
 
   const handleSelectAppliance = (id) => {
     setSelectedAppliance(id);
@@ -313,12 +399,46 @@ const BookingModal = ({ isOpen, onClose }) => {
         setErrorMessage("Please enter your postcode.");
         return;
       }
+
+      // Check coverage based on ZONES.jpeg
+      const coverage = checkPostcodeCoverage(postcode);
+      if (!coverage.covered) {
+        setErrorMessage(
+          `Unfortunately we don’t currently cover ${coverage.outcode || "this area"} — our coverage zones include E, N, NW, RM, SE, EC, and WC. Please enter a covered postcode or contact us.`
+        );
+        return;
+      }
+
       if (!fullAddress.trim()) {
         setErrorMessage("Please enter your full address.");
         return;
       }
+
+      // Ensure the initially selected date in step 4 is available for this zone
+      const firstAllowedIndex = calendarDays.findIndex(
+        (d) => !d.isSunday && coverage.allowedDays?.includes(d.dayName)
+      );
+      if (firstAllowedIndex !== -1) {
+        const curDay = calendarDays[selectedDayIndex];
+        if (!curDay || curDay.isSunday || !coverage.allowedDays?.includes(curDay.dayName)) {
+          setSelectedDayIndex(firstAllowedIndex);
+        }
+      }
+
       setStep(4);
     } else if (step === 4) {
+      const chosenDay = calendarDays[selectedDayIndex];
+      const dayAvail = getSlotAvailabilityForDate(chosenDay?.id, selectedDayIndex);
+
+      if (dayAvail?.isDayFullyBooked) {
+        setErrorMessage("All slots on this date are fully booked (18/18 bookings). Please select another date.");
+        return;
+      }
+      if (dayAvail && dayAvail[selectedSlot]?.isFull) {
+        setErrorMessage("This time slot is fully booked (max 6 bookings reached). Please choose another time slot.");
+        return;
+      }
+
       const randomRef = `ALF-2026-00${Math.floor(100 + Math.random() * 900)}`;
       setBookingRef(randomRef);
       localStorage.setItem(
@@ -330,7 +450,8 @@ const BookingModal = ({ isOpen, onClose }) => {
           applianceSubType: applianceSubType || null,
           email: emailAddress,
           slot: selectedSlot,
-          day: selectedDayIndex,
+          appointmentDate: chosenDay?.fullString || "Confirmed Date",
+          postcode: postcode.trim().toUpperCase(),
         })
       );
       setStep(5);
@@ -428,8 +549,7 @@ const BookingModal = ({ isOpen, onClose }) => {
                 <div className="flex justify-between">
                   <span className="text-slate-400">Appointment</span>
                   <span className="font-semibold text-navy-950 text-right">
-                    {DAYS[selectedDayIndex]?.dayName}{" "}
-                    {DAYS[selectedDayIndex]?.dateNum} Sept 2026 (
+                    {calendarDays[selectedDayIndex]?.fullString || "Selected Date"} (
                     {TIME_SLOTS.find((s) => s.id === selectedSlot)?.time})
                   </span>
                 </div>
@@ -814,6 +934,22 @@ const BookingModal = ({ isOpen, onClose }) => {
                     onChange={(e) => setPostcode(e.target.value)}
                     className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-xs sm:text-sm text-navy-950 uppercase outline-none placeholder:text-slate-400 focus:border-brand-blue"
                   />
+                  {postcode.trim().length >= 2 && (() => {
+                    const live = checkPostcodeCoverage(postcode);
+                    return (
+                      <div className="mt-1.5 flex items-center gap-1.5 text-[11px]">
+                        {live.covered ? (
+                          <span className="text-emerald-600 font-medium">
+                            ✓ Covered: {live.zone.name} ({live.outcode}) — Active days: {live.allowedDays.join(", ")}
+                          </span>
+                        ) : (
+                          <span className="text-rose-600 font-medium">
+                            ✗ {live.outcode || "Postcode"} is not currently covered (E, N, NW, RM, SE, EC, WC only)
+                          </span>
+                        )}
+                      </div>
+                    );
+                  })()}
                 </div>
 
                 <div>
@@ -831,86 +967,247 @@ const BookingModal = ({ isOpen, onClose }) => {
               </div>
             )}
 
-            {step === 4 && (
-              <div className="mt-5 space-y-5">
-                <div>
-                  <p className="text-xs sm:text-sm font-semibold text-slate-800 mb-2.5">
-                    Select date (September 2026)
-                  </p>
+            {step === 4 && (() => {
+              const currentCoverage = checkPostcodeCoverage(postcode);
+              return (
+                <div className="mt-5 space-y-5">
+                  {/* Coverage Zone info banner */}
+                  {currentCoverage.covered && (
+                    <div className="rounded-xl border border-blue-100 bg-blue-50/70 p-3 text-xs text-blue-950 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5">
+                      <div className="flex items-center gap-2">
+                        <span
+                          className="h-2.5 w-2.5 rounded-full shrink-0"
+                          style={{ backgroundColor: currentCoverage.zone.colorHex || "#1D60FF" }}
+                        />
+                        <span>
+                          <strong>{currentCoverage.zone.name}</strong> ({currentCoverage.outcode}) — Available booking days:{" "}
+                          <strong className="text-[#1D60FF]">
+                            {currentCoverage.allowedDays.join(" · ")}
+                          </strong>
+                        </span>
+                      </div>
+                      <span className="text-[11px] text-slate-500 font-medium">Sunday: closed</span>
+                    </div>
+                  )}
 
-                  <div className="grid grid-cols-4 gap-1.5 sm:grid-cols-7 sm:gap-2">
-                    {DAYS.map((d, index) => {
-                      const isSelected = selectedDayIndex === index;
-                      return (
-                        <button
-                          key={d.dateNum}
-                          type="button"
-                          onClick={() => setSelectedDayIndex(index)}
-                          className={`flex flex-col items-center justify-center rounded-xl p-2 transition-all cursor-pointer sm:py-3 ${
-                            isSelected
-                              ? "bg-brand-blue text-white shadow-md"
-                              : "border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100"
-                          }`}
-                        >
-                          <span
-                            className={`text-[9px] font-medium sm:text-[10px] ${isSelected ? "text-white/80" : "text-slate-400"}`}
+                  <div>
+                    <div className="flex items-center justify-between mb-2.5">
+                      <p className="text-xs sm:text-sm font-semibold text-slate-800">
+                        Select Appointment Date
+                      </p>
+                      <span className="text-[11px] text-slate-500">
+                        Showing next 14 days
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-4 gap-1.5 sm:grid-cols-7 sm:gap-2">
+                      {calendarDays.map((d, index) => {
+                        const isSunday = d.isSunday;
+                        const isAllowed = currentCoverage.covered
+                          ? currentCoverage.allowedDays.includes(d.dayName) && !isSunday
+                          : !isSunday;
+                        const isSelected = selectedDayIndex === index;
+                        const dayAvail = getSlotAvailabilityForDate(d.id, index);
+                        const isDayFullyBooked = dayAvail?.isDayFullyBooked;
+
+                        if (!isAllowed) {
+                          return (
+                            <button
+                              key={d.id}
+                              type="button"
+                              disabled
+                              title={
+                                isSunday
+                                  ? "No bookings on Sunday"
+                                  : `${d.dayName} is not an active service day for ${currentCoverage.outcode || "your zone"}`
+                              }
+                              className="flex flex-col items-center justify-center rounded-xl p-2 sm:py-3 border border-slate-100 bg-slate-50/60 opacity-35 cursor-not-allowed select-none transition-all"
+                            >
+                              <span className="text-[9px] font-medium sm:text-[10px] text-slate-400 line-through">
+                                {d.dayName}
+                              </span>
+                              <span className="mt-0.5 text-xs font-semibold sm:text-base text-slate-400 line-through">
+                                {d.dateNum}
+                              </span>
+                              <span className="text-[8px] text-slate-400 uppercase">
+                                {d.monthName}
+                              </span>
+                            </button>
+                          );
+                        }
+
+                        if (isDayFullyBooked) {
+                          return (
+                            <button
+                              key={d.id}
+                              type="button"
+                              disabled
+                              title="All slots on this date are fully booked (18/18 bookings filled)"
+                              className="flex flex-col items-center justify-center rounded-xl p-2 sm:py-3 border border-slate-200 bg-slate-100/80 opacity-50 cursor-not-allowed select-none transition-all relative"
+                            >
+                              <span className="text-[9px] font-semibold sm:text-[10px] text-slate-400 line-through">
+                                {d.dayName}
+                              </span>
+                              <span className="mt-0.5 text-xs font-bold sm:text-base text-slate-400 line-through">
+                                {d.dateNum}
+                              </span>
+                              <span className="mt-0.5 inline-block rounded bg-rose-100 px-1 text-[8px] font-bold uppercase text-rose-700">
+                                Full
+                              </span>
+                            </button>
+                          );
+                        }
+
+                        return (
+                          <button
+                            key={d.id}
+                            type="button"
+                            onClick={() => setSelectedDayIndex(index)}
+                            className={`flex flex-col items-center justify-center rounded-xl p-2 transition-all cursor-pointer sm:py-3 ${
+                              isSelected
+                                ? "bg-brand-blue text-white shadow-md ring-2 ring-brand-blue/30"
+                                : "border border-slate-200 bg-white text-slate-800 hover:border-brand-blue hover:bg-blue-50/50"
+                            }`}
                           >
-                            {d.dayName}
-                          </span>
-                          <span className="mt-0.5 text-xs font-bold sm:text-base">
-                            {d.dateNum}
-                          </span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                <div>
-                  <p className="text-xs sm:text-sm font-semibold text-slate-800 mb-2.5">
-                    Select Time Slot
-                  </p>
-
-                  <div className="space-y-2">
-                    {TIME_SLOTS.map((slot) => {
-                      const isSelected = selectedSlot === slot.id;
-                      return (
-                        <button
-                          key={slot.id}
-                          type="button"
-                          onClick={() => setSelectedSlot(slot.id)}
-                          className={`flex w-full items-center justify-between rounded-xl border p-3 sm:px-4 sm:py-3.5 transition-all cursor-pointer ${
-                            isSelected
-                              ? "border-brand-blue bg-[#F0F5FF] text-navy-950"
-                              : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
-                          }`}
-                        >
-                          <div className="flex items-center gap-3">
-                            <div
-                              className={`flex h-4 w-4 items-center justify-center rounded-full border ${
-                                isSelected
-                                  ? "border-brand-blue bg-brand-blue"
-                                  : "border-slate-300 bg-white"
+                            <span
+                              className={`text-[9px] font-semibold sm:text-[10px] ${
+                                isSelected ? "text-white/80" : "text-[#1D60FF]"
                               }`}
                             >
-                              {isSelected && (
-                                <div className="h-1.5 w-1.5 rounded-full bg-white" />
-                              )}
-                            </div>
-                            <span className="text-xs sm:text-sm font-semibold text-navy-950">
-                              {slot.label}
+                              {d.dayName}
                             </span>
-                          </div>
-                          <span className="text-xs font-medium text-brand-blue">
-                            {APPOINTMENT_TIMES[slot.id]}
-                          </span>
-                        </button>
+                            <span className="mt-0.5 text-xs font-bold sm:text-base">
+                              {d.dateNum}
+                            </span>
+                            <span
+                              className={`text-[8px] uppercase ${
+                                isSelected ? "text-white/70" : "text-slate-400"
+                              }`}
+                            >
+                              {d.monthName}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="flex items-center justify-between mb-2.5">
+                      <p className="text-xs sm:text-sm font-semibold text-slate-800">
+                        Select Time Slot
+                      </p>
+                      <span className="text-[11px] text-slate-500 font-medium">
+                        Max 6 bookings per slot
+                      </span>
+                    </div>
+
+                    {(() => {
+                      const selectedDayObj = calendarDays[selectedDayIndex];
+                      const currentDayAvailability = selectedDayObj
+                        ? getSlotAvailabilityForDate(selectedDayObj.id, selectedDayIndex)
+                        : null;
+
+                      return (
+                        <div className="space-y-2">
+                          {TIME_SLOTS.map((slot) => {
+                            const isSelected = selectedSlot === slot.id;
+                            const slotInfo = currentDayAvailability ? currentDayAvailability[slot.id] : null;
+                            const isFull = slotInfo ? slotInfo.isFull : false;
+                            const bookedCount = slotInfo ? slotInfo.booked : 0;
+                            const remaining = slotInfo ? slotInfo.remaining : 6;
+
+                            if (isFull) {
+                              return (
+                                <div
+                                  key={slot.id}
+                                  title="This slot is fully booked (6 of 6 bookings filled). Please choose another time slot."
+                                  className="flex w-full items-center justify-between rounded-xl border border-slate-200 bg-slate-100/90 p-3 sm:px-4 sm:py-3.5 opacity-60 cursor-not-allowed select-none transition-all"
+                                >
+                                  <div className="flex items-center gap-3">
+                                    <div className="flex h-4 w-4 items-center justify-center rounded-full border border-slate-300 bg-slate-200 text-[10px] text-slate-500 font-bold">
+                                      –
+                                    </div>
+                                    <div className="text-left">
+                                      <div className="flex items-center gap-2">
+                                        <span className="text-xs sm:text-sm font-semibold text-slate-400 line-through">
+                                          {slot.label}
+                                        </span>
+                                        <span className="inline-flex items-center rounded-md bg-rose-100 px-1.5 py-0.5 text-[10px] font-bold text-rose-700">
+                                          Fully Booked ({bookedCount}/6)
+                                        </span>
+                                      </div>
+                                      <span className="text-[10px] text-slate-400">
+                                        Max capacity reached (6 of 6 bookings filled)
+                                      </span>
+                                    </div>
+                                  </div>
+                                  <div className="text-right">
+                                    <span className="text-xs font-semibold text-slate-400 line-through block">
+                                      {slot.time}
+                                    </span>
+                                    <span className="text-[10px] font-medium text-rose-500">
+                                      Unavailable
+                                    </span>
+                                  </div>
+                                </div>
+                              );
+                            }
+
+                            return (
+                              <button
+                                key={slot.id}
+                                type="button"
+                                onClick={() => setSelectedSlot(slot.id)}
+                                className={`flex w-full items-center justify-between rounded-xl border p-3 sm:px-4 sm:py-3.5 transition-all cursor-pointer ${
+                                  isSelected
+                                    ? "border-brand-blue bg-[#F0F5FF] text-navy-950 ring-1 ring-brand-blue/30"
+                                    : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
+                                }`}
+                              >
+                                <div className="flex items-center gap-3">
+                                  <div
+                                    className={`flex h-4 w-4 items-center justify-center rounded-full border ${
+                                      isSelected
+                                        ? "border-brand-blue bg-brand-blue"
+                                        : "border-slate-300 bg-white"
+                                    }`}
+                                  >
+                                    {isSelected && (
+                                      <div className="h-1.5 w-1.5 rounded-full bg-white" />
+                                    )}
+                                  </div>
+                                  <div className="text-left">
+                                    <div className="flex items-center gap-2">
+                                      <span className="text-xs sm:text-sm font-semibold text-navy-950 block">
+                                        {slot.label}
+                                      </span>
+                                      {remaining <= 2 && remaining > 0 && (
+                                        <span className="inline-flex items-center rounded-md bg-amber-50 px-1.5 py-0.5 text-[10px] font-semibold text-amber-700">
+                                          Only {remaining} left
+                                        </span>
+                                      )}
+                                    </div>
+                                    <span className="text-[10px] text-slate-400">
+                                      {bookedCount > 0
+                                        ? `${bookedCount} booked · ${remaining} slots available`
+                                        : "Max 6 bookings · 6 available"}
+                                    </span>
+                                  </div>
+                                </div>
+                                <span className="text-xs font-semibold text-brand-blue">
+                                  {slot.time}
+                                </span>
+                              </button>
+                            );
+                          })}
+                        </div>
                       );
-                    })}
+                    })()}
                   </div>
                 </div>
-              </div>
-            )}
+              );
+            })()}
 
             <div className="sticky bottom-0 z-10 -mx-4 mt-5 flex flex-col gap-3 border-t border-slate-100 bg-white px-4 pb-1 pt-4 sm:static sm:mx-0 sm:flex-row sm:items-center sm:justify-between sm:px-0 sm:pb-0 sm:pt-5">
               <div>

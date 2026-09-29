@@ -8,8 +8,14 @@ import BookingModal from "../components/repair/BookingModal";
 
 const BookRepairPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [prefilledPostcode, setPrefilledPostcode] = useState("");
 
-  const openModal = () => setIsModalOpen(true);
+  const openModal = (code = "") => {
+    if (typeof code === "string" && code.trim()) {
+      setPrefilledPostcode(code.trim());
+    }
+    setIsModalOpen(true);
+  };
   const closeModal = () => setIsModalOpen(false);
 
   return (
@@ -24,7 +30,11 @@ const BookRepairPage = () => {
 
       <RepairPricingBanner onOpenModal={openModal} />
 
-      <BookingModal isOpen={isModalOpen} onClose={closeModal} />
+      <BookingModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        initialPostcode={prefilledPostcode}
+      />
     </div>
   );
 };

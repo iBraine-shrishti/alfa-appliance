@@ -34,10 +34,10 @@ const ProductListRow = ({ product }) => {
   );
 };
 
-const ProductGrid = ({ products, viewMode = "grid" }) => {
+const ProductGrid = ({ products, viewMode = "grid", className = "" }) => {
   if (viewMode === "list") {
     return (
-      <div className="space-y-4">
+      <div className={`space-y-4 ${className}`}>
         {products.map((product) => (
           <ProductListRow key={product.id} product={product} />
         ))}
@@ -46,7 +46,9 @@ const ProductGrid = ({ products, viewMode = "grid" }) => {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
+    <div
+      className={`product-grid-responsive ${className}`}
+    >
       {products.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}

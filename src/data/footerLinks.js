@@ -1,7 +1,6 @@
 export const quickLinks = [
   { label: "About us", href: "/contact" },
   { label: "Store Locator", href: "/contact#store-locator" },
-  { label: "Our Brands", href: "/brands" },
   { label: "Book Repair", href: "/book-repair" },
   { label: "Terms & Conditions", href: "/terms-and-conditions" },
   { label: "Contact us", href: "/contact" },
@@ -27,6 +26,6 @@ export const contactInfo = [
 
 export const legalLinks = [
   { label: "Sitemap", href: "/sitemap" },
-  { label: "Privacy Policy", href: "/privacy" },
+  { label: "Privacy Policy", href: "/privacy-policy" },
   { label: "Terms & Conditions", href: "/terms-and-conditions" },
 ];

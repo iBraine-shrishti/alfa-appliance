@@ -40,7 +40,7 @@
 
 @layer utilities {
   .container-page {
-    @apply mx-auto w-full px-4 sm:px-6 lg:px-8;
+    @apply mx-auto w-full px-2.5 sm:px-6 lg:px-8;
   }
 }
 @keyframes slow-scroll {
@@ -59,3 +59,55 @@
 .animate-slow-scroll:hover {
   animation-play-state: paused;
 }
+
+/* Responsive Product Grid:
+   - Mobile (< 768px): 2 columns
+   - Tablet & Laptop (768px - 1439px): 3 columns
+   - Large Desktop (>= 1440px): 4 columns
+*/
+.product-grid-responsive {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.625rem;
+}
+
+@media (min-width: 640px) {
+  .product-grid-responsive {
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .product-grid-responsive {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .product-grid-responsive {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .product-grid-responsive {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  .product-grid-responsive {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 1rem !important;
+  }
+}
+
+@media (min-width: 1536px) {
+  .product-grid-responsive {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 1.25rem !important;
+  }
+}

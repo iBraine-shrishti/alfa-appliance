@@ -21,8 +21,8 @@ const CategoryProductGrid = ({
   const endIndex = Math.min(currentPage * 20, totalResults);
 
   return (
-    <section className="rounded border border-navy-900/8 bg-white/20 p-4 shadow-sm backdrop-blur sm:p-5 lg:p-6">
-      <div className="flex flex-col gap-3 border-b border-navy-900/8 pb-4 md:flex-row md:items-center md:justify-between">
+    <section className="border-0 bg-transparent p-0 shadow-none sm:rounded sm:border sm:border-navy-900/8 sm:bg-white/20 sm:p-5 sm:shadow-sm sm:backdrop-blur lg:p-5 xl:p-6">
+      <div className="flex flex-col gap-3 border-b border-navy-900/8 pb-3 sm:pb-4 md:flex-row md:items-center md:justify-between">
         <p className="text-sm text-navy-900/70">
           Showing{" "}
           <span className="font-semibold text-navy-950">

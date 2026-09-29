@@ -143,6 +143,16 @@ const FeaturedProducts = () => {
                   spaceBetween: 24,
                 },
                 1024: {
+                  slidesPerView: 3,
+                  slidesPerGroup: 1,
+                  spaceBetween: 24,
+                },
+                1440: {
+                  slidesPerView: 4,
+                  slidesPerGroup: 1,
+                  spaceBetween: 20,
+                },
+                1536: {
                   slidesPerView: 4,
                   slidesPerGroup: 1,
                   spaceBetween: 24,

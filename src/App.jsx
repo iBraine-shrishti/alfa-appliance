@@ -16,6 +16,7 @@ import ProfilePage from "./pages/ProfilePage";
 import TrackOrderPage from "./pages/TrackOrderPage";
 import BookRepairPage from "./pages/BookRepairPage";
 import TermsPage from "./pages/TermsPage";
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import { CartProvider } from "./context/CartContext";
 import { WishlistProvider } from "./context/WishlistContext";
 
@@ -32,6 +33,8 @@ function App() {
         <Route path="/terms-and-conditions" element={<TermsPage />} />
         <Route path="/terms-and-condition" element={<TermsPage />} />
         <Route path="/terms" element={<TermsPage />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+        <Route path="/privacy" element={<PrivacyPolicyPage />} />
         <Route path="/:category/:slug" element={<CategoryPage />} />
         <Route path="/collection/:slug" element={<CategoryPage />} />
         <Route path="/:slug" element={<CategoryPage />} />

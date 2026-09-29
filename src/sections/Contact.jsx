@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { FiMapPin, FiMail, FiMessageCircle, FiPhone, FiCheck, FiX } from "react-icons/fi";
+import {
+  FiMapPin,
+  FiMail,
+  FiMessageCircle,
+  FiPhone,
+  FiCheck,
+  FiX,
+} from "react-icons/fi";
 import { FaScrewdriverWrench } from "react-icons/fa6";
 import Container from "../components/common/Container";
 import Eyebrow from "../components/common/Eyebrow";
@@ -43,16 +50,15 @@ const Contact = () => {
   return (
     <Container className="grid grid-cols-1 gap-12 py-16 lg:grid-cols-2 lg:gap-16 lg:py-20">
       <div>
-       <Eyebrow>Reach Us</Eyebrow>
+        <Eyebrow>Reach Us</Eyebrow>
 
         <h1 className="mt-6 text-4xl font-extrabold leading-tight text-navy-950 sm:text-5xl">
           We&apos;re Always Here To Help &ndash; Just One Click Away!
         </h1>
 
         <p className="mt-5 max-w-lg text-base leading-relaxed text-slate-500">
-          Have questions or need assistance? Our support team is always ready
-          to help. Reach out to us with just a click and get the answers you
-          need!
+          Have questions or need assistance? Our support team is always ready to
+          help. Reach out to us with just a click and get the answers you need!
         </p>
 
         <dl className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -174,7 +180,10 @@ const Contact = () => {
         </form>
       </div>
 
-      <div id="store-locator" className="relative h-[420px] scroll-mt-24 overflow-hidden rounded border border-slate-200 bg-slate-100 lg:h-full lg:min-h-[780px]">
+      <div
+        id="store-locator"
+        className="relative h-[420px] scroll-mt-24 overflow-hidden rounded border border-slate-200 bg-slate-100 lg:h-full lg:min-h-[780px]"
+      >
         <iframe
           title="Alfa Appliances showroom location"
           src={MAP_EMBED_SRC}
@@ -206,7 +215,7 @@ const Contact = () => {
               href="#book-appointment"
               className="inline-flex items-center gap-1.5 text-sm font-bold text-blue-600 hover:underline"
             >
-              <FaScrewdriverWrench aria-hidden="true" /> Book an Repair
+              <FaScrewdriverWrench aria-hidden="true" /> Book a Repair
             </a>
           </div>
         </div>
@@ -237,11 +246,15 @@ const Contact = () => {
             <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-600">
               <FiCheck size={28} />
             </div>
-            <h2 id="message-sent-title" className="mt-5 text-2xl font-bold text-navy-950">
+            <h2
+              id="message-sent-title"
+              className="mt-5 text-2xl font-bold text-navy-950"
+            >
               Message sent
             </h2>
             <p className="mt-2 text-sm leading-relaxed text-slate-500">
-              Thank you for contacting us. Our support team will get back to you soon.
+              Thank you for contacting us. Our support team will get back to you
+              soon.
             </p>
             <button
               type="button"

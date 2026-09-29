@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { FiHeart, FiShoppingCart } from "react-icons/fi";
-import { LuScale } from "react-icons/lu";
 import StarRating from "../common/StarRating";
 import { useCart } from "../../context/CartContext";
 import { useWishlist } from "../../context/WishlistContext";
@@ -19,44 +18,18 @@ const ProductCard = ({ product }) => {
   const wishlisted = isWishlisted(wishlistProduct);
 
   return (
-    <div className="group flex flex-col rounded-lg border border-navy-900/10 bg-white shadow-sm transition-shadow hover:shadow-md">
-      <div className="relative rounded-t-lg bg-[#fffffff] p-4 sm:p-5">
+    <div className="group flex flex-col rounded-lg border border-navy-900/10 bg-white shadow-sm transition-shadow hover:shadow-md overflow-hidden">
+      <div className="relative rounded-t-lg bg-white p-1.5 sm:p-4">
+        {/* OFFER TAG: Flush to left-0, 4px from top, with Myntra-style diagonal slash on the right edge */}
         {badge && (
-          <span className="absolute left-2.5 top-2.5 z-20 rounded-full bg-brand-orange px-2.5 py-1 text-[10px] font-semibold uppercase text-white shadow-sm pointer-events-none">
+          <span
+            style={{ clipPath: "polygon(0 0, 100% 0, calc(100% - 7px) 100%, 0 100%)" }}
+            className="absolute left-0 top-[4px] z-20 bg-brand-orange pl-2 pr-3.5 py-0.5 text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-white shadow-sm pointer-events-none sm:top-[6px]"
+          >
             {badge}
           </span>
         )}
-        <div className="absolute right-2.5 top-2.5 z-20 flex gap-2">
-          <button
-            type="button"
-            aria-label={wishlisted ? "Remove from wishlist" : "Add to wishlist"}
-            aria-pressed={wishlisted}
-            onMouseDown={stopAll}
-            onClick={(event) => {
-              stopAll(event);
-              toggleWishlist(wishlistProduct);
-            }}
-            className={`flex h-8 w-8 items-center justify-center rounded-full bg-white shadow-sm transition-colors hover:text-brand-orange ${
-              wishlisted ? "text-brand-orange" : "text-navy-900"
-            }`}
-          >
-            <FiHeart size={15} className={wishlisted ? "fill-current" : ""} />
-          </button>
-          <button
-            type="button"
-            aria-label={isInCart(product) ? "Already in cart" : "Add to cart"}
-            onMouseDown={stopAll}
-            onClick={(event) => {
-              stopAll(event);
-              toggleCart(product);
-            }}
-            className={`flex h-8 w-8 items-center justify-center rounded-full bg-white shadow-sm transition-colors hover:text-brand-blue ${
-              isInCart(product) ? "text-emerald-600 ring-1 ring-emerald-200" : "text-navy-900"
-            }`}
-          >
-            <FiShoppingCart size={15} />
-          </button>
-        </div>
+
         <Link to={`/product/${productSlug}`} className="block">
           <div className="flex aspect-square w-full items-center justify-center overflow-hidden">
             <img
@@ -69,22 +42,63 @@ const ProductCard = ({ product }) => {
         </Link>
       </div>
 
-      <div className="flex flex-1 flex-col gap-1.5 pt-3 px-3 pb-4">
-        <p className="text-xs font-semibold uppercase tracking-wide text-brand-blue">{brand}</p>
-        <Link to={`/product/${productSlug}`} className="block">
-          <h3 className="line-clamp-2 min-h-[2.5rem] text-sm font-medium text-navy-900">{name}</h3>
-        </Link>
-        <StarRating rating={rating} reviews={reviews} />
-        <div className="mt-1 flex items-baseline gap-2">
-          <span className="text-lg font-semibold text-navy-950">£{typeof price === "number" ? price.toFixed(2) : price}</span>
-          {oldPrice && <span className="text-sm text-navy-900/40 line-through">£{typeof oldPrice === "number" ? oldPrice.toFixed(2) : oldPrice}</span>}
-          {discount && <span className="text-xs font-semibold text-brand-orange-dark">{discount}% off</span>}
+      <div className="flex flex-1 flex-col justify-between gap-1 p-2 sm:p-3.5">
+        <div>
+          <p className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-brand-blue">{brand}</p>
+          <Link to={`/product/${productSlug}`} className="block mt-0.5">
+            <h3 className="line-clamp-2 min-h-[2.25rem] sm:min-h-[2.5rem] text-xs sm:text-sm font-medium text-navy-900 leading-snug sm:leading-normal">{name}</h3>
+          </Link>
         </div>
-        <label className="mt-2 flex items-center gap-2 text-xs text-navy-900/60">
-          <input type="checkbox" className="h-3.5 w-3.5 rounded border-navy-900/20 text-brand-blue focus:ring-brand-blue" />
-          <LuScale size={13} />
-          Compare
-        </label>
+        <div>
+          <StarRating rating={rating} reviews={reviews} />
+          <div className="mt-1 flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5">
+            <span className="text-base sm:text-lg font-bold text-navy-950">£{typeof price === "number" ? price.toFixed(2) : price}</span>
+            {oldPrice && <span className="text-[11px] sm:text-xs text-navy-900/40 line-through">£{typeof oldPrice === "number" ? oldPrice.toFixed(2) : oldPrice}</span>}
+            {discount && <span className="text-[10px] sm:text-xs font-bold text-brand-orange-dark whitespace-nowrap">{discount}% off</span>}
+          </div>
+        </div>
+
+        {/* Action Row: Wishlist & Cart placed where Compare used to be */}
+        <div className="mt-1.5 flex items-center justify-between border-t border-navy-900/5 pt-1.5 sm:mt-2 sm:pt-2">
+          {/* Wishlist Button */}
+          <button
+            type="button"
+            aria-label={wishlisted ? "Remove from wishlist" : "Add to wishlist"}
+            aria-pressed={wishlisted}
+            onMouseDown={stopAll}
+            onClick={(event) => {
+              stopAll(event);
+              toggleWishlist(wishlistProduct);
+            }}
+            className={`flex items-center gap-1 text-[11px] sm:text-xs font-medium transition-colors ${
+              wishlisted
+                ? "text-brand-orange font-semibold"
+                : "text-navy-900/65 hover:text-brand-orange"
+            }`}
+          >
+            <FiHeart size={13} className={wishlisted ? "fill-brand-orange text-brand-orange" : ""} />
+            <span>{wishlisted ? "Saved" : "Wishlist"}</span>
+          </button>
+
+          {/* Cart Button */}
+          <button
+            type="button"
+            aria-label={isInCart(product) ? "Already in cart" : "Add to cart"}
+            onMouseDown={stopAll}
+            onClick={(event) => {
+              stopAll(event);
+              toggleCart(product);
+            }}
+            className={`flex items-center gap-1 rounded px-2.5 py-1 text-[11px] sm:text-xs font-semibold transition-colors ${
+              isInCart(product)
+                ? "border border-emerald-300 bg-emerald-50 text-emerald-600"
+                : "bg-brand-blue/10 text-brand-blue hover:bg-brand-blue hover:text-white"
+            }`}
+          >
+            <FiShoppingCart size={12} />
+            <span>{isInCart(product) ? "In Cart" : "Add"}</span>
+          </button>
+        </div>
       </div>
     </div>
   );

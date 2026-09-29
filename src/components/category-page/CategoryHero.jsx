@@ -28,15 +28,21 @@ const CategoryHero = ({ breadcrumb, title, subtitle, image }) => {
             <h1 className="font-display text-4xl font-semibold tracking-tight sm:text-5xl">
               {title}
             </h1>
-            <p className="mt-3 max-w-xl text-sm leading-6 text-white/80 sm:text-base">
-              {typeof subtitle === "string" ? subtitle : (
-                <>
-                  {subtitle.before}
-                  <span className="font-bold text-white">{subtitle.highlight}</span>
-                  {subtitle.after}
-                </>
-              )}
-            </p>
+            {subtitle && (
+              <p className="mt-3 max-w-xl text-sm leading-6 text-white/80 sm:text-base">
+                {typeof subtitle === "string" ? (
+                  subtitle
+                ) : (
+                  <>
+                    {subtitle.before}
+                    {subtitle.highlight && (
+                      <span className="font-bold text-white">{subtitle.highlight}</span>
+                    )}
+                    {subtitle.after}
+                  </>
+                )}
+              </p>
+            )}
           </div>
         </div>
       </div>

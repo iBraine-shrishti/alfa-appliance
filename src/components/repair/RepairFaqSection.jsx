@@ -57,7 +57,7 @@ const RepairFaqSection = () => {
                   </button>
 
                   {isOpen && (
-                    <div className="border-t border-slate-100 bg-slate-50/50 p-5 text-xs sm:text-sm leading-relaxed text-slate-600">
+                    <div className="border-t border-slate-100 bg-slate-50/50 p-5 text-xs sm:text-sm leading-relaxed text-slate-600 whitespace-pre-line">
                       {faq.a}
                     </div>
                   )}
