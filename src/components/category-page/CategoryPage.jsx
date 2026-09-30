@@ -242,6 +242,7 @@ const CategoryPage = () => {
         "kettles",
         "toasters",
         "microwaves",
+        "microwave",
         "air-fryers",
         "hoovers",
       ],
