@@ -23,7 +23,7 @@ const ProductAccordion = ({ product }) => (
   <section className="mt-14">
     <div className="mx-auto flex max-w-7xl flex-col gap-4">
 
-      <AccordionItem title="Product information">
+      <AccordionItem title="Product information" defaultOpen={true}>
         {/* <ProductFeaturesSection product={product} /> */}
         <ProductInfoContent product={product} />
       </AccordionItem>

@@ -1,3 +1,5 @@
+import { useMemo } from "react";
+
 const ProductInfoContent = ({ product = {} }) => {
   const rows = [
     ["Category", product.category_name || (typeof product.category === "string" ? product.category : "Home Appliances")],
@@ -10,17 +12,53 @@ const ProductInfoContent = ({ product = {} }) => {
     ["Department", "Home Appliances"],
   ];
 
+  const cleanDescription = useMemo(() => {
+    const content =
+      product.rawLongDescription ||
+      product.long_description ||
+      product.longDescription ||
+      "";
+    if (!content) return "";
+    // Clean relative media URLs to backend domain
+    return content.replace(
+      /src=["'](\/media\/[^"']+)["']/g,
+      'src="https://alfa-appliances-backend.onrender.com$1"'
+    );
+  }, [product]);
+
+  const hasRichDescription = Boolean(cleanDescription && cleanDescription.trim());
+
   return (
-    <table className="w-full text-left text-sm">
-      <tbody>
-        {rows.map(([label, value]) => (
-          <tr key={label} className="border-t border-navy-900/8 first:border-t-0">
-            <th className="w-1/3 py-3 font-medium text-navy-900/70">{label}</th>
-            <td className="py-3 text-navy-950">{value}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <div className="space-y-6">
+      {/* 1. Quick Key Specs Overview Table */}
+      <div className="overflow-hidden rounded-lg border border-navy-900/10 bg-slate-50/50 p-4">
+        <h4 className="mb-3 text-xs font-bold uppercase tracking-wider text-slate-500">
+          Key Product Information
+        </h4>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+          {rows.map(([label, value]) => (
+            <div key={label} className="flex flex-col">
+              <span className="text-xs text-navy-900/60 font-medium">{label}</span>
+              <span className="font-semibold text-navy-950 mt-0.5">{value}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 2. Full Big Description (with rich HTML, images, diagrams, badges, and specs tables as saved in Admin) */}
+      {hasRichDescription ? (
+        <div className="border-t border-navy-900/10 pt-6">
+          <div
+            className="rich-product-description"
+            dangerouslySetInnerHTML={{ __html: cleanDescription }}
+          />
+        </div>
+      ) : product.description ? (
+        <div className="border-t border-navy-900/10 pt-4 text-sm leading-relaxed text-navy-900/80">
+          <p>{product.description}</p>
+        </div>
+      ) : null}
+    </div>
   );
 };
 

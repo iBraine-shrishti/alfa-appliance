@@ -183,6 +183,7 @@ export const formatBackendProduct = (p) => {
       p.long_description ||
       p.description ||
       "Engineered for optimal efficiency and long-lasting durability in modern households.",
+    rawLongDescription: p.long_description || null,
     dimensions: p.dimensions || null,
     coreLine: p.stock_quantity > 0,
     isNewRelease: p.created_at
@@ -355,6 +356,17 @@ export const fetchProductBySlug = async (slug) => {
         p.slug?.toLowerCase() === slug?.toLowerCase() ||
         String(p.id) === String(slug)
     );
+    if (matched && matched.id) {
+      try {
+        const idRes = await fetch(`${API_BASE_URL}/products/${matched.id}/`);
+        if (idRes.ok) {
+          const detailData = await idRes.json();
+          return formatBackendProduct(detailData);
+        }
+      } catch (e) {
+        // Fall back to matched below
+      }
+    }
     return matched || null;
   } catch (err) {
     console.warn(`Product detail fetch failed for ${slug}:`, err.message);
